@@ -23,7 +23,7 @@ python-flask-server-v3.requirements.txt:
 ## Server setup
 
 Create a server stub with the OpenAPI v3 description 
-([swagger_v3_Rdcode](backup_manual_code/BU_swagger_v3_RDcode.yaml))
+([swagger_v3_Rdcode](backup_manual_code/BU_RDcode-2-oas3-swagger.yaml))
 with Python3-flask.
 
 Two possibilities:
