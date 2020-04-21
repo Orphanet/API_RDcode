@@ -12,7 +12,7 @@ The server stub has been auto-generated from the description
 Developed with Elasticsearch 7.X.
 
 Other modules requirement are referenced in 
-python-flask-server-v3.requirements.txt:
+python-flask-server.requirements.txt:
     
     connexion == 2.6.0
     elasticsearch == 7.6
@@ -48,11 +48,11 @@ Check the content of the files from [backup_manual_code](./backup_manual_code)
 must be compared to those in 
 [python-flask-server-generated/swagger_server/controllers](./python-flask-server-generated/swagger_server/controllers)
 * requirements.txt (do not override because new modules can be needed)
-* config.py to [python-flask-server-generated-v3/swagger_server](./python-flask-server-generated/swagger_server)
+* config.py to [python-flask-server-generated/swagger_server](./python-flask-server-generated/swagger_server)
 
 The required packages can be installed by launching the following command
 in the operating system's console (preferentially virtual environment console)
-from the server's root [python-flask-server-generated-v3/swagger_server](./python-flask-server-generated/swagger_server)
+from the server's root [python-flask-server-generated/swagger_server](./python-flask-server-generated/swagger_server)
     
     pip3 install -r requirements.txt
     pip3 install connexion[swagger-ui]
