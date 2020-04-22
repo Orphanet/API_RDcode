@@ -8,12 +8,12 @@ info:
     email: danielmurphy@mater.ie
 security:
   - api_key: []
-    basic_auth: []
+    # basic_auth: []
 servers:
+  - url: '/'
+    description: local testing host
   - url: 'https://virtserver.swaggerhub.com/orphanet/ClinicalEntity/2-oas3/'
     description: Remote testing host
-  - url: 'http://localhost:3000/'
-    description: local testing host
 paths:
   '/{lang}/ClinicalEntity':
     get:
@@ -1656,9 +1656,9 @@ components:
       type: apiKey
       name: api_key
       in: header
-    basic_auth:
-      type: http
-      scheme: basic
+    # basic_auth:
+    #   type: http
+    #   scheme: basic
   parameters:
     hchid:
       name: hchid
