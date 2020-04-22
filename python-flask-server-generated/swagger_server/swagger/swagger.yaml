@@ -865,7 +865,7 @@ paths:
           type: string
       responses:
         "200":
-          description: Clinical entity correpsonding to specific ICD10 code
+          description: Clinical entity corresponding to specific ICD10 code
           content:
             application/json:
               schema:
@@ -1275,7 +1275,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Clinical entity correpsonding to specified OMIM code
+          description: Clinical entity corresponding to specified OMIM code
           content:
             application/json:
               schema:
