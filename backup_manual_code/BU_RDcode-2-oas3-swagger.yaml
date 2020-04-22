@@ -30,10 +30,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
       responses:
         '200':
           description: Array of Clinical Entities
@@ -82,10 +89,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/orphacode'
       responses:
         '200':
@@ -140,10 +154,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/orphacode'
       responses:
         '200':
@@ -193,10 +214,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/orphacode'
       responses:
         '200':
@@ -246,10 +274,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/orphacode'
       responses:
         '200':
@@ -301,10 +336,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/orphacode'
       responses:
         '200':
@@ -354,10 +396,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/orphacode'
       responses:
         '200':
@@ -407,10 +456,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/orphacode'
       responses:
         '200':
@@ -463,10 +519,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/orphacode'
       responses:
         '200':
@@ -520,10 +583,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/orphacode'
       responses:
         '200':
@@ -577,10 +647,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/orphacode'
       responses:
         '200':
@@ -632,10 +709,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/ICD10'
       responses:
         '200':
@@ -691,10 +775,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/orphacode'
       responses:
         '200':
@@ -748,10 +839,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/hchid'
       responses:
         '200':
@@ -806,10 +904,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/hchid'
         - $ref: '#/components/parameters/orphacode'
       responses:
@@ -868,10 +973,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/orphacode'
         - $ref: '#/components/parameters/hchid'
       responses:
@@ -925,10 +1037,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - $ref: '#/components/parameters/codeOMIM'
       responses:
         '200':
@@ -980,10 +1099,17 @@ paths:
           required: true
           schema:
             type: string
+            default: EN
             enum:
-              - en
-              - fr
-              - de
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
         - name: label
           in: path
           description: Entity name
