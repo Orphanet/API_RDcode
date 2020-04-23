@@ -27,7 +27,7 @@ def list_by_name(lang, label):  # noqa: E501
     index = "{}_{}".format(index, lang.lower())
 
     query = "{\"query\": {\"match\": {\"Preferred term\": " + "\"{}\"".format(label) + "}}," \
-            "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
+            "\"_source\":[\"Date\", \"Definition\", \"ORPHAcode\", \"Preferred term\", \"Status\"]}"
 
     response = single_res(es, index, query)
     return response
