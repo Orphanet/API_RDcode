@@ -6,6 +6,10 @@ from swagger_server.models.synonym import Synonym  # noqa: E501
 from swagger_server import util
 
 
+import config
+from controllers.query_controller import *
+
+
 def list_synonym(lang, orphacode):  # noqa: E501
     """Search for the synonym(s) of the clinical entity by its ORPHAcode.
 
@@ -18,4 +22,13 @@ def list_synonym(lang, orphacode):  # noqa: E501
 
     :rtype: Synonym
     """
-    return 'do some magic!'
+    es = config.elastic_server
+
+    index = "orphanomenclature"
+    index = "{}_{}".format(index, lang.lower())
+
+    query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
+            "\"_source\":[\"Date\", \"ORPHAcode\", \"Synonym\"]}"
+
+    response = single_res(es, index, query)
+    return response
