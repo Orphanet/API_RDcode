@@ -1,9 +1,11 @@
 import connexion
-import six
 
 from swagger_server.models.definition import Definition  # noqa: E501
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server import util
+
+import config
+from controllers.query_controller import *
 
 
 def list_definition(lang, orphacode):  # noqa: E501
@@ -18,4 +20,13 @@ def list_definition(lang, orphacode):  # noqa: E501
 
     :rtype: Definition
     """
-    return 'do some magic!'
+    es = config.elastic_server
+
+    index = "orphanomenclature"
+    index = "{}_{}".format(index, lang.lower())
+
+    query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
+            "\"_source\":[\"Date\", \"Definition\", \"ORPHAcode\"]}"
+
+    response = single_res(es, index, query)
+    return response
