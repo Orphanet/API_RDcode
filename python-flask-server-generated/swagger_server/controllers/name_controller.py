@@ -1,10 +1,12 @@
 import connexion
-import six
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.models.findby_name import FindbyName  # noqa: E501
 from swagger_server.models.name import Name  # noqa: E501
 from swagger_server import util
+
+import config
+from controllers.query_controller import *
 
 
 def list_by_name(lang, label):  # noqa: E501
@@ -19,7 +21,16 @@ def list_by_name(lang, label):  # noqa: E501
 
     :rtype: FindbyName
     """
-    return 'do some magic!'
+    es = config.elastic_server
+
+    index = "orphanomenclature"
+    index = "{}_{}".format(index, lang.lower())
+
+    query = "{\"query\": {\"match\": {\"Preferred term\": " + "\"{}\"".format(label) + "}}," \
+            "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
+
+    response = single_res(es, index, query)
+    return response
 
 
 def list_name(lang, orphacode):  # noqa: E501
@@ -34,4 +45,13 @@ def list_name(lang, orphacode):  # noqa: E501
 
     :rtype: Name
     """
-    return 'do some magic!'
+    es = config.elastic_server
+
+    index = "orphanomenclature"
+    index = "{}_{}".format(index, lang.lower())
+
+    query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
+            "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
+
+    response = single_res(es, index, query)
+    return response
