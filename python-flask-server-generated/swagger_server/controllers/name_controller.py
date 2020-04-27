@@ -26,7 +26,8 @@ def list_by_name(lang, label):  # noqa: E501
     index = "orphanomenclature"
     index = "{}_{}".format(index, lang.lower())
 
-    query = "{\"query\": {\"match\": {\"Preferred term\": " + "\"{}\"".format(label) + "}}," \
+    # Special EXACT MATCH query with keyword
+    query = "{\"query\": {\"term\": {\"Preferred term.keyword\": " + "\"{}\"".format(label) + "}}," \
             "\"_source\":[\"Date\", \"Definition\", \"ORPHAcode\", \"Preferred term\", \"Status\"]}"
 
     response = single_res(es, index, query)
