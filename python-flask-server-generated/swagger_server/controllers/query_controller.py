@@ -114,6 +114,8 @@ def multiple_res(es, index, query, size):
         except IndexError:
             response = ("Query not found", 404)
             # print(response)
+        if isinstance(response, list) and not response:
+            response = ("Query not found", 404)
     return response
 
 

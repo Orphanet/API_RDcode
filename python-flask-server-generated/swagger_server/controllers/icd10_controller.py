@@ -1,10 +1,12 @@
 import connexion
-import six
 
 from swagger_server.models.entity_by_icd import EntityByIcd  # noqa: E501
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.models.icd10 import ICD10  # noqa: E501
 from swagger_server import util
+
+import config
+from controllers.query_controller import *
 
 
 def list_icd10(lang, orphacode):  # noqa: E501
@@ -19,7 +21,16 @@ def list_icd10(lang, orphacode):  # noqa: E501
 
     :rtype: ICD10
     """
-    return 'do some magic!'
+    es = config.elastic_server
+
+    index = "orpha_icd10_mapping"
+    index = "{}_{}".format(index, lang.lower())
+
+    query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
+            "\"_source\":[\"Code ICD\", \"Date\", \"ORPHAcode\", \"OrphanetURL\"]}"
+
+    response = single_res(es, index, query)
+    return response
 
 
 def list_orpha_by_icd10(lang, icd10):  # noqa: E501
@@ -34,4 +45,25 @@ def list_orpha_by_icd10(lang, icd10):  # noqa: E501
 
     :rtype: EntityByIcd
     """
-    return 'do some magic!'
+    es = config.elastic_server
+
+    index = "orpha_icd10_mapping"
+    index = "{}_{}".format(index, lang.lower())
+
+    query = "{\"query\": {\"match\": {\"Code ICD.Code ICD10\": \"" + str(icd10) + "\"}}," \
+            "\"_source\":[\"ORPHAcode\"]}"
+
+    response_icd_to_orpha = multiple_res(es, index, query, 1000)
+
+    if isinstance(response_icd_to_orpha, str) or isinstance(response_icd_to_orpha, tuple):
+        return response_icd_to_orpha
+    else:
+        index = "orphanomenclature"
+        index = "{}_{}".format(index, lang.lower())
+
+        code_list = ",".join(["\"" + str(code["ORPHAcode"]) + "\"" for code in response_icd_to_orpha])
+        query = "{\"query\": {\"terms\": {\"ORPHAcode\": [" + code_list + "]}}," \
+                "\"_source\":[\"Date\", \"ORPHAcode\", \"Definition\", \"Preferred term\", \"Status\"]}"
+
+        response = multiple_res(es, index, query, 1000)
+    return response
