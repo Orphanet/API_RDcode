@@ -20,7 +20,7 @@ def list_entities(lang):  # noqa: E501
     """
     es = config.elastic_server
 
-    index = "orphanomenclature"
+    index = "rdcode_orphanomenclature"
     index = "{}_{}".format(index, lang.lower())
 
     query = "{\"query\": {\"match_all\": {}}, " \

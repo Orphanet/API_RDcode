@@ -1,5 +1,4 @@
 import connexion
-import six
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.models.orphanet_url import OrphanetURL  # noqa: E501
@@ -24,7 +23,7 @@ def list_url(lang, orphacode):  # noqa: E501
     """
     es = config.elastic_server
 
-    index = "orphanomenclature"
+    index = "rdcode_orphanomenclature"
     index = "{}_{}".format(index, lang.lower())
 
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \

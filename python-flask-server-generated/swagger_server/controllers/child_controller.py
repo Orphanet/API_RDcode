@@ -1,9 +1,11 @@
 import connexion
-import six
 
 from swagger_server.models.child import Child  # noqa: E501
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server import util
+
+import config
+from controllers.query_controller import *
 
 
 def list_child(lang, orphacode, hchid):  # noqa: E501

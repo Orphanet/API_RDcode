@@ -1,5 +1,4 @@
 import connexion
-import six
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.models.type import Type  # noqa: E501
@@ -23,7 +22,7 @@ def list_type(lang, orphacode):  # noqa: E501
     """
     es = config.elastic_server
 
-    index = "orphanomenclature"
+    index = "rdcode_orphanomenclature"
     index = "{}_{}".format(index, lang.lower())
 
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \

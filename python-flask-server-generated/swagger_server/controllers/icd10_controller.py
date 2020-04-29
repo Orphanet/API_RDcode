@@ -23,7 +23,7 @@ def list_icd10(lang, orphacode):  # noqa: E501
     """
     es = config.elastic_server
 
-    index = "orpha_icd10_mapping"
+    index = "rdcode_orpha_icd10_mapping"
     index = "{}_{}".format(index, lang.lower())
 
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
@@ -47,7 +47,7 @@ def list_orpha_by_icd10(lang, icd10):  # noqa: E501
     """
     es = config.elastic_server
 
-    index = "orpha_icd10_mapping"
+    index = "rdcode_orpha_icd10_mapping"
     index = "{}_{}".format(index, lang.lower())
 
     query = "{\"query\": {\"match\": {\"Code ICD.Code ICD10\": \"" + str(icd10) + "\"}}," \
@@ -58,7 +58,7 @@ def list_orpha_by_icd10(lang, icd10):  # noqa: E501
     if isinstance(response_icd_to_orpha, str) or isinstance(response_icd_to_orpha, tuple):
         return response_icd_to_orpha
     else:
-        index = "orphanomenclature"
+        index = "rdcode_orphanomenclature"
         index = "{}_{}".format(index, lang.lower())
 
         code_list = ",".join(["\"" + str(code["ORPHAcode"]) + "\"" for code in response_icd_to_orpha])

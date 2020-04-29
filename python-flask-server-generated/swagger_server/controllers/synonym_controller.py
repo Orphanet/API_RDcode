@@ -24,7 +24,7 @@ def list_synonym(lang, orphacode):  # noqa: E501
     """
     es = config.elastic_server
 
-    index = "orphanomenclature"
+    index = "rdcode_orphanomenclature"
     index = "{}_{}".format(index, lang.lower())
 
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
