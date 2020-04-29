@@ -55,6 +55,7 @@ def list_orpha_by_icd10(lang, icd10):  # noqa: E501
 
     response_icd_to_orpha = multiple_res(es, index, query, 1000)
 
+    # Test to return error
     if isinstance(response_icd_to_orpha, str) or isinstance(response_icd_to_orpha, tuple):
         return response_icd_to_orpha
     else:

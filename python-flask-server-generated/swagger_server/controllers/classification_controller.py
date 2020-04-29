@@ -36,4 +36,29 @@ def list_orpha_by_classification(lang, hchid):  # noqa: E501
 
     :rtype: EntitiesByClassification
     """
-    return 'do some magic!'
+    es = config.elastic_server
+
+    index = "rdcode_orphaclassification_{}_{}".format(hchid, lang.lower())
+
+    query = "{\"query\": {\"match_all\": {}}," \
+            "\"_source\":[\"ORPHAcode\"]}"
+
+    size = 1000
+
+    scroll_timeout = config.scroll_timeout
+
+    response_orphacode_hierarchy = uncapped_res(es, index, query, size, scroll_timeout)
+
+    # Test to return error
+    if isinstance(response_orphacode_hierarchy, str) or isinstance(response_orphacode_hierarchy, tuple):
+        return response_orphacode_hierarchy
+    else:
+        index = "rdcode_orphanomenclature"
+        index = "{}_{}".format(index, lang.lower())
+
+        code_list = ",".join(["\"" + str(code["ORPHAcode"]) + "\"" for code in response_orphacode_hierarchy])
+        query = "{\"query\": {\"terms\": {\"ORPHAcode\": [" + code_list + "]}}," \
+                "\"_source\":[\"Date\", \"ORPHAcode\", \"Definition\", \"Preferred term\", \"Status\"]}"
+
+        response = uncapped_res(es, index, query, size, scroll_timeout)
+    return response

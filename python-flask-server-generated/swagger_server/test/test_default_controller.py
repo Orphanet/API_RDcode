@@ -19,8 +19,10 @@ class TestDefaultController(BaseTestCase):
         Search for all Orphanet clinical entities.
         """
         response = self.client.open(
-            '/orphanet/ClinicalEntity/2-oas3//{lang}/ClinicalEntity'.format(lang='lang_example'),
-            method='GET')
+            '/{lang}/ClinicalEntity'.format(lang='EN'),
+            method='GET', headers={"api_key": "test"})
+        if isinstance(response.json, str):
+            response.status = "500"
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
