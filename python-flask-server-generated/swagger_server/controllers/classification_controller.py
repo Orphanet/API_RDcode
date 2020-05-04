@@ -21,7 +21,34 @@ def list_classification(lang, orphacode):  # noqa: E501
 
     :rtype: Classification
     """
-    return 'do some magic!'
+    es = config.elastic_server
+
+    index = "rdcode_orphanomenclature_{}".format(lang.lower())
+
+    query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
+            "\"_source\":[\"Date\", \"ORPHAcode\",  \"Preferred term\"]}"
+
+    response = single_res(es, index, query)
+    # Test to return error
+    if isinstance(response, str) or isinstance(response, tuple):
+        return response
+    else:
+        index = "rdcode_orphaclassification_*_{}".format(lang.lower())
+
+        size = 1000
+
+        query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
+                "\"_source\":[\"classification\"]}"
+
+        response_classification = multiple_res(es, index, query, size)
+        # Test to return error
+        if isinstance(response_classification, str) or isinstance(response_classification, tuple):
+            return response_classification
+        else:
+            response_classification = [classification["classification"] for classification in response_classification]
+            [classification.pop("hch_id", None) for classification in response_classification]
+            response["classification"] = response_classification
+        return response
 
 
 def list_orpha_by_classification(lang, hchid):  # noqa: E501
