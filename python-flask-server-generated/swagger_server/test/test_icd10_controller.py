@@ -33,7 +33,7 @@ class TestICD10Controller(BaseTestCase):
         Search for the clinical entity's ORPHAcode by ICD-10 code.
         """
         response = self.client.open(
-            '/{lang}/ClinicalEntity/ICD10/{ICD10}'.format(lang='EN', ICD10='Q87\\.4'),
+            '/{lang}/ClinicalEntity/ICD10/{ICD10}'.format(lang='EN', ICD10='Q87.4'),
             method='GET', headers={"api_key": "test"})
         if isinstance(response.json, str):
             response.status = "500"

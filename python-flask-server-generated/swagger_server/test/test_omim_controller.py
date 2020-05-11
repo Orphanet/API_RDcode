@@ -19,7 +19,7 @@ class TestOMIMController(BaseTestCase):
         Search for the clinical entity's information by OMIM code.
         """
         response = self.client.open(
-            '/{lang}/ClinicalEntity/FindbyOMIM/{codeOMIM}'.format(lang='EN', code_omim=1),
+            '/{lang}/ClinicalEntity/FindbyOMIM/{codeOMIM}'.format(lang='EN', codeOMIM=1),
             method='GET', headers={"api_key": "test"})
         if isinstance(response.json, str):
             response.status = "500"
