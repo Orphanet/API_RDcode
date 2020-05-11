@@ -827,7 +827,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.icd10_controller
-  /{lang}/ClinicalEntity/ICD10/{ICD10}/:
+  /{lang}/ClinicalEntity/ICD10/{ICD10}:
     get:
       tags:
       - ICD10

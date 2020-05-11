@@ -20,8 +20,10 @@ class TestICD10Controller(BaseTestCase):
         Search for ICD10 code(s) of the clinical entity by its ORPHAcode.
         """
         response = self.client.open(
-            '/orphanet/ClinicalEntity/2-oas3//{lang}/ClinicalEntity/orphacode/{orphacode}/ICD10'.format(lang='lang_example', orphacode=1),
-            method='GET')
+            '/{lang}/ClinicalEntity/orphacode/{orphacode}/ICD10'.format(lang='EN', orphacode=558),
+            method='GET', headers={"api_key": "test"})
+        if isinstance(response.json, str):
+            response.status = "500"
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
@@ -31,8 +33,10 @@ class TestICD10Controller(BaseTestCase):
         Search for the clinical entity's ORPHAcode by ICD-10 code.
         """
         response = self.client.open(
-            '/orphanet/ClinicalEntity/2-oas3//{lang}/ClinicalEntity/ICD10/{ICD10}/'.format(lang='lang_example', icd10='icd10_example'),
-            method='GET')
+            '/{lang}/ClinicalEntity/ICD10/{ICD10}'.format(lang='EN', ICD10='Q87\\.4'),
+            method='GET', headers={"api_key": "test"})
+        if isinstance(response.json, str):
+            response.status = "500"
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 

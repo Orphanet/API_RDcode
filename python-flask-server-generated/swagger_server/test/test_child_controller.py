@@ -19,8 +19,10 @@ class TestChildController(BaseTestCase):
         Search for information about the n-1 (child) of the clinical entity in one specific classification by the clinical entity's ORPHAcode and unique identifier of the classification.
         """
         response = self.client.open(
-            '/orphanet/ClinicalEntity/2-oas3//{lang}/Classification/{hchid}/orphacode/{orphacode}/Child'.format(lang='lang_example', orphacode=1, hchid=1),
-            method='GET')
+            '/{lang}/Classification/{hchid}/orphacode/{orphacode}/Child'.format(lang='EN', orphacode=558, hchid=147),
+            method='GET', headers={"api_key": "test"})
+        if isinstance(response.json, str):
+            response.status = "500"
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 

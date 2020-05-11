@@ -19,8 +19,10 @@ class TestTargetORPHAController(BaseTestCase):
         Search for the target entity by the obsolete or deprecated clinical entity's ORPHAcode.
         """
         response = self.client.open(
-            '/orphanet/ClinicalEntity/2-oas3//{lang}/ClinicalEntity/orphacode/{orphacode}/TargetEntity'.format(lang='lang_example', orphacode=1),
-            method='GET')
+            '/{lang}/ClinicalEntity/orphacode/{orphacode}/TargetEntity'.format(lang='EN', orphacode=558),
+            method='GET', headers={"api_key": "test"})
+        if isinstance(response.json, str):
+            response.status = "500"
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
