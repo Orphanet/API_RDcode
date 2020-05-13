@@ -1,3 +1,5 @@
+import operator
+
 import connexion
 
 from swagger_server.models.classification import Classification  # noqa: E501
@@ -28,11 +30,13 @@ def list_classification(lang, orphacode):  # noqa: E501
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
             "\"_source\":[\"Date\", \"ORPHAcode\",  \"Preferred term\"]}"
 
+    # First query to find the chosen disorder info
     response = single_res(es, index, query)
     # Test to return error
     if isinstance(response, str) or isinstance(response, tuple):
         return response
     else:
+        # Query the selected orphacode in all classifications
         index = "rdcode_orphaclassification_*_{}".format(lang.lower())
 
         size = 1000
@@ -45,8 +49,13 @@ def list_classification(lang, orphacode):  # noqa: E501
         if isinstance(response_classification, str) or isinstance(response_classification, tuple):
             return response_classification
         else:
+            # Extract the classification's data from each items
             response_classification = [classification["classification"] for classification in response_classification]
+            # Remove unwanted information
             [classification.pop("hch_id", None) for classification in response_classification]
+            # Sort by classification ID
+            response_classification.sort(key=operator.itemgetter('ID of the classification'))
+            # Append the classification response to the disorder response
             response["classification"] = response_classification
         return response
 
