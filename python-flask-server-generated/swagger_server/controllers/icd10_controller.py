@@ -33,7 +33,7 @@ def list_icd10(lang, orphacode):  # noqa: E501
     return response
 
 
-def list_orpha_by_icd10(lang, ICD10):  # noqa: E501
+def list_orpha_by_icd10(lang, icd10):  # noqa: E501
     """Search for the clinical entity&#x27;s ORPHAcode by ICD-10 code.
 
     The result is a dataset including ORPHAcode, status, preferred term and definition. # noqa: E501
@@ -50,7 +50,7 @@ def list_orpha_by_icd10(lang, ICD10):  # noqa: E501
     index = "rdcode_orpha_icd10_mapping"
     index = "{}_{}".format(index, lang.lower())
 
-    query = "{\"query\": {\"match\": {\"Code ICD.Code ICD10\": \"" + str(ICD10) + "\"}}," \
+    query = "{\"query\": {\"match\": {\"Code ICD.Code ICD10\": \"" + str(icd10) + "\"}}," \
             "\"_source\":[\"ORPHAcode\"]}"
 
     response_icd_to_orpha = multiple_res(es, index, query, 1000)
