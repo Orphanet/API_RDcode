@@ -28,11 +28,11 @@ def list_child(lang, orphacode, hchid):  # noqa: E501
 
     query = "{\"query\": {\"match\": {\"ORPHAcode\": \"" + str(orphacode) + "\"}}," \
             "\"_source\":[\"Date\"," \
-                         "\"classification.ID of the classification\"," \
-                         "\"classification.Name of the classification\"," \
+                         "\"Classification.ID of the classification\"," \
+                         "\"Classification.Name of the classification\"," \
                          "\"ORPHAcode\"," \
                          "\"Preferred term\"," \
-                         "\"childs\"]}"
+                         "\"Child\"]}"
 
     response = single_res(es, index, query)
 
@@ -40,10 +40,10 @@ def list_child(lang, orphacode, hchid):  # noqa: E501
     if isinstance(response, str) or isinstance(response, tuple):
         return response
     else:
-        code_list = ",".join(["\"" + str(code) + "\"" for code in response["childs"]])
+        code_list = ",".join(["\"" + str(code) + "\"" for code in response["Child"]])
         query = "{\"query\": {\"terms\": {\"ORPHAcode\": [" + code_list + "]}}," \
                 "\"_source\":[\"ORPHAcode\", \"Preferred term\"]}"
 
-        response_childs = multiple_res(es, index, query, 1000)
-        response["childs"] = response_childs
+        response_child = multiple_res(es, index, query, 1000)
+        response["Child"] = response_child
     return response

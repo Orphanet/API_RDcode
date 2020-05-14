@@ -32,7 +32,7 @@ def list_parent(lang, hchid, orphacode):  # noqa: E501
                          "\"classification.Name of the classification\"," \
                          "\"ORPHAcode\"," \
                          "\"Preferred term\"," \
-                         "\"parents\"]}"
+                         "\"Parent\"]}"
 
     response = single_res(es, index, query)
 
@@ -40,10 +40,10 @@ def list_parent(lang, hchid, orphacode):  # noqa: E501
     if isinstance(response, str) or isinstance(response, tuple):
         return response
     else:
-        code_list = ",".join(["\"" + str(code) + "\"" for code in response["parents"]])
+        code_list = ",".join(["\"" + str(code) + "\"" for code in response["Parent"]])
         query = "{\"query\": {\"terms\": {\"ORPHAcode\": [" + code_list + "]}}," \
                 "\"_source\":[\"ORPHAcode\", \"Preferred term\"]}"
 
-        response_parents = multiple_res(es, index, query, 1000)
-        response["parents"] = response_parents
+        response_parent = multiple_res(es, index, query, 1000)
+        response["Parent"] = response_parent
     return response

@@ -42,7 +42,7 @@ def list_classification(lang, orphacode):  # noqa: E501
         size = 1000
 
         query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
-                "\"_source\":[\"classification\"]}"
+                "\"_source\":[\"Classification\"]}"
 
         response_classification = multiple_res(es, index, query, size)
         # Test to return error
@@ -50,13 +50,13 @@ def list_classification(lang, orphacode):  # noqa: E501
             return response_classification
         else:
             # Extract the classification's data from each items
-            response_classification = [classification["classification"] for classification in response_classification]
+            response_classification = [classification["Classification"] for classification in response_classification]
             # Remove unwanted information
             [classification.pop("hch_id", None) for classification in response_classification]
             # Sort by classification ID
             response_classification.sort(key=operator.itemgetter('ID of the classification'))
             # Append the classification response to the disorder response
-            response["classification"] = response_classification
+            response["Classification"] = response_classification
         return response
 
 
