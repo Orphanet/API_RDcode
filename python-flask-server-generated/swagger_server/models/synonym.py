@@ -14,30 +14,30 @@ class Synonym(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, _date: datetime=None, orph_acode: int=None, synonym_s: List[str]=None):  # noqa: E501
+    def __init__(self, _date: datetime=None, orph_acode: int=None, synonym: List[str]=None):  # noqa: E501
         """Synonym - a model defined in Swagger
 
         :param _date: The _date of this Synonym.  # noqa: E501
         :type _date: datetime
         :param orph_acode: The orph_acode of this Synonym.  # noqa: E501
         :type orph_acode: int
-        :param synonym_s: The synonym_s of this Synonym.  # noqa: E501
-        :type synonym_s: List[str]
+        :param synonym: The synonym of this Synonym.  # noqa: E501
+        :type synonym: List[str]
         """
         self.swagger_types = {
             '_date': datetime,
             'orph_acode': int,
-            'synonym_s': List[str]
+            'synonym': List[str]
         }
 
         self.attribute_map = {
             '_date': 'Date',
             'orph_acode': 'ORPHAcode',
-            'synonym_s': 'Synonym(s)'
+            'synonym': 'Synonym'
         }
         self.__date = _date
         self._orph_acode = orph_acode
-        self._synonym_s = synonym_s
+        self._synonym = synonym
 
     @classmethod
     def from_dict(cls, dikt) -> 'Synonym':
@@ -93,22 +93,22 @@ class Synonym(Model):
         self._orph_acode = orph_acode
 
     @property
-    def synonym_s(self) -> List[str]:
-        """Gets the synonym_s of this Synonym.
+    def synonym(self) -> List[str]:
+        """Gets the synonym of this Synonym.
 
 
-        :return: The synonym_s of this Synonym.
+        :return: The synonym of this Synonym.
         :rtype: List[str]
         """
-        return self._synonym_s
+        return self._synonym
 
-    @synonym_s.setter
-    def synonym_s(self, synonym_s: List[str]):
-        """Sets the synonym_s of this Synonym.
+    @synonym.setter
+    def synonym(self, synonym: List[str]):
+        """Sets the synonym of this Synonym.
 
 
-        :param synonym_s: The synonym_s of this Synonym.
-        :type synonym_s: List[str]
+        :param synonym: The synonym of this Synonym.
+        :type synonym: List[str]
         """
 
-        self._synonym_s = synonym_s
+        self._synonym = synonym

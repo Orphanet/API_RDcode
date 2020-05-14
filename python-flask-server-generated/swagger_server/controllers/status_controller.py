@@ -15,7 +15,7 @@ def list_status(lang, orphacode):  # noqa: E501
 
     :param lang: Desired language
     :type lang: str
-    :param orphacode: The ORPHAcode is a unique identifier to reference an Orphanet&#x27;s concept
+    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
     :type orphacode: int
 
     :rtype: Status

@@ -50,7 +50,7 @@ class ClassificationClassification(Model):
 
         :param dikt: A dict.
         :type: dict
-        :return: The Classification_classification of this ClassificationClassification.  # noqa: E501
+        :return: The Classification_Classification of this ClassificationClassification.  # noqa: E501
         :rtype: ClassificationClassification
         """
         return util.deserialize_model(dikt, cls)

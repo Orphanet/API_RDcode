@@ -2,7 +2,7 @@ import connexion
 
 from swagger_server.models.entity_by_icd import EntityByIcd  # noqa: E501
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
-from swagger_server.models.icd10 import ICD10  # noqa: E501
+from swagger_server.models.icd10 import Icd10  # noqa: E501
 from swagger_server import util
 
 import config
@@ -16,10 +16,10 @@ def list_icd10(lang, orphacode):  # noqa: E501
 
     :param lang: Desired language
     :type lang: str
-    :param orphacode: The ORPHAcode is a unique identifier to reference an Orphanet&#x27;s concept
+    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
     :type orphacode: int
 
-    :rtype: ICD10
+    :rtype: Icd10
     """
     es = config.elastic_server
 

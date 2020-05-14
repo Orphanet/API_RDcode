@@ -17,10 +17,10 @@ REQUIRES = ["connexion"]
 setup(
     name=NAME,
     version=VERSION,
-    description="Orphanet clincal entities",
+    description="Orphanet clinical entities",
     author_email="danielmurphy@mater.ie",
     url="",
-    keywords=["Swagger", "Orphanet clincal entities"],
+    keywords=["Swagger", "Orphanet clinical entities"],
     install_requires=REQUIRES,
     packages=find_packages(),
     package_data={'': ['swagger/swagger.yaml']},

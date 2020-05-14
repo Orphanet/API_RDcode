@@ -7,16 +7,41 @@ info:
     email: danielmurphy@mater.ie
   version: 2-oas3
 servers:
-- url: "/"
+- url: /
   description: local testing host
-- url: "https://virtserver.swaggerhub.com/orphanet/ClinicalEntity/2-oas3/"
+- url: https://virtserver.swaggerhub.com/orphanet/ClinicalEntity/2-oas3/
   description: Remote testing host
 security:
 - api_key: []
-#  basic_auth: []
+tags:
+- name: All clinical entities
+  description: Clinical entities and related informations.
+  externalDocs:
+    description: Search for Clinical entities and related informations in english,
+      french, german, spanish,dutch, italian, portguese, polish or czech. The result
+      is a collection of data including ORPHAcode, preferred term, synonyms, definition,
+      belonging to a classification, epidemiology, natural history, associated genes,
+      phenotypes etc... to a specific clinical entity in the selected language.
+    url: http://www.orphadata.org/cgi-bin/img/PDF/Catalogue_Orphadata.pdf
+- name: Child
+- name: Classification
+- name: Definition
+- name: GroupType
+- name: ICD10
+- name: Name
+- name: OMIM
+- name: ORPHAcodeAgregation
+- name: OrphanetURL
+- name: Parent
+- name: Status
+- name: Synonym
+- name: TargetORPHA
+- name: Type
 paths:
   /{lang}/ClinicalEntity:
     get:
+      tags:
+      - All clinical entities
       summary: Search for all Orphanet clinical entities.
       description: The result is a data set that includes an ORPHAcode, the status,
         the preferred term and the definition (when one exists) of each active Orphanet
@@ -76,7 +101,7 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-      x-openapi-router-controller: swagger_server.controllers.default_controller
+      x-openapi-router-controller: swagger_server.controllers.all_clinical_entities_controller
   /{lang}/ClinicalEntity/orphacode/{orphacode}/Status:
     get:
       tags:
@@ -106,8 +131,8 @@ paths:
           - PT
       - name: orphacode
         in: path
-        description: The ORPHAcode is a unique identifier to reference an Orphanet's
-          concept
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the database upon creation of the entity.
         required: true
         style: simple
         explode: false
@@ -183,8 +208,8 @@ paths:
           - PT
       - name: orphacode
         in: path
-        description: The ORPHAcode is a unique identifier to reference an Orphanet's
-          concept
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the database upon creation of the entity.
         required: true
         style: simple
         explode: false
@@ -257,8 +282,8 @@ paths:
           - PT
       - name: orphacode
         in: path
-        description: The ORPHAcode is a unique identifier to reference an Orphanet's
-          concept
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the database upon creation of the entity.
         required: true
         style: simple
         explode: false
@@ -331,8 +356,8 @@ paths:
           - PT
       - name: orphacode
         in: path
-        description: The ORPHAcode is a unique identifier to reference an Orphanet's
-          concept
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the database upon creation of the entity.
         required: true
         style: simple
         explode: false
@@ -406,8 +431,8 @@ paths:
           - PT
       - name: orphacode
         in: path
-        description: The ORPHAcode is a unique identifier to reference an Orphanet's
-          concept
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the database upon creation of the entity.
         required: true
         style: simple
         explode: false
@@ -480,8 +505,8 @@ paths:
           - PT
       - name: orphacode
         in: path
-        description: The ORPHAcode is a unique identifier to reference an Orphanet's
-          concept
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the database upon creation of the entity.
         required: true
         style: simple
         explode: false
@@ -554,8 +579,8 @@ paths:
           - PT
       - name: orphacode
         in: path
-        description: The ORPHAcode is a unique identifier to reference an Orphanet's
-          concept
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the database upon creation of the entity.
         required: true
         style: simple
         explode: false
@@ -629,8 +654,8 @@ paths:
           - PT
       - name: orphacode
         in: path
-        description: The ORPHAcode is a unique identifier to reference an Orphanet's
-          concept
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the database upon creation of the entity.
         required: true
         style: simple
         explode: false
@@ -705,8 +730,8 @@ paths:
           - PT
       - name: orphacode
         in: path
-        description: The ORPHAcode is a unique identifier to reference an Orphanet's
-          concept
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the database upon creation of the entity.
         required: true
         style: simple
         explode: false
@@ -782,8 +807,8 @@ paths:
           - PT
       - name: orphacode
         in: path
-        description: The ORPHAcode is a unique identifier to reference an Orphanet's
-          concept
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the database upon creation of the entity.
         required: true
         style: simple
         explode: false
@@ -798,10 +823,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ICD10'
+                $ref: '#/components/schemas/icd10'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/ICD10'
+                $ref: '#/components/schemas/icd10'
         "400":
           description: Bad request
         "401":
@@ -827,7 +852,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.icd10_controller
-  /{lang}/ClinicalEntity/ICD10/{ICD10}:
+  /{lang}/ClinicalEntity/ICD10/{icd10}/:
     get:
       tags:
       - ICD10
@@ -855,7 +880,7 @@ paths:
           - NL
           - PL
           - PT
-      - name: ICD10
+      - name: icd10
         in: path
         description: ICD10 code of entity
         required: true
@@ -901,7 +926,7 @@ paths:
   /{lang}/ClinicalEntity/orphacode/{orphacode}/Classification:
     get:
       tags:
-      - classification
+      - Classification
       summary: Search for the list of classification(s) of the clinical entity by
         its ORPHAcode.
       description: 'The result is the ORPHAcode and preferred term of the clinical
@@ -931,8 +956,8 @@ paths:
           - PT
       - name: orphacode
         in: path
-        description: The ORPHAcode is a unique identifier to reference an Orphanet's
-          concept
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the database upon creation of the entity.
         required: true
         style: simple
         explode: false
@@ -979,7 +1004,7 @@ paths:
   /{lang}/Classification/{hchid}:
     get:
       tags:
-      - classification
+      - Classification
       summary: Search for the list of clinical entities' ORPHAcodes in one specific
         classification by the unique identifer of the classification.
       description: The result is a data set including ORPHAcode, status, preferred
@@ -1007,8 +1032,8 @@ paths:
           - PT
       - name: hchid
         in: path
-        description: The hierarchy ID (hchID) is a number which refers to an Orphanet
-          classification
+        description: The hierarchy ID (hchID) is a specific identifier attributed
+          to an Orphanet classification.
         required: true
         style: simple
         explode: false
@@ -1084,8 +1109,8 @@ paths:
           - PT
       - name: hchid
         in: path
-        description: The hierarchy ID (hchID) is a number which refers to an Orphanet
-          classification
+        description: The hierarchy ID (hchID) is a specific identifier attributed
+          to an Orphanet classification.
         required: true
         style: simple
         explode: false
@@ -1096,8 +1121,8 @@ paths:
           format: int32
       - name: orphacode
         in: path
-        description: The ORPHAcode is a unique identifier to reference an Orphanet's
-          concept
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the database upon creation of the entity.
         required: true
         style: simple
         explode: false
@@ -1176,8 +1201,8 @@ paths:
           - PT
       - name: orphacode
         in: path
-        description: The ORPHAcode is a unique identifier to reference an Orphanet's
-          concept
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the database upon creation of the entity.
         required: true
         style: simple
         explode: false
@@ -1188,8 +1213,8 @@ paths:
           format: int64
       - name: hchid
         in: path
-        description: The hierarchy ID (hchID) is a number which refers to an Orphanet
-          classification
+        description: The hierarchy ID (hchID) is a specific identifier attributed
+          to an Orphanet classification.
         required: true
         style: simple
         explode: false
@@ -1233,7 +1258,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.child_controller
-  /{lang}/ClinicalEntity/FindbyOMIM/{codeOMIM}:
+  /{lang}/ClinicalEntity/FindbyOMIM/{omimcode}:
     get:
       tags:
       - OMIM
@@ -1262,9 +1287,9 @@ paths:
           - NL
           - PL
           - PT
-      - name: codeOMIM
+      - name: omimcode
         in: path
-        description: OMIM code to be searched
+        description: Unique OMIM identifier
         required: true
         style: simple
         explode: false
@@ -1338,7 +1363,7 @@ paths:
           - PT
       - name: label
         in: path
-        description: Entity name
+        description: Entity preferred term
         required: true
         style: simple
         explode: false
@@ -1509,7 +1534,7 @@ components:
           type: integer
           format: int32
           example: 73
-        Synonym(s):
+        Synonym:
           type: array
           example:
           - Gorham disease
@@ -1521,13 +1546,13 @@ components:
             type: string
       example:
         ORPHAcode: 73
-        Date: 2000-01-23T04:56:07.000+00:00
-        Synonym(s):
+        Synonym:
         - Gorham disease
         - Gorham syndrome
         - Idiopathic massive osteolysis
         - Progressive massive osteolysis
         - Vanishing bone disease
+        Date: 2000-01-23T04:56:07.000+00:00
     GroupType:
       type: object
       properties:
@@ -1612,7 +1637,7 @@ components:
         Preferred term: 48,XXYY syndrome
         ORPHAcodeAgregation: 10
         Date: 2000-01-23T04:56:07.000+00:00
-    ICD10:
+    icd10:
       type: object
       properties:
         Date:
@@ -1628,7 +1653,7 @@ components:
         Code ICD:
           type: array
           items:
-            $ref: '#/components/schemas/ICD10_Code ICD'
+            $ref: '#/components/schemas/icd10_Code ICD'
       example:
         OrphanetURL: http://www.orpha.net/ORDO/Orphanet_10
         Code ICD:
@@ -1659,22 +1684,22 @@ components:
         Preferred term:
           type: string
           example: Rare Cardiomyopathy
-        classification:
+        Classification:
           type: array
           items:
-            $ref: '#/components/schemas/Classification_classification'
+            $ref: '#/components/schemas/Classification_Classification'
       example:
         Preferred term: Rare Cardiomyopathy
         ORPHAcode: 167848
-        classification:
+        Classification:
         - Preferred term: Rare cardiac disease
           ORPHAcode: 97929
           Name of the classification: Rare cardiac disease
-          ID of the classification: 12948
+          ID of the classification: 146
         - Preferred term: Rare cardiac disease
           ORPHAcode: 97929
           Name of the classification: Rare cardiac disease
-          ID of the classification: 12948
+          ID of the classification: 146
         Date: 2000-01-23T04:56:07.000+00:00
     Entities_by_classification:
       type: array
@@ -1686,62 +1711,72 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: 167848
+          example: 558
         Preferred term:
           type: string
-          example: Rare cardiomyopathy
-        ID of the classification:
-          type: integer
-          format: int32
-          example: 12948
-        Name of the classification:
-          type: string
-          example: Rare cardiac disease
-        Parent ORPHAcode:
-          type: integer
-          format: int32
-          example: 97929
-        Parent preferred term:
-          type: string
-          example: Rare cardiac disease
+          example: Marfan syndrome
+        Classification:
+          $ref: '#/components/schemas/Parent_Classification'
+        Parent:
+          type: array
+          example:
+          - Parent ORPHAcode: 139030
+            Parent preferred term: Rare developmental defect with connective tissue
+              involvement
+          - Parent ORPHAcode: 498448
+            Parent preferred term: Overgrowth or tall stature syndrome with skeletal
+              involvement
+          - Parent ORPHAcode: 519292
+            Parent preferred term: Syndromic ectopia lentis
+          items:
+            $ref: '#/components/schemas/Parent_Parent'
       example:
-        Preferred term: Rare cardiomyopathy
-        ORPHAcode: 167848
-        Parent preferred term: Rare cardiac disease
-        Name of the classification: Rare cardiac disease
-        ID of the classification: 12948
-        Parent ORPHAcode: 97929
+        Preferred term: Marfan syndrome
+        ORPHAcode: 558
+        Parent:
+        - Parent ORPHAcode: 139030
+          Parent preferred term: Rare developmental defect with connective tissue
+            involvement
+        - Parent ORPHAcode: 498448
+          Parent preferred term: Overgrowth or tall stature syndrome with skeletal
+            involvement
+        - Parent ORPHAcode: 519292
+          Parent preferred term: Syndromic ectopia lentis
+        Classification:
+          Name of the classification: Rare developmental defect during embryogenesis
+          ID of the classification: 147
     Child:
       type: object
       properties:
         ORPHAcode:
           type: integer
           format: int32
-          example: 167848
+          example: 558
         Preferred term:
           type: string
-          example: Rare cardiomyopathy
-        ID of the classification:
-          type: integer
-          format: int32
-          example: 8591
-        Name of the classification:
-          type: string
-          example: Arrhythmogenic right ventricular cardiomyopathy
-        Child ORPHAcode:
-          type: integer
-          format: int32
-          example: 247
-        Child preferred term:
-          type: string
-          example: Arrhythmogenic right ventricular cardiomyopathy
+          example: Marfan syndrome
+        Classification:
+          $ref: '#/components/schemas/Parent_Classification'
+        Child:
+          type: array
+          example:
+          - Child ORPHAcode: 294963
+            Child preferred term: Marfan syndrome type 1
+          - Child ORPHAcode: 294973
+            Child preferred term: Marfan syndrome type 2
+          items:
+            $ref: '#/components/schemas/Child_Child'
       example:
-        Preferred term: Rare cardiomyopathy
-        ORPHAcode: 167848
-        Child preferred term: Arrhythmogenic right ventricular cardiomyopathy
-        Child ORPHAcode: 247
-        Name of the classification: Arrhythmogenic right ventricular cardiomyopathy
-        ID of the classification: 8591
+        Preferred term: Marfan syndrome
+        ORPHAcode: 558
+        Classification:
+          Name of the classification: Rare developmental defect during embryogenesis
+          ID of the classification: 147
+        Child:
+        - Child ORPHAcode: 294963
+          Child preferred term: Marfan syndrome type 1
+        - Child ORPHAcode: 294973
+          Child preferred term: Marfan syndrome type 2
     FindbyOMIM:
       type: array
       items:
@@ -1821,7 +1856,7 @@ components:
           testosterone production, cognitive, affective and social functioning impairments,
           global developmental delay, and an increased risk of congenital malformations.
         Date: 2000-01-23T04:56:07.000+00:00
-    ICD10_Code ICD:
+    icd10_Code ICD:
       type: object
       properties:
         Code ICD10:
@@ -1856,13 +1891,13 @@ components:
         DisorderMappingValidationStatus: Validated
         Code ICD10: Q98.8
         DisorderMappingRelation: NTBT
-    Classification_classification:
+    Classification_Classification:
       type: object
       properties:
         ID of the classification:
           type: integer
           format: int32
-          example: 12948
+          example: 146
         Name of the classification:
           type: string
           example: Rare cardiac disease
@@ -1877,7 +1912,36 @@ components:
         Preferred term: Rare cardiac disease
         ORPHAcode: 97929
         Name of the classification: Rare cardiac disease
-        ID of the classification: 12948
+        ID of the classification: 146
+    Parent_Classification:
+      type: object
+      properties:
+        ID of the classification:
+          type: integer
+          format: int32
+          example: 147
+        Name of the classification:
+          type: string
+          example: Rare developmental defect during embryogenesis
+      example:
+        Name of the classification: Rare developmental defect during embryogenesis
+        ID of the classification: 147
+    Parent_Parent:
+      type: object
+      properties:
+        Parent ORPHAcode:
+          type: integer
+          format: int32
+        Parent preferred term:
+          type: string
+    Child_Child:
+      type: object
+      properties:
+        Child ORPHAcode:
+          type: integer
+          format: int32
+        Child preferred term:
+          type: string
     FindbyOMIM_inner:
       type: object
       properties:
@@ -1935,8 +1999,8 @@ components:
     hchid:
       name: hchid
       in: path
-      description: The hierarchy ID (hchID) is a number which refers to an Orphanet
-        classification
+      description: The hierarchy ID (hchID) is a specific identifier attributed to
+        an Orphanet classification.
       required: true
       style: simple
       explode: false
@@ -1945,11 +2009,19 @@ components:
         exclusiveMinimum: true
         type: integer
         format: int32
-    orphacode:
-      name: orphacode
+    icd10:
+      name: icd10
       in: path
-      description: The ORPHAcode is a unique identifier to reference an Orphanet's
-        concept
+      description: ICD10 code of entity
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: string
+    omimcode:
+      name: omimcode
+      in: path
+      description: Unique OMIM identifier
       required: true
       style: simple
       explode: false
@@ -1958,19 +2030,11 @@ components:
         exclusiveMinimum: true
         type: integer
         format: int64
-    ICD10:
-      name: ICD10
+    orphacode:
+      name: orphacode
       in: path
-      description: ICD10 code of entity
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: string
-    codeOMIM:
-      name: codeOMIM
-      in: path
-      description: OMIM code to be searched
+      description: A unique and time-stable numerical identifier attributed randomly
+        by the database upon creation of the entity.
       required: true
       style: simple
       explode: false
@@ -1985,8 +2049,4 @@ components:
       name: api_key
       in: header
       x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_api_key
-#    basic_auth:
-#      type: http
-#      scheme: basic
-#      x-basicInfoFunc: swagger_server.controllers.authorization_controller.check_basic_auth
 

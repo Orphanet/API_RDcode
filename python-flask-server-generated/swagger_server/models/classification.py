@@ -38,7 +38,7 @@ class Classification(Model):
             '_date': 'Date',
             'orph_acode': 'ORPHAcode',
             'preferred_term': 'Preferred term',
-            'classification': 'classification'
+            'classification': 'Classification'
         }
         self.__date = _date
         self._orph_acode = orph_acode

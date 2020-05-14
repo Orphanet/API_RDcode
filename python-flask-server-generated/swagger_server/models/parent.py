@@ -6,6 +6,8 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
+from swagger_server.models.parent_classification import ParentClassification  # noqa: F401,E501
+from swagger_server.models.parent_parent import ParentParent  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -14,45 +16,35 @@ class Parent(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, orph_acode: int=None, preferred_term: str=None, id_of_the_classification: int=None, name_of_the_classification: str=None, parent_orph_acode: int=None, parent_preferred_term: str=None):  # noqa: E501
+    def __init__(self, orph_acode: int=None, preferred_term: str=None, classification: ParentClassification=None, parent: List[ParentParent]=None):  # noqa: E501
         """Parent - a model defined in Swagger
 
         :param orph_acode: The orph_acode of this Parent.  # noqa: E501
         :type orph_acode: int
         :param preferred_term: The preferred_term of this Parent.  # noqa: E501
         :type preferred_term: str
-        :param id_of_the_classification: The id_of_the_classification of this Parent.  # noqa: E501
-        :type id_of_the_classification: int
-        :param name_of_the_classification: The name_of_the_classification of this Parent.  # noqa: E501
-        :type name_of_the_classification: str
-        :param parent_orph_acode: The parent_orph_acode of this Parent.  # noqa: E501
-        :type parent_orph_acode: int
-        :param parent_preferred_term: The parent_preferred_term of this Parent.  # noqa: E501
-        :type parent_preferred_term: str
+        :param classification: The classification of this Parent.  # noqa: E501
+        :type classification: ParentClassification
+        :param parent: The parent of this Parent.  # noqa: E501
+        :type parent: List[ParentParent]
         """
         self.swagger_types = {
             'orph_acode': int,
             'preferred_term': str,
-            'id_of_the_classification': int,
-            'name_of_the_classification': str,
-            'parent_orph_acode': int,
-            'parent_preferred_term': str
+            'classification': ParentClassification,
+            'parent': List[ParentParent]
         }
 
         self.attribute_map = {
             'orph_acode': 'ORPHAcode',
             'preferred_term': 'Preferred term',
-            'id_of_the_classification': 'ID of the classification',
-            'name_of_the_classification': 'Name of the classification',
-            'parent_orph_acode': 'Parent ORPHAcode',
-            'parent_preferred_term': 'Parent preferred term'
+            'classification': 'Classification',
+            'parent': 'Parent'
         }
         self._orph_acode = orph_acode
         self._preferred_term = preferred_term
-        self._id_of_the_classification = id_of_the_classification
-        self._name_of_the_classification = name_of_the_classification
-        self._parent_orph_acode = parent_orph_acode
-        self._parent_preferred_term = parent_preferred_term
+        self._classification = classification
+        self._parent = parent
 
     @classmethod
     def from_dict(cls, dikt) -> 'Parent':
@@ -108,85 +100,43 @@ class Parent(Model):
         self._preferred_term = preferred_term
 
     @property
-    def id_of_the_classification(self) -> int:
-        """Gets the id_of_the_classification of this Parent.
+    def classification(self) -> ParentClassification:
+        """Gets the classification of this Parent.
 
 
-        :return: The id_of_the_classification of this Parent.
-        :rtype: int
+        :return: The classification of this Parent.
+        :rtype: ParentClassification
         """
-        return self._id_of_the_classification
+        return self._classification
 
-    @id_of_the_classification.setter
-    def id_of_the_classification(self, id_of_the_classification: int):
-        """Sets the id_of_the_classification of this Parent.
+    @classification.setter
+    def classification(self, classification: ParentClassification):
+        """Sets the classification of this Parent.
 
 
-        :param id_of_the_classification: The id_of_the_classification of this Parent.
-        :type id_of_the_classification: int
+        :param classification: The classification of this Parent.
+        :type classification: ParentClassification
         """
 
-        self._id_of_the_classification = id_of_the_classification
+        self._classification = classification
 
     @property
-    def name_of_the_classification(self) -> str:
-        """Gets the name_of_the_classification of this Parent.
+    def parent(self) -> List[ParentParent]:
+        """Gets the parent of this Parent.
 
 
-        :return: The name_of_the_classification of this Parent.
-        :rtype: str
+        :return: The parent of this Parent.
+        :rtype: List[ParentParent]
         """
-        return self._name_of_the_classification
+        return self._parent
 
-    @name_of_the_classification.setter
-    def name_of_the_classification(self, name_of_the_classification: str):
-        """Sets the name_of_the_classification of this Parent.
-
-
-        :param name_of_the_classification: The name_of_the_classification of this Parent.
-        :type name_of_the_classification: str
-        """
-
-        self._name_of_the_classification = name_of_the_classification
-
-    @property
-    def parent_orph_acode(self) -> int:
-        """Gets the parent_orph_acode of this Parent.
+    @parent.setter
+    def parent(self, parent: List[ParentParent]):
+        """Sets the parent of this Parent.
 
 
-        :return: The parent_orph_acode of this Parent.
-        :rtype: int
-        """
-        return self._parent_orph_acode
-
-    @parent_orph_acode.setter
-    def parent_orph_acode(self, parent_orph_acode: int):
-        """Sets the parent_orph_acode of this Parent.
-
-
-        :param parent_orph_acode: The parent_orph_acode of this Parent.
-        :type parent_orph_acode: int
+        :param parent: The parent of this Parent.
+        :type parent: List[ParentParent]
         """
 
-        self._parent_orph_acode = parent_orph_acode
-
-    @property
-    def parent_preferred_term(self) -> str:
-        """Gets the parent_preferred_term of this Parent.
-
-
-        :return: The parent_preferred_term of this Parent.
-        :rtype: str
-        """
-        return self._parent_preferred_term
-
-    @parent_preferred_term.setter
-    def parent_preferred_term(self, parent_preferred_term: str):
-        """Sets the parent_preferred_term of this Parent.
-
-
-        :param parent_preferred_term: The parent_preferred_term of this Parent.
-        :type parent_preferred_term: str
-        """
-
-        self._parent_preferred_term = parent_preferred_term
+        self._parent = parent
