@@ -22,4 +22,28 @@ def list_child(lang, orphacode, hchid):  # noqa: E501
 
     :rtype: Child
     """
-    return 'do some magic!'
+    es = config.elastic_server
+
+    index = "rdcode_orphaclassification_{}_{}".format(hchid, lang.lower())
+
+    query = "{\"query\": {\"match\": {\"ORPHAcode\": \"" + str(orphacode) + "\"}}," \
+            "\"_source\":[\"Date\"," \
+                         "\"classification.ID of the classification\"," \
+                         "\"classification.Name of the classification\"," \
+                         "\"ORPHAcode\"," \
+                         "\"Preferred term\"," \
+                         "\"childs\"]}"
+
+    response = single_res(es, index, query)
+
+    # Test to return error
+    if isinstance(response, str) or isinstance(response, tuple):
+        return response
+    else:
+        code_list = ",".join(["\"" + str(code) + "\"" for code in response["childs"]])
+        query = "{\"query\": {\"terms\": {\"ORPHAcode\": [" + code_list + "]}}," \
+                "\"_source\":[\"ORPHAcode\", \"Preferred term\"]}"
+
+        response_childs = multiple_res(es, index, query, 1000)
+        response["childs"] = response_childs
+    return response

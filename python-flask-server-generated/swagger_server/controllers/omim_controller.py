@@ -1,5 +1,4 @@
 import connexion
-import six
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.models.findby_omim import FindbyOMIM  # noqa: E501
