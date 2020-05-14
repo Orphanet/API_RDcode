@@ -1,15 +1,15 @@
 openapi: 3.0.0
 info:
-  title: Orphanet clincal entities
+  title: Orphanet clinical entities
   description: An API used to search Orphanet entries.
   contact:
     name: Orphanet API Team
     email: danielmurphy@mater.ie
   version: 2-oas3
 servers:
-- url: /
+- url: "/"
   description: local testing host
-- url: https://virtserver.swaggerhub.com/orphanet/ClinicalEntity/2-oas3/
+- url: "https://virtserver.swaggerhub.com/orphanet/ClinicalEntity/2-oas3/"
   description: Remote testing host
 security:
 - api_key: []

@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: 2-oas3
-  title: Orphanet clincal entities
+  title: Orphanet clinical entities
   description: An API used to search Orphanet entries.
   contact:
     name: Orphanet API Team
@@ -14,6 +14,26 @@ servers:
     description: local testing host
   - url: 'https://virtserver.swaggerhub.com/orphanet/ClinicalEntity/2-oas3/'
     description: Remote testing host
+tags:
+- name: All clinical entities
+  description: Clinical entities and related informations.
+  externalDocs:
+    description: Search for Clinical entities and related informations in english, french, german, spanish,dutch, italian, portguese, polish or czech. The result is a collection of data including ORPHAcode, preferred term, synonyms, definition, belonging to a classification, epidemiology, natural history, associated genes, phenotypes etc... to a specific clinical entity in the selected language.
+    url: http://www.orphadata.org/cgi-bin/img/PDF/Catalogue_Orphadata.pdf
+- name: Child
+- name: Classification
+- name: Definition
+- name: GroupType
+- name: ICD10
+- name: Name
+- name: OMIM
+- name: ORPHAcodeAgregation
+- name: OrphanetURL
+- name: Parent
+- name: Status
+- name: Synonym
+- name: TargetORPHA
+- name: Type
 paths:
   '/{lang}/ClinicalEntity':
     get:
@@ -23,6 +43,8 @@ paths:
         preferred term and the definition (when one exists) of each active
         Orphanet clinical entity.
       operationId: ListEntities
+      tags:
+      - All clinical entities
       parameters:
         - name: lang
           in: path
@@ -665,10 +687,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ICD10'
+                $ref: '#/components/schemas/icd10'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/ICD10'
+                $ref: '#/components/schemas/icd10'
         '400':
           description: Bad request
         '401':
@@ -693,7 +715,7 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-  '/{lang}/ClinicalEntity/ICD10/{ICD10}/':
+  '/{lang}/ClinicalEntity/ICD10/{icd10}/':
     get:
       summary: Search for the clinical entity's ORPHAcode by ICD-10 code.
       description: >-
@@ -720,7 +742,7 @@ paths:
             - NL
             - PL
             - PT
-        - $ref: '#/components/parameters/ICD10'
+        - $ref: '#/components/parameters/icd10'
       responses:
         '200':
           description: Clinical entity corresponding to specific ICD10 code
@@ -767,7 +789,7 @@ paths:
         the classification, ORPHAcode and name of the n+1 clinical entity).
       operationId: ListClassification
       tags:
-        - classification
+        - Classification
       parameters:
         - name: lang
           in: path
@@ -831,7 +853,7 @@ paths:
         and definition of all clinical entities.
       operationId: ListOrphaByClassification
       tags:
-        - classification
+        - Classification
       parameters:
         - name: lang
           in: path
@@ -1020,7 +1042,7 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-  '/{lang}/ClinicalEntity/FindbyOMIM/{codeOMIM}':
+  '/{lang}/ClinicalEntity/FindbyOMIM/{omimcode}':
     get:
       summary: Search for the clinical entity's information by OMIM code.
       description: >-
@@ -1048,7 +1070,7 @@ paths:
             - NL
             - PL
             - PT
-        - $ref: '#/components/parameters/codeOMIM'
+        - $ref: '#/components/parameters/omimcode'
       responses:
         '200':
           description: Clinical entity corresponding to specified OMIM code
@@ -1112,7 +1134,7 @@ paths:
             - PT
         - name: label
           in: path
-          description: Entity name
+          description: Entity preferred term
           required: true
           schema:
             type: string
@@ -1177,7 +1199,7 @@ components:
           ORPHAcode:
             type: integer
             format: int32
-            example: '10'
+            example: 10
           Status:
             type: string
             enum:
@@ -1210,7 +1232,7 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: '10'
+          example: 10
         Status:
           type: string
           enum:
@@ -1230,7 +1252,7 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: '10'
+          example: 10
         Status:
           type: string
           enum:
@@ -1249,7 +1271,7 @@ components:
         Target ORPHAcode:
           type: integer
           format: int32
-          example: '100'
+          example: 100
     Name:
       type: object
       properties:
@@ -1260,7 +1282,7 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: '10'
+          example: 10
         Preferred term:
           type: string
           example: '48,XXYY syndrome'
@@ -1274,7 +1296,7 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: '10'
+          example: 10
         Definition:
           type: string
           example: >-
@@ -1295,8 +1317,8 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: '73'
-        Synonym(s):
+          example: 73
+        Synonym:
           type: array
           items:
             type: string
@@ -1316,7 +1338,7 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: '10'
+          example: 10
         GroupType:
           type: string
           enum:
@@ -1334,7 +1356,7 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: '10'
+          example: 10
         Type:
           type: string
           enum:
@@ -1360,7 +1382,7 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: '10'
+          example: 10
         OrphanetURL:
           type: string
           example: 'http://www.orpha.net/ORDO/Orphanet_10'
@@ -1374,11 +1396,11 @@ components:
         ORPHAcodeAgregation:
           type: integer
           format: int32
-          example: '10'
+          example: 10
         Preferred term:
           type: string
           example: '48,XXYY syndrome'
-    ICD10:
+    icd10:
       type: object
       properties:
         Date:
@@ -1388,7 +1410,7 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: '10'
+          example: 10
         OrphanetURL:
           type: string
           example: 'http://www.orpha.net/ORDO/Orphanet_10'
@@ -1436,7 +1458,7 @@ components:
           ORPHAcode:
             type: integer
             format: int32
-            example: '10'
+            example: 10
           Status:
             type: string
             enum:
@@ -1469,11 +1491,11 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: '167848'
+          example: 167848
         Preferred term:
           type: string
           example: Rare Cardiomyopathy
-        classification:
+        Classification:
           type: array
           items:
             type: object
@@ -1481,14 +1503,14 @@ components:
               ID of the classification:
                 type: integer
                 format: int32
-                example: '12948'
+                example: 146
               Name of the classification:
                 type: string
                 example: Rare cardiac disease
               ORPHAcode:
                 type: integer
                 format: int32
-                example: '97929'
+                example: 97929
               Preferred term:
                 type: string
                 example: Rare cardiac disease
@@ -1504,7 +1526,7 @@ components:
           ORPHAcode:
             type: integer
             format: int32
-            example: '10'
+            example: 10
           Status:
             type: string
             enum:
@@ -1533,48 +1555,72 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: '167848'
+          example: 558
         Preferred term:
           type: string
-          example: Rare cardiomyopathy
-        ID of the classification:
-          type: integer
-          format: int32
-          example: '12948'
-        Name of the classification:
-          type: string
-          example: Rare cardiac disease
-        Parent ORPHAcode:
-          type: integer
-          format: int32
-          example: '97929'
-        Parent preferred term:
-          type: string
-          example: Rare cardiac disease
+          example: Marfan syndrome
+        Classification:
+          type: object
+          properties:
+            ID of the classification:
+              type: integer
+              format: int32
+              example: 147
+            Name of the classification:
+              type: string
+              example: Rare developmental defect during embryogenesis
+        Parent:
+          type: array
+          items:
+            type: object
+            properties:
+              Parent ORPHAcode:
+                type: integer
+                format: int32
+              Parent preferred term:
+                type: string
+          example:
+            - Parent ORPHAcode: 139030
+              Parent preferred term: Rare developmental defect with connective tissue involvement
+            - Parent ORPHAcode: 498448
+              Parent preferred term: Overgrowth or tall stature syndrome with skeletal involvement
+            - Parent ORPHAcode: 519292
+              Parent preferred term: Syndromic ectopia lentis
     Child:
       type: object
       properties:
         ORPHAcode:
           type: integer
           format: int32
-          example: '167848'
+          example: 558
         Preferred term:
           type: string
-          example: Rare cardiomyopathy
-        ID of the classification:
-          type: integer
-          format: int32
-          example: '8591'
-        Name of the classification:
-          type: string
-          example: Arrhythmogenic right ventricular cardiomyopathy
-        Child ORPHAcode:
-          type: integer
-          format: int32
-          example: '247'
-        Child preferred term:
-          type: string
-          example: Arrhythmogenic right ventricular cardiomyopathy
+          example: Marfan syndrome
+        Classification:
+          type: object
+          properties:
+            ID of the classification:
+              type: integer
+              format: int32
+              example: 147
+            Name of the classification:
+              type: string
+              example: Rare developmental defect during embryogenesis
+        Child:
+          type: array
+          items:
+            type: object
+            properties:
+              Child ORPHAcode:
+                type: integer
+                format: int32
+              Child preferred term:
+                type: string
+          example:
+            - Child ORPHAcode: 294963
+              Child preferred term: Marfan syndrome type 1
+            - Child ORPHAcode: 294973
+              Child preferred term: Marfan syndrome type 2
     FindbyOMIM:
       type: array
       items:
@@ -1587,7 +1633,7 @@ components:
           ORPHAcode:
             type: integer
             format: int32
-            example: '558'
+            example: 558
           Status:
             type: string
             enum:
@@ -1632,7 +1678,7 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: '558'
+          example: 558
         Status:
           type: string
           enum:
@@ -1663,8 +1709,7 @@ components:
     hchid:
       name: hchid
       in: path
-      description: The hierarchy ID (hchID) is a number which refers to an Orphanet
-        classification
+      description: The hierarchy ID (hchID) is a specific identifier attributed to an Orphanet classification.
       required: true
       style: simple
       explode: false
@@ -1673,11 +1718,27 @@ components:
         exclusiveMinimum: true
         type: integer
         format: int32
+    icd10:
+      name: icd10
+      in: path
+      description: ICD10 code of entity
+      schema:
+        type: string
+      required: true
+    omimcode:
+      name: omimcode
+      in: path
+      description: Unique OMIM identifier
+      schema:
+        minimum: 0
+        exclusiveMinimum: true
+        type: integer
+        format: int64
+      required: true
     orphacode:
       name: orphacode
       in: path
-      description: The ORPHAcode is a unique identifier to reference an Orphanet's
-        concept
+      description: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
       required: true
       style: simple
       explode: false
@@ -1686,20 +1747,3 @@ components:
         exclusiveMinimum: true
         type: integer
         format: int64
-    ICD10:
-      name: ICD10
-      in: path
-      description: ICD10 code of entity
-      schema:
-        type: string
-      required: true
-    codeOMIM:
-      name: codeOMIM
-      in: path
-      description: OMIM code to be searched
-      schema:
-        minimum: 0
-        exclusiveMinimum: true
-        type: integer
-        format: int64
-      required: true
