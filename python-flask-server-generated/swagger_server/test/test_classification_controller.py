@@ -33,8 +33,8 @@ class TestClassificationController(BaseTestCase):
         Search for the list of clinical entities' ORPHAcodes in one specific classification by the unique identifer of the classification.
         """
         response = self.client.open(
-            '/orphanet/ClinicalEntity/2-oas3//{lang}/Classification/{hchid}'.format(lang='EN', hchid=558),
-            method='GET')
+            '/{lang}/Classification/{hchid}'.format(lang='EN', hchid=146),
+            method='GET', headers={"api_key": "test"})
         if isinstance(response.json, str):
             response.status = "500"
         self.assert200(response,

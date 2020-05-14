@@ -715,7 +715,7 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-  '/{lang}/ClinicalEntity/ICD10/{icd10}/':
+  '/{lang}/ClinicalEntity/ICD10/{icd10}':
     get:
       summary: Search for the clinical entity's ORPHAcode by ICD-10 code.
       description: >-

@@ -3,7 +3,6 @@
 from __future__ import absolute_import
 
 from flask import json
-from six import BytesIO
 
 from swagger_server.models.clinical_entity import ClinicalEntity  # noqa: E501
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
