@@ -19,26 +19,32 @@ class TestClassificationController(BaseTestCase):
 
         Search for the list of classification(s) of the clinical entity by its ORPHAcode.
         """
-        response = self.client.open(
-            '/{lang}/ClinicalEntity/orphacode/{orphacode}/Classification'.format(lang='EN', orphacode=558),
-            method='GET', headers={"api_key": "test"})
-        if isinstance(response.json, str):
-            response.status = "500"
-        self.assert200(response,
-                       'Response body is : ' + response.data.decode('utf-8'))
+        # print("list_classification")
+        for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
+            # print(lang)
+            response = self.client.open(
+                '/{lang}/ClinicalEntity/orphacode/{orphacode}/Classification'.format(lang=lang, orphacode=558),
+                method='GET', headers={"api_key": "test"})
+            if isinstance(response.json, str):
+                response.status = "500"
+            self.assert200(response,
+                           'Response body is : ' + response.data.decode('utf-8'))
 
     def test_list_orpha_by_classification(self):
         """Test case for list_orpha_by_classification
 
         Search for the list of clinical entities' ORPHAcodes in one specific classification by the unique identifer of the classification.
         """
-        response = self.client.open(
-            '/{lang}/Classification/{hchid}'.format(lang='EN', hchid=146),
-            method='GET', headers={"api_key": "test"})
-        if isinstance(response.json, str):
-            response.status = "500"
-        self.assert200(response,
-                       'Response body is : ' + response.data.decode('utf-8'))
+        # print("list_orpha_by_classification")
+        for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
+            # print(lang)
+            response = self.client.open(
+                '/{lang}/Classification/{hchid}'.format(lang=lang, hchid=146),
+                method='GET', headers={"api_key": "test"})
+            if isinstance(response.json, str):
+                response.status = "500"
+            self.assert200(response,
+                           'Response body is : ' + response.data.decode('utf-8'))
 
 
 if __name__ == '__main__':

@@ -18,13 +18,16 @@ class TestORPHAcodeAgregationController(BaseTestCase):
 
         Search for or check the ORPHAcode agregation level of the clinical entity by its ORPHAcode.
         """
-        response = self.client.open(
-            '/{lang}/ClinicalEntity/orphacode/{orphacode}/ORPHAcodeAgregation'.format(lang='EN', orphacode=558),
-            method='GET', headers={"api_key": "test"})
-        if isinstance(response.json, str):
-            response.status = "500"
-        self.assert200(response,
-                       'Response body is : ' + response.data.decode('utf-8'))
+        # print("list_agregation")
+        for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
+            # print(lang)
+            response = self.client.open(
+                '/{lang}/ClinicalEntity/orphacode/{orphacode}/ORPHAcodeAgregation'.format(lang=lang, orphacode=558),
+                method='GET', headers={"api_key": "test"})
+            if isinstance(response.json, str):
+                response.status = "500"
+            self.assert200(response,
+                           'Response body is : ' + response.data.decode('utf-8'))
 
 
 if __name__ == '__main__':

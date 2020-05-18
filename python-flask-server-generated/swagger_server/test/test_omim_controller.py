@@ -18,13 +18,16 @@ class TestOMIMController(BaseTestCase):
 
         Search for the clinical entity's information by OMIM code.
         """
-        response = self.client.open(
-            '/{lang}/ClinicalEntity/FindbyOMIM/{codeOMIM}'.format(lang='EN', codeOMIM=1),
-            method='GET', headers={"api_key": "test"})
-        if isinstance(response.json, str):
-            response.status = "500"
-        self.assert200(response,
-                       'Response body is : ' + response.data.decode('utf-8'))
+        # print("list_orpha_by_omim")
+        for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
+            # print(lang)
+            response = self.client.open(
+                '/{lang}/ClinicalEntity/FindbyOMIM/{codeOMIM}'.format(lang=lang, codeOMIM=1),
+                method='GET', headers={"api_key": "test"})
+            if isinstance(response.json, str):
+                response.status = "500"
+            self.assert200(response,
+                           'Response body is : ' + response.data.decode('utf-8'))
 
 
 if __name__ == '__main__':
