@@ -67,4 +67,6 @@ def list_orpha_by_icd10(lang, icd10):  # noqa: E501
                 "\"_source\":[\"Date\", \"ORPHAcode\", \"Definition\", \"Preferred term\", \"Status\"]}"
 
         response = multiple_res(es, index, query, 1000)
+        if isinstance(response, str) or isinstance(response, tuple):
+            return response
     return response

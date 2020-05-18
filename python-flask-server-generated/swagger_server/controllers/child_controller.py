@@ -40,10 +40,15 @@ def list_child(lang, orphacode, hchid):  # noqa: E501
     if isinstance(response, str) or isinstance(response, tuple):
         return response
     else:
-        code_list = ",".join(["\"" + str(code) + "\"" for code in response["Child"]])
-        query = "{\"query\": {\"terms\": {\"ORPHAcode\": [" + code_list + "]}}," \
-                "\"_source\":[\"ORPHAcode\", \"Preferred term\"]}"
+        if not response["Child"]:
+            response_child = []
+        else:
+            code_list = ",".join(["\"" + str(code) + "\"" for code in response["Child"]])
+            query = "{\"query\": {\"terms\": {\"ORPHAcode\": [" + code_list + "]}}," \
+                    "\"_source\":[\"ORPHAcode\", \"Preferred term\"]}"
 
-        response_child = multiple_res(es, index, query, 1000)
+            response_child = multiple_res(es, index, query, 1000)
+            if isinstance(response_child, str) or isinstance(response_child, tuple):
+                return response_child
         response["Child"] = response_child
     return response
