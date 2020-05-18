@@ -28,8 +28,8 @@ def list_parent(lang, hchid, orphacode):  # noqa: E501
 
     query = "{\"query\": {\"match\": {\"ORPHAcode\": \"" + str(orphacode) + "\"}}," \
             "\"_source\":[\"Date\"," \
-                         "\"classification.ID of the classification\"," \
-                         "\"classification.Name of the classification\"," \
+                         "\"Classification.ID of the classification\"," \
+                         "\"Classification.Name of the classification\"," \
                          "\"ORPHAcode\"," \
                          "\"Preferred term\"," \
                          "\"Parent\"]}"
