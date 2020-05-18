@@ -4,6 +4,9 @@ from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.models.findby_omim import FindbyOMIM  # noqa: E501
 from swagger_server import util
 
+import config
+from controllers.query_controller import *
+
 
 def list_orpha_by_omim(lang, omimcode):  # noqa: E501
     """Search for the clinical entity&#x27;s information by OMIM code.
