@@ -20,14 +20,15 @@ class TestTargetORPHAController(BaseTestCase):
         """
         # print("list_target")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
-            # print(lang)
-            response = self.client.open(
-                '/{lang}/ClinicalEntity/orphacode/{orphacode}/TargetEntity'.format(lang=lang, orphacode=558),
-                method='GET', headers={"api_key": "test"})
-            if isinstance(response.json, str):
-                response.status = "500"
-            self.assert200(response,
-                           'Response body is : ' + response.data.decode('utf-8'))
+            for code in [558, 59]:
+                # print(lang)
+                response = self.client.open(
+                    '/{lang}/ClinicalEntity/orphacode/{orphacode}/TargetEntity'.format(lang=lang, orphacode=code),
+                    method='GET', headers={"api_key": "test"})
+                if isinstance(response.json, str):
+                    response.status = "500"
+                self.assert200(response,
+                               'Response body is : ' + response.data.decode('utf-8'))
 
 
 if __name__ == '__main__':

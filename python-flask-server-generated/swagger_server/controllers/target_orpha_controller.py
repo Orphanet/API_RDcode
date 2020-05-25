@@ -37,19 +37,25 @@ def list_target(lang, orphacode):  # noqa: E501
     else:
         # If an DisorderDisorderAssociation is applicable return the ORPHAcode and Preferred term from the DisorderDisorderAssociation
         if response["DisorderDisorderAssociation"]:
-            # treated_response = {}
+            DisorderDisorderAssociation = []
+            for association in response["DisorderDisorderAssociation"]:
+                try:
+                    DisorderDisorderAssociation.append({"Relation": association["DisorderDisorderAssociationType"],
+                                                        "Target ORPHAcode": association["OutDisorder"]["ORPHAcode"]})
+                except TypeError:
+                    DisorderDisorderAssociation.append({"Relation": association["DisorderDisorderAssociationType"],
+                                                        "Target ORPHAcode": association["InDisorder"]["ORPHAcode"]})
             response = {"Date": response["Date"],
                         "ORPHAcode": response["ORPHAcode"],
-                        "Relation": response["DisorderDisorderAssociation"][0]["DisorderDisorderAssociationType"],
                         "Status": response["Status"],
-                        "Target ORPHAcode": response["DisorderDisorderAssociation"][0]["OutDisorder"]["ORPHAcode"],
+                        "DisorderDisorderAssociation": DisorderDisorderAssociation
                         }
         else:
             # If an AggregationLevel is NOT applicable return the ORPHAcode and Preferred term from the query
             response = {"Date": response["Date"],
                         "ORPHAcode": response["ORPHAcode"],
-                        "Relation": "Not applicable",
                         "Status": response["Status"],
+                        "Relation": "Not applicable",
                         "Target ORPHAcode": "Not applicable",
                         }
     return response
