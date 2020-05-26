@@ -707,6 +707,7 @@ paths:
         entity by its ORPHAcode.
       description: The result is the ORPHAcode and the preferred term of the agregation
         level of the ORPHAcode that was sought.
+        Due to the current limitations of swagger UI, please explore the response scheme for the example.
       operationId: list_agregation
       parameters:
       - name: lang
@@ -746,10 +747,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ORPHAcodeAgregation'
+                $ref: '#/components/schemas/inline_response_200'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/ORPHAcodeAgregation'
+                $ref: '#/components/schemas/inline_response_200'
         "400":
           description: Bad request
         "401":
@@ -1620,7 +1621,7 @@ components:
         OrphanetURL: http://www.orpha.net/ORDO/Orphanet_10
         ORPHAcode: 10
         Date: 2000-01-23T04:56:07.000+00:00
-    ORPHAcodeAgregation:
+    ORPHAcodeAgregationApplicable:
       type: object
       properties:
         Date:
@@ -1633,10 +1634,18 @@ components:
         Preferred term:
           type: string
           example: 48,XXYY syndrome
-      example:
-        Preferred term: 48,XXYY syndrome
-        ORPHAcodeAgregation: 10
-        Date: 2000-01-23T04:56:07.000+00:00
+    ORPHAcodeAgregationNotApplicable:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+        ORPHAcodeAgregation:
+          type: string
+          example: Not Applicable
+        Preferred term:
+          type: string
+          example: Not Applicable
     icd10:
       type: object
       properties:
@@ -1816,6 +1825,10 @@ components:
           by a variable combination of cardiovascular, musculo-skeletal, ophthalmic
           and pulmonary manifestations.
         Date: 2000-01-23T04:56:07.000+00:00
+    inline_response_200:
+      oneOf:
+      - $ref: '#/components/schemas/ORPHAcodeAgregationApplicable'
+      - $ref: '#/components/schemas/ORPHAcodeAgregationNotApplicable'
     ClinicalEntity_inner:
       type: object
       properties:

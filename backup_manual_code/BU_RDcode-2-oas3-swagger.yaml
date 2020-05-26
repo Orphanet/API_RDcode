@@ -595,6 +595,7 @@ paths:
       description: >-
         The result is the ORPHAcode and the preferred term of the agregation
         level of the ORPHAcode that was sought.
+        Due to the current limitations of swagger UI, please explore the response scheme for the example.
       operationId: ListAgregation
       tags:
         - ORPHAcodeAgregation
@@ -623,10 +624,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ORPHAcodeAgregation'
+                oneOf:
+                  - $ref: '#/components/schemas/ORPHAcodeAgregationApplicable'
+                  - $ref: '#/components/schemas/ORPHAcodeAgregationNotApplicable'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/ORPHAcodeAgregation'
+                oneOf:
+                  - $ref: '#/components/schemas/ORPHAcodeAgregationApplicable'
+                  - $ref: '#/components/schemas/ORPHAcodeAgregationNotApplicable'
         '400':
           description: Bad request
         '401':
@@ -1386,7 +1391,7 @@ components:
         OrphanetURL:
           type: string
           example: 'http://www.orpha.net/ORDO/Orphanet_10'
-    ORPHAcodeAgregation:
+    ORPHAcodeAgregationApplicable:
       type: object
       properties:
         Date:
@@ -1400,6 +1405,19 @@ components:
         Preferred term:
           type: string
           example: '48,XXYY syndrome'
+    ORPHAcodeAgregationNotApplicable:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+          example: '2019-07-18 18:44:24'
+        ORPHAcodeAgregation:
+          type: string
+          example: 'Not Applicable'
+        Preferred term:
+          type: string
+          example: 'Not Applicable'
     icd10:
       type: object
       properties:
