@@ -36,7 +36,6 @@ def list_agregation(lang, orphacode):  # noqa: E501
     else:
         # If an AggregationLevel is applicable return the ORPHAcode and Preferred term from the Aggregation
         if response["AggregationLevelSection"]["AggregationLevel"]:
-            # treated_response = {}
             response = {"Date": response["Date"],
                         "ORPHAcodeAggregation": response["AggregationLevelSection"]["AggregationLevel"][0]["ORPHAcodeAggregation"],
                         "Preferred term": response["AggregationLevelSection"]["AggregationLevel"][0]["Preferred term"],
@@ -44,7 +43,7 @@ def list_agregation(lang, orphacode):  # noqa: E501
         else:
             # If an AggregationLevel is NOT applicable return the ORPHAcode and Preferred term from the query
             response = {"Date": response["Date"],
-                        "ORPHAcodeAggregation": response["ORPHAcode"],
-                        "Preferred term": response["Preferred term"],
+                        "ORPHAcodeAggregation": response["AggregationLevelSection"]["AggregationLevelStatus"],
+                        "Preferred term": response["AggregationLevelSection"]["AggregationLevelStatus"],
                         }
     return response
