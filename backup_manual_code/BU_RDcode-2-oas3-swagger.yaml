@@ -1,0 +1,1767 @@
+openapi: 3.0.0
+info:
+  version: 2-oas3
+  title: Orphanet clinical entities
+  description: An API used to search Orphanet entries.
+  contact:
+    name: Orphanet API Team
+    email: danielmurphy@mater.ie
+security:
+  - api_key: []
+    # basic_auth: []
+servers:
+  - url: '/'
+    description: local testing host
+  - url: 'https://virtserver.swaggerhub.com/orphanet/ClinicalEntity/2-oas3/'
+    description: Remote testing host
+tags:
+- name: All clinical entities
+  description: Clinical entities and related informations.
+  externalDocs:
+    description: Search for Clinical entities and related informations in english, french, german, spanish,dutch, italian, portguese, polish or czech. The result is a collection of data including ORPHAcode, preferred term, synonyms, definition, belonging to a classification, epidemiology, natural history, associated genes, phenotypes etc... to a specific clinical entity in the selected language.
+    url: http://www.orphadata.org/cgi-bin/img/PDF/Catalogue_Orphadata.pdf
+- name: Child
+- name: Classification
+- name: Definition
+- name: GroupType
+- name: ICD10
+- name: Name
+- name: OMIM
+- name: ORPHAcodeAgregation
+- name: OrphanetURL
+- name: Parent
+- name: Status
+- name: Synonym
+- name: TargetORPHA
+- name: Type
+paths:
+  '/{lang}/ClinicalEntity':
+    get:
+      summary: Search for all Orphanet clinical entities.
+      description: >-
+        The result is a data set that includes an ORPHAcode, the status, the
+        preferred term and the definition (when one exists) of each active
+        Orphanet clinical entity.
+      operationId: ListEntities
+      tags:
+      - All clinical entities
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+      responses:
+        '200':
+          description: Array of Clinical Entities
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicalEntity'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ClinicalEntity'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/ClinicalEntity/orphacode/{orphacode}/Status':
+    get:
+      summary: Search for the status of the clinical entity by its ORPHAcode.
+      description: The result is the ORPHAcode and the status of the ORPHAcode.
+      operationId: ListStatus
+      tags:
+        - Status
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/orphacode'
+      responses:
+        '200':
+          description: Status of entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/ClinicalEntity/orphacode/{orphacode}/TargetEntity':
+    get:
+      summary: >-
+        Search for the target entity by the obsolete or deprecated clinical
+        entity's ORPHAcode.
+      description: >-
+        The result is the ORPHAcode and the status of the required entity,
+        with additional 'referred to' or 'moved to' relations pointing to the
+        target ORPHAcode.
+      operationId: ListTarget
+      tags:
+        - TargetORPHA
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/orphacode'
+      responses:
+        '200':
+          description: Target entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetEntity'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/TargetEntity'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/ClinicalEntity/orphacode/{orphacode}/Name':
+    get:
+      summary: Search for the preferred term of the clinical entity by its ORPHAcode.
+      description: The result is the ORPHAcode required with its preferred term.
+      operationId: ListName
+      tags:
+        - Name
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/orphacode'
+      responses:
+        '200':
+          description: Preferred term
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Name'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Name'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/ClinicalEntity/orphacode/{orphacode}/Definition':
+    get:
+      summary: Search for the definition of the clinical entity by its ORPHAcode.
+      description: The result is the ORPHAcode required with its definition.
+      operationId: ListDefinition
+      tags:
+        - Definition
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/orphacode'
+      responses:
+        '200':
+          description: Definition of disorder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Definition'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Definition'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/ClinicalEntity/orphacode/{orphacode}/Synonym':
+    get:
+      summary: Search for the synonym(s) of the clinical entity by its ORPHAcode.
+      description: >-
+        The result is the ORPHAcode required with a collection of related
+        synonyms.
+      operationId: ListSynonym
+      tags:
+        - Synonym
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/orphacode'
+      responses:
+        '200':
+          description: Synonym(s) of disorder
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Synonym'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Synonym'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/ClinicalEntity/orphacode/{orphacode}/GroupType':
+    get:
+      summary: Search for the type of group of the clinical entity by its ORPHAcode.
+      description: The result is the ORPHAcode required with its related type of group.
+      operationId: ListGroup
+      tags:
+        - GroupType
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/orphacode'
+      responses:
+        '200':
+          description: Type of group of the clinical entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupType'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/GroupType'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/ClinicalEntity/orphacode/{orphacode}/Type':
+    get:
+      summary: Search for the type of the clinical entity by its ORPHAcode.
+      description: The result is the ORPHAcode required with its related type.
+      operationId: ListType
+      tags:
+        - Type
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/orphacode'
+      responses:
+        '200':
+          description: Type of clinical entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Type'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Type'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/ClinicalEntity/orphacode/{orphacode}/OrphanetURL':
+    get:
+      summary: Search for the OrphanetURL of the clinical entity by its ORPHAcode.
+      description: >-
+        The result is the ORPHAcode and the stable URL pointing to the
+        specific page of the clinical entity on the Orphanet website of the
+        ORPHAcode.
+      operationId: ListURL
+      tags:
+        - OrphanetURL
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/orphacode'
+      responses:
+        '200':
+          description: OrphanetURL of the clinical entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrphanetURL'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/OrphanetURL'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/ClinicalEntity/orphacode/{orphacode}/ORPHAcodeAgregation':
+    get:
+      summary: >-
+        Search for or check the ORPHAcode agregation level of the clinical
+        entity by its ORPHAcode.
+      description: >-
+        The result is the ORPHAcode and the preferred term of the agregation
+        level of the ORPHAcode that was sought.
+        Due to the current limitations of swagger UI, please explore the response scheme for the example.
+      operationId: ListAgregation
+      tags:
+        - ORPHAcodeAgregation
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/orphacode'
+      responses:
+        '200':
+          description: ORPHAcode agregation level of the clinical entity
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ORPHAcodeAgregationApplicable'
+                  - $ref: '#/components/schemas/ORPHAcodeAgregationNotApplicable'
+            application/yaml:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ORPHAcodeAgregationApplicable'
+                  - $ref: '#/components/schemas/ORPHAcodeAgregationNotApplicable'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/ClinicalEntity/orphacode/{orphacode}/ICD10':
+    get:
+      summary: Search for ICD10 code(s) of the clinical entity by its ORPHAcode.
+      description: >-
+        The result is a collection of data including ORPHAcode, the stable URL
+        pointing to the specific page of the clinical entity on the Orphanet
+        website, characterisation of the alignment between the clinical entity
+        and ICD-10, and status of the mapping (Validated or Not yet valiated).
+      operationId: ListICD10
+      tags:
+        - ICD10
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/orphacode'
+      responses:
+        '200':
+          description: ICD10 code(s) of the clinical entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/icd10'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/icd10'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/ClinicalEntity/ICD10/{icd10}':
+    get:
+      summary: Search for the clinical entity's ORPHAcode by ICD-10 code.
+      description: >-
+        The result is a dataset including ORPHAcode, status, preferred term
+        and definition.
+      operationId: ListOrphaByICD10
+      tags:
+        - ICD10
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/icd10'
+      responses:
+        '200':
+          description: Clinical entity corresponding to specific ICD10 code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity_by_icd'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Entity_by_icd'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/ClinicalEntity/orphacode/{orphacode}/Classification':
+    get:
+      summary: >-
+        Search for the list of classification(s) of the clinical entity by its
+        ORPHAcode.
+      description: >-
+        The result is the ORPHAcode and preferred term of the clinical entity
+        with a data set or each classification where the clinical entity is
+        present (set includes: unique identifier of the classification, name of
+        the classification, ORPHAcode and name of the n+1 clinical entity).
+      operationId: ListClassification
+      tags:
+        - Classification
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/orphacode'
+      responses:
+        '200':
+          description: List of classifications
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Classification'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Classification'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/Classification/{hchid}':
+    get:
+      summary: >-
+        Search for the list of clinical entities' ORPHAcodes in one specific
+        classification by the unique identifer of the classification.
+      description: >-
+        The result is a data set including ORPHAcode, status, preferred term
+        and definition of all clinical entities.
+      operationId: ListOrphaByClassification
+      tags:
+        - Classification
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/hchid'
+      responses:
+        '200':
+          description: List of clinical entities under specified classification
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entities_by_classification'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Entities_by_classification'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/Classification/{hchid}/orphacode/{orphacode}/Parent':
+    get:
+      summary: >-
+        Search for information about the n+1 (parent) of the clinical entity in
+        one specific classification by the clinical entity's ORPHAcode and
+        unique identifier of the classification.
+      description: >-
+        The result is a data set including ORPHAcode, status, preferred term
+        and definition of all clinical entities.
+      operationId: ListParent
+      tags:
+        - Parent
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/hchid'
+        - $ref: '#/components/parameters/orphacode'
+      responses:
+        '200':
+          description: Parent of specified clinical entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Parent'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Parent'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/Classification/{hchid}/orphacode/{orphacode}/Child':
+    get:
+      summary: >-
+        Search for information about the n-1 (child) of the clinical entity in
+        one specific classification by the clinical entity's ORPHAcode and
+        unique identifier of the classification.
+      description: >-
+        The result returned the ORPHAcode and preferred term of the clinical
+        entity with a data collection for the searched classification  (data set
+        includes: unique identifier of the classification, name of the
+        classification, ORPHAcode and name of the n-1 clinical entity also
+        named as 'child' of the clinical entity).
+      operationId: ListChild
+      tags:
+        - Child
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/orphacode'
+        - $ref: '#/components/parameters/hchid'
+      responses:
+        '200':
+          description: Child of specified clinical entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Child'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Child'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/ClinicalEntity/FindbyOMIM/{omimcode}':
+    get:
+      summary: Search for the clinical entity's information by OMIM code.
+      description: >-
+        The result is a data set including ORPHAcode, status, preferred term,
+        definition, the relationship between the clinical entity and the OMIM
+        code and the status of the mapping.
+      operationId: ListOrphaByOMIM
+      tags:
+        - OMIM
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - $ref: '#/components/parameters/omimcode'
+      responses:
+        '200':
+          description: Clinical entity corresponding to specified OMIM code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindbyOMIM'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/FindbyOMIM'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/{lang}/ClinicalEntity/FindbyName/{label}':
+    get:
+      summary: Search for the clinical entity's information by name.
+      description: >-
+        The result is a data set including ORPHAcode, status, preferred term
+        and  definition.
+      operationId: ListByName
+      tags:
+        - Name
+      parameters:
+        - name: lang
+          in: path
+          description: Desired language
+          required: true
+          schema:
+            type: string
+            default: EN
+            enum:
+            - CS
+            - DE
+            - EN
+            - ES
+            - FR
+            - IT
+            - NL
+            - PL
+            - PT
+        - name: label
+          in: path
+          description: Entity preferred term
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Clinical entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindbyName'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/FindbyName'
+        '400':
+          description: Bad request
+        '401':
+          description: Authorization information is missing or invalid
+        '403':
+          description: Bad server request
+        '404':
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+components:
+  schemas:
+    ErrorModel:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: '404'
+        message:
+          type: string
+          example: Error
+    ClinicalEntity:
+      type: array
+      items:
+        type: object
+        properties:
+          Date:
+            type: string
+            format: date-time
+            example: '2019-07-18 18:44:24'
+          ORPHAcode:
+            type: integer
+            format: int32
+            example: 10
+          Status:
+            type: string
+            enum:
+              - Active
+              - Active_Historical entity
+              - Inactive_Deprecated entity
+              - Inactive_Obsolete entity
+              - Inactive_Non Rare disease in Europe
+            example: Active
+          Preferred term:
+            type: string
+            example: '48,XXYY syndrome'
+          Definition:
+            type: string
+            example: >-
+              A rare sex chromosome number anomaly disorder characterized,
+              genetically, by the presence of an extra X and Y chromosome in
+              males and, clinically, by tall stature, dysfunctional testes
+              associated with infertility and insufficient testosterone
+              production, cognitive, affective and social functioning
+              impairments, global developmental delay, and an increased risk of
+              congenital malformations.
+    Status:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+          example: '2019-07-18 18:44:24'
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 10
+        Status:
+          type: string
+          enum:
+            - Active
+            - Active_Historical entity
+            - Inactive_Deprecated entity
+            - Inactive_Obsolete entity
+            - Inactive_Non Rare disease in Europe
+          example: Active
+    TargetEntity:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+          example: '2019-07-18 18:44:24'
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 10
+        Status:
+          type: string
+          enum:
+            - Active
+            - Active_Historical entity
+            - Inactive_Deprecated entity
+            - Inactive_Obsolete entity
+            - Inactive_Non Rare disease in Europe
+          example: Active
+        Relation:
+          type: string
+          enum:
+            - referred to
+            - Moved to
+          example: referred to
+        Target ORPHAcode:
+          type: integer
+          format: int32
+          example: 100
+    Name:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+          example: '2019-07-18 18:44:24'
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 10
+        Preferred term:
+          type: string
+          example: '48,XXYY syndrome'
+    Definition:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+          example: '2019-07-18 18:44:24'
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 10
+        Definition:
+          type: string
+          example: >-
+            A rare sex chromosome number anomaly disorder characterized,
+            genetically, by the presence of an extra X and Y chromosome in males
+            and, clinically, by tall stature, dysfunctional testes associated
+            with infertility and insufficient testosterone production,
+            cognitive, affective and social functioning impairments, global
+            developmental delay, and an increased risk of congenital
+            malformations.
+    Synonym:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+          example: '2019-07-19 05:27:50'
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 73
+        Synonym:
+          type: array
+          items:
+            type: string
+          example:
+            - Gorham disease
+            - Gorham syndrome
+            - Idiopathic massive osteolysis
+            - Progressive massive osteolysis
+            - Vanishing bone disease
+    GroupType:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+          example: '2019-07-18 18:44:24'
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 10
+        GroupType:
+          type: string
+          enum:
+            - Group
+            - Disorder
+            - SubType
+          example: Group
+    Type:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+          example: '2019-07-18 18:44:24'
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 10
+        Type:
+          type: string
+          enum:
+            - biological anomaly
+            - clinical subtype
+            - clinical syndrome
+            - disease
+            - etiological subtype
+            - Clinical group
+            - histopathological subtype
+            - malformation syndrome
+            - morphological anomaly
+            - particular clinical situation in a disease or syndrome
+            - Category
+          example: disease
+    OrphanetURL:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+          example: '2019-07-18 18:44:24'
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 10
+        OrphanetURL:
+          type: string
+          example: 'http://www.orpha.net/ORDO/Orphanet_10'
+    ORPHAcodeAgregationApplicable:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+          example: '2019-07-18 18:44:24'
+        ORPHAcodeAgregation:
+          type: integer
+          format: int32
+          example: 10
+        Preferred term:
+          type: string
+          example: '48,XXYY syndrome'
+    ORPHAcodeAgregationNotApplicable:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+          example: '2019-07-18 18:44:24'
+        ORPHAcodeAgregation:
+          type: string
+          example: 'Not Applicable'
+        Preferred term:
+          type: string
+          example: 'Not Applicable'
+    icd10:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+          example: '2019-07-18 18:44:24'
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 10
+        OrphanetURL:
+          type: string
+          example: 'http://www.orpha.net/ORDO/Orphanet_10'
+        Code ICD:
+          type: array
+          items:
+            type: object
+            properties:
+              Code ICD10:
+                type: string
+                example: Q98.8
+              DisorderMappingRelation:
+                type: string
+                enum:
+                  - E
+                  - NTBT
+                  - BTNT
+                  - NTBT/E
+                  - BTNT/E
+                  - ND
+                example: NTBT
+              DisorderMappingICDRelation:
+                type: string
+                enum:
+                  - Specific code
+                  - Inclusion term
+                  - Index term
+                  - Attributed
+                example: Attributed
+              DisorderMappingValidationStatus:
+                type: string
+                enum:
+                  - Validated
+                  - Not yet validated
+                example: Validated
+    Entity_by_icd:
+      type: array
+      items:
+        type: object
+        properties:
+          Date:
+            type: string
+            format: date-time
+            example: '2019-07-18 18:44:24'
+          ORPHAcode:
+            type: integer
+            format: int32
+            example: 10
+          Status:
+            type: string
+            enum:
+              - Active
+              - Active_Historical entity
+              - Inactive_Deprecated entity
+              - Inactive_Obsolete entity
+              - Inactive_Non Rare disease in Europe
+            example: Active
+          Preferred term:
+            type: string
+            example: '48,XXYY syndrome'
+          Definition:
+            type: string
+            example: >-
+              A rare sex chromosome number anomaly disorder characterized,
+              genetically, by the presence of an extra X and Y chromosome in
+              males and, clinically, by tall stature, dysfunctional testes
+              associated with infertility and insufficient testosterone
+              production, cognitive, affective and social functioning
+              impairments, global developmental delay, and an increased risk of
+              congenital malformations.
+    Classification:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+          example: '2019-07-19 06:15:35'
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 167848
+        Preferred term:
+          type: string
+          example: Rare Cardiomyopathy
+        Classification:
+          type: array
+          items:
+            type: object
+            properties:
+              ID of the classification:
+                type: integer
+                format: int32
+                example: 146
+              Name of the classification:
+                type: string
+                example: Rare cardiac disease
+              ORPHAcode:
+                type: integer
+                format: int32
+                example: 97929
+              Preferred term:
+                type: string
+                example: Rare cardiac disease
+    Entities_by_classification:
+      type: array
+      items:
+        type: object
+        properties:
+          Date:
+            type: string
+            format: date-time
+            example: '2019-07-18 18:44:24'
+          ORPHAcode:
+            type: integer
+            format: int32
+            example: 10
+          Status:
+            type: string
+            enum:
+              - Active
+              - Active_Historical entity
+              - Inactive_Deprecated entity
+              - Inactive_Obsolete entity
+              - Inactive_Non Rare disease in Europe
+            example: Active
+          Preferred term:
+            type: string
+            example: '48,XXYY syndrome'
+          Definition:
+            type: string
+            example: >-
+              A rare sex chromosome number anomaly disorder characterized,
+              genetically, by the presence of an extra X and Y chromosome in
+              males and, clinically, by tall stature, dysfunctional testes
+              associated with infertility and insufficient testosterone
+              production, cognitive, affective and social functioning
+              impairments, global developmental delay, and an increased risk of
+              congenital malformations.
+    Parent:
+      type: object
+      properties:
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 558
+        Preferred term:
+          type: string
+          example: Marfan syndrome
+        Classification:
+          type: object
+          properties:
+            ID of the classification:
+              type: integer
+              format: int32
+              example: 147
+            Name of the classification:
+              type: string
+              example: Rare developmental defect during embryogenesis
+        Parent:
+          type: array
+          items:
+            type: object
+            properties:
+              Parent ORPHAcode:
+                type: integer
+                format: int32
+              Parent preferred term:
+                type: string
+          example:
+            - Parent ORPHAcode: 139030
+              Parent preferred term: Rare developmental defect with connective tissue involvement
+            - Parent ORPHAcode: 498448
+              Parent preferred term: Overgrowth or tall stature syndrome with skeletal involvement
+            - Parent ORPHAcode: 519292
+              Parent preferred term: Syndromic ectopia lentis
+    Child:
+      type: object
+      properties:
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 558
+        Preferred term:
+          type: string
+          example: Marfan syndrome
+        Classification:
+          type: object
+          properties:
+            ID of the classification:
+              type: integer
+              format: int32
+              example: 147
+            Name of the classification:
+              type: string
+              example: Rare developmental defect during embryogenesis
+        Child:
+          type: array
+          items:
+            type: object
+            properties:
+              Child ORPHAcode:
+                type: integer
+                format: int32
+              Child preferred term:
+                type: string
+          example:
+            - Child ORPHAcode: 294963
+              Child preferred term: Marfan syndrome type 1
+            - Child ORPHAcode: 294973
+              Child preferred term: Marfan syndrome type 2
+    FindbyOMIM:
+      type: array
+      items:
+        type: object
+        properties:
+          Date:
+            type: string
+            format: date-time
+            example: '2019-07-18 18:44:24'
+          ORPHAcode:
+            type: integer
+            format: int32
+            example: 558
+          Status:
+            type: string
+            enum:
+              - Active
+              - Active_Historical entity
+              - Inactive_Deprecated entity
+              - Inactive_Obsolete entity
+              - Inactive_Non Rare disease in Europe
+            example: Active
+          Preferred term:
+            type: string
+            example: Marfan syndrome
+          Definition:
+            type: string
+            example: >-
+              Marfan syndrome is a systemic disease of connective tissue
+              characterized by a variable combination of cardiovascular,
+              musculo-skeletal, ophthalmic and pulmonary manifestations.
+          DisorderMappingRelation:
+            type: string
+            enum:
+              - E
+              - NTBT
+              - BTNT
+              - NTBT/E
+              - BTNT/E
+              - ND
+            example: NTBT
+          DisorderMappingValidationStatus:
+            type: string
+            enum:
+              - Validated
+              - Not yet validated
+            example: Validated
+    FindbyName:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+          example: '2019-07-18 18:44:24'
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 558
+        Status:
+          type: string
+          enum:
+            - Active
+            - Active_Historical entity
+            - Inactive_Deprecated entity
+            - Inactive_Obsolete entity
+            - Inactive_Non Rare disease in Europe
+          example: Active
+        Preferred term:
+          type: string
+          example: Marfan syndrome
+        Definition:
+          type: string
+          example: >-
+            Marfan syndrome is a systemic disease of connective tissue
+            characterized by a variable combination of cardiovascular,
+            musculo-skeletal, ophthalmic and pulmonary manifestations.
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
+    # basic_auth:
+    #   type: http
+    #   scheme: basic
+  parameters:
+    hchid:
+      name: hchid
+      in: path
+      description: The hierarchy ID (hchID) is a specific identifier attributed to an Orphanet classification.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        minimum: 0
+        exclusiveMinimum: true
+        type: integer
+        format: int32
+    icd10:
+      name: icd10
+      in: path
+      description: ICD10 code of entity
+      schema:
+        type: string
+      required: true
+    omimcode:
+      name: omimcode
+      in: path
+      description: Unique OMIM identifier
+      schema:
+        minimum: 0
+        exclusiveMinimum: true
+        type: integer
+        format: int64
+      required: true
+    orphacode:
+      name: orphacode
+      in: path
+      description: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
+      required: true
+      style: simple
+      explode: false
+      schema:
+        minimum: 0
+        exclusiveMinimum: true
+        type: integer
+        format: int64
