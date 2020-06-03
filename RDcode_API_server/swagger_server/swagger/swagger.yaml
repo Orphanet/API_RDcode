@@ -12,7 +12,7 @@ servers:
 - url: https://virtserver.swaggerhub.com/orphanet/ClinicalEntity/2-oas3/
   description: Remote testing host
 security:
-- api_key: []
+- apiKey: []
 tags:
 - name: All clinical entities
   description: Clinical entities and related informations.
@@ -2057,9 +2057,9 @@ components:
         type: integer
         format: int64
   securitySchemes:
-    api_key:
+    apiKey:
       type: apiKey
-      name: api_key
+      name: apiKey
       in: header
-      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_api_key
+      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_apiKey
 

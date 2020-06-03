@@ -1,5 +1,9 @@
 # API_RDcode
 
+Ver: june 2020
+
+Author: Cyril Bigot
+
 # Technical documentation
 
 ## Software Version
@@ -45,17 +49,49 @@ a MANUAL merge with pycharm "VCS/Git/compare with branch"
 
 The required packages can be installed by launching the following command
 in the operating system's console (preferentially virtual environment console)
-from the server's root [RDcode_API_server/swagger_server](./RDcode_API_server/swagger_server)
+from the server's root [RDcode_API_server/swagger_server](swagger_server)
     
     pip3 install -r requirements.txt
-    pip3 install connexion[swagger-ui]
 
 Note that 'test-requirements.txt' is auto generated and has not been used
+
+## Deployment
+
+#### Host
+Gandi.net
+
+SFTP:
+
+    3723642@sftp.sd3.gpaas.net
+pwd:
+
+    5d...C6
+
+host selected built-in:
+
+    Python 3.8
+    MySQL 8.0
+#### host documentation:
+https://docs.gandi.net/fr/simple_hosting/connexion/git.html
+
+To upload and deploy from the local build folder:
+
+    git remote add gandi git+ssh://3723642@git.sd3.gpaas.net/default.git
+    git push gandi master
+    
+    # for deploying master branch
+    ssh 3723642@git.sd3.gpaas.net deploy default.git    
+    # OR append local branch name if necessary
+    ssh 3723642@git.sd3.gpaas.net deploy default.git deployment
+
+Server URL:
+
+https://api.orphacode.org/
 
 ## Authorization by APIkey:
 Mandatory in request header:
 
-* "test" for user level
+* any string for user level
 
         curl -X GET "http://localhost:8080/.../..."
              -H  "accept: application/json"

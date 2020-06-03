@@ -20,4 +20,4 @@ def list_orpha_by_omim(lang, omimcode):  # noqa: E501
 
     :rtype: FindbyOMIM
     """
-    return 'do some magic!'
+    return 'Not implemented'
