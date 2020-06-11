@@ -1,3 +1,5 @@
+import operator
+
 import connexion
 
 from swagger_server.models.entity_by_icd import EntityByIcd  # noqa: E501
@@ -27,9 +29,15 @@ def list_icd10(lang, orphacode):  # noqa: E501
     index = "{}_{}".format(index, lang.lower())
 
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
-            "\"_source\":[\"Code ICD\", \"Date\", \"ORPHAcode\", \"OrphanetURL\"]}"
+            "\"_source\":[\"Date\", \"ORPHAcode\",\"Preferred term\", \"Code ICD\"]}"
 
     response = single_res(es, index, query)
+    # Test to return error
+    if isinstance(response, str) or isinstance(response, tuple):
+        return response
+    else:
+        references = response.pop("Code ICD")
+        response["References"] = references
     return response
 
 
@@ -50,8 +58,9 @@ def list_orpha_by_icd10(lang, icd10):  # noqa: E501
     index = "rdcode_orpha_icd10_mapping"
     index = "{}_{}".format(index, lang.lower())
 
+    # Find every occurrences of the queried ICD code and return the associated Date, ORPHAcode, Preferred term, Refs ICD
     query = "{\"query\": {\"match\": {\"Code ICD.Code ICD10\": \"" + str(icd10) + "\"}}," \
-            "\"_source\":[\"ORPHAcode\"]}"
+            "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\", \"Code ICD\"]}"
 
     response_icd_to_orpha = multiple_res(es, index, query, 1000)
 
@@ -59,14 +68,26 @@ def list_orpha_by_icd10(lang, icd10):  # noqa: E501
     if isinstance(response_icd_to_orpha, str) or isinstance(response_icd_to_orpha, tuple):
         return response_icd_to_orpha
     else:
-        index = "rdcode_orphanomenclature"
-        index = "{}_{}".format(index, lang.lower())
-
-        code_list = ",".join(["\"" + str(code["ORPHAcode"]) + "\"" for code in response_icd_to_orpha])
-        query = "{\"query\": {\"terms\": {\"ORPHAcode\": [" + code_list + "]}}," \
-                "\"_source\":[\"Date\", \"ORPHAcode\", \"Definition\", \"Preferred term\", \"Status\"]}"
-
-        response = multiple_res(es, index, query, 1000)
-        if isinstance(response, str) or isinstance(response, tuple):
-            return response
+        response = {}
+        references = []
+        # Source data are organized from the perspective of ORPHA concept
+        # 1 ORPHAcode => X ICD
+        # response_icd_to_orpha is a list of object containing "Code ICD"
+        # "Code ICD" is also a list of object that need to be filtrated by ICD
+        for ref in response_icd_to_orpha:
+            reference = {"ORPHAcode": int(ref["ORPHAcode"]),
+                         "Preferred term": ref["Preferred term"],
+                         "DisorderMappingRelation": "",
+                         "DisorderMappingValidationStatus": ""}
+            for CodeICD in ref["Code ICD"]:
+                if CodeICD["Code ICD10"] == icd10:
+                    reference["DisorderMappingRelation"] = CodeICD["DisorderMappingRelation"]
+                    reference["DisorderMappingValidationStatus"] = CodeICD["DisorderMappingValidationStatus"]
+            references.append(reference)
+        # Sort references by Orphacode
+        references.sort(key=operator.itemgetter("ORPHAcode"))
+        # Compose the final response
+        response["Date"] = response_icd_to_orpha[0]["Date"]
+        response["Code ICD10"] = icd10
+        response["References"] = references
     return response
