@@ -17,6 +17,8 @@ def main():
     def favicon():
         return send_from_directory(os.path.join(app.root_path),
                                    'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+    # app.app.config['JSON_AS_ASCII'] = False
     return app
 
 
