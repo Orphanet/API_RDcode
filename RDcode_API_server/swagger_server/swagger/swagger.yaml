@@ -1,10 +1,32 @@
 openapi: 3.0.0
 info:
-  title: Orphanet clinical entities
-  description: An API used to search Orphanet entries.
+  title: ORPHA Nomenclature - RD-code project
+  description: The Orphanet nomenclature is a multilingual, standardised, controlled
+    medical terminology specific to rare diseases, that includes all clinical entities
+    registered in the Orphanet database (www.orpha.net). Each clinical entity (disorder,
+    group of disorders, or subtype of a disorder) is associated with a unique numerical
+    identifier named ORPHAcode, as well as a preferred term, synonyms, and a definition.
+    In the frame of the RD-code project, co-funded by the European Union’s Third Health
+    Program, Orphanet developped this API. It intends to support Member States in
+    the implementation of rare diseases-specific codification systems. Starting with
+    countries that have no systematic implementation of the Orpha codification yet,
+    but that are actively committed already in doing so, this project will provide
+    a sufficient real-world implementation experience to be captured by other countries
+    in the future. This API is part of the project RD-CODE which has received funding
+    from the European Union’s Health Programme (2014-2020).The API arise from the
+    RD-CODE project which has received funding from the European Union in the framework
+    of the Health Program. The content of this API represents the views of the author
+    only and is his/her sole responsibility; it cannot be considered to reflect the
+    views of the European Commission and/or the Consumers, Health, Agriculture and
+    Food Executive Agency or any other body of the European Union. The European Commission
+    and the Agency do not accept any responsibility for use that may be made of the
+    information it containsWe have chosen to apply the Commons Attribution 4.0 International
+    (CC BY 4.0) to all copyrightable parts of our databases. This means that you are
+    free to copy, distribute, display and make commercial use of these databases in
+    all legislations, provided you give us credit.
   contact:
-    name: Orphanet API Team
-    email: danielmurphy@mater.ie
+    name: Orphanet team
+    email: data.orphanet@inserm.fr
   version: 2-oas3
 servers:
 - url: /
@@ -12,45 +34,37 @@ servers:
 - url: https://virtserver.swaggerhub.com/orphanet/ClinicalEntity/2-oas3/
   description: Remote testing host
 security:
-- apiKey: []
+- api_key: []
 tags:
 - name: All clinical entities
-  description: Clinical entities and related informations.
-  externalDocs:
-    description: Search for Clinical entities and related informations in english,
-      french, german, spanish,dutch, italian, portguese, polish or czech. The result
-      is a collection of data including ORPHAcode, preferred term, synonyms, definition,
-      belonging to a classification, epidemiology, natural history, associated genes,
-      phenotypes etc... to a specific clinical entity in the selected language.
-    url: http://www.orphadata.org/cgi-bin/img/PDF/Catalogue_Orphadata.pdf
-- name: Child
-- name: Classification
+- name: Preferred term
+- name: Synonym(s)
 - name: Definition
-- name: GroupType
-- name: ICD10
-- name: Name
-- name: OMIM
-- name: ORPHAcodeAgregation
-- name: OrphanetURL
-- name: Parent
+- name: Typology
+- name: Orphanet URL
 - name: Status
-- name: Synonym
-- name: TargetORPHA
-- name: Type
+- name: ORPHAcode aggregation
+- name: Target for inactive ORPHAcode
+- name: Classification level
+- name: Classification
+- name: Child
+- name: Parent
+- name: ICD10
+- name: OMIM
 paths:
   /{lang}/ClinicalEntity:
     get:
       tags:
       - All clinical entities
       summary: Search for all Orphanet clinical entities.
-      description: The result is a data set that includes an ORPHAcode, the status,
-        the preferred term and the definition (when one exists) of each active Orphanet
-        clinical entity.
+      description: The result is a collection of data set that includes the ORPHAcode,
+        the preferred term, the status and the definition (when exists) of all clinical
+        entities.
       operationId: list_entities
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -69,7 +83,7 @@ paths:
           - PT
       responses:
         "200":
-          description: Array of Clinical Entities
+          description: Clinical entities informations
           content:
             application/json:
               schema:
@@ -106,13 +120,13 @@ paths:
     get:
       tags:
       - Status
-      summary: Search for the status of the clinical entity by its ORPHAcode.
-      description: The result is the ORPHAcode and the status of the ORPHAcode.
+      summary: Search for a clinical entity's status by ORPHAcode.
+      description: The result is the ORPHAcode and the status.
       operationId: list_status
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -132,7 +146,7 @@ paths:
       - name: orphacode
         in: path
         description: A unique and time-stable numerical identifier attributed randomly
-          by the database upon creation of the entity.
+          by the Orphanet database to each clinical entity upon its creation.
         required: true
         style: simple
         explode: false
@@ -143,7 +157,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Status of entity
+          description: Status of clinical entity
           content:
             application/json:
               schema:
@@ -179,17 +193,15 @@ paths:
   /{lang}/ClinicalEntity/orphacode/{orphacode}/TargetEntity:
     get:
       tags:
-      - TargetORPHA
-      summary: Search for the target entity by the obsolete or deprecated clinical
-        entity's ORPHAcode.
-      description: The result is the ORPHAcode and the status of the required entity,
-        with additional 'referred to' or 'moved to' relations pointing to the target
-        ORPHAcode.
+      - Target for inactive ORPHAcode
+      summary: Search for the target of an inactive clinical entity by ORPHAcode.
+      description: The result is the ORPHAcode and the status of the target clinical
+        entity.
       operationId: list_target
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -209,7 +221,7 @@ paths:
       - name: orphacode
         in: path
         description: A unique and time-stable numerical identifier attributed randomly
-          by the database upon creation of the entity.
+          by the Orphanet database to each clinical entity upon its creation.
         required: true
         style: simple
         explode: false
@@ -220,7 +232,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Target entity
+          description: Target entity of inactive clinical entity.
           content:
             application/json:
               schema:
@@ -256,14 +268,14 @@ paths:
   /{lang}/ClinicalEntity/orphacode/{orphacode}/Name:
     get:
       tags:
-      - Name
-      summary: Search for the preferred term of the clinical entity by its ORPHAcode.
-      description: The result is the ORPHAcode required with its preferred term.
+      - Preferred term
+      summary: Search for a clincial entity's preferred term by ORPHAcode.
+      description: The result is the ORPHAcode and the preferred term.
       operationId: list_name
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -283,7 +295,7 @@ paths:
       - name: orphacode
         in: path
         description: A unique and time-stable numerical identifier attributed randomly
-          by the database upon creation of the entity.
+          by the Orphanet database to each clinical entity upon its creation.
         required: true
         style: simple
         explode: false
@@ -294,7 +306,8 @@ paths:
           format: int64
       responses:
         "200":
-          description: Preferred term
+          description: Preferred term of clinical entity - the most generally accepted
+            name according to the literature, and as adopted by the medical community.
           content:
             application/json:
               schema:
@@ -331,13 +344,13 @@ paths:
     get:
       tags:
       - Definition
-      summary: Search for the definition of the clinical entity by its ORPHAcode.
-      description: The result is the ORPHAcode required with its definition.
+      summary: Search for a clinical entity's definition by ORPHAcode.
+      description: The result is the ORPHAcode and the definition.
       operationId: list_definition
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -357,7 +370,7 @@ paths:
       - name: orphacode
         in: path
         description: A unique and time-stable numerical identifier attributed randomly
-          by the database upon creation of the entity.
+          by the Orphanet database to each clinical entity upon its creation.
         required: true
         style: simple
         explode: false
@@ -368,7 +381,11 @@ paths:
           format: int64
       responses:
         "200":
-          description: Definition of disorder
+          description: Definition of clinical entity - a short text stating the group
+            of disorders that the clinical entity belongs to, and listing the major
+            clinical characteristics (e.g. clinical, pathological, radiological, etc.)
+            that define the entity and differentiate it from other entities classified
+            within the same clinical group.
           content:
             application/json:
               schema:
@@ -404,15 +421,14 @@ paths:
   /{lang}/ClinicalEntity/orphacode/{orphacode}/Synonym:
     get:
       tags:
-      - Synonym
-      summary: Search for the synonym(s) of the clinical entity by its ORPHAcode.
-      description: The result is the ORPHAcode required with a collection of related
-        synonyms.
+      - Synonym(s)
+      summary: Search for a clinical entity's synonym(s) by ORPHAcode.
+      description: The result is the ORPHAcode and a collection of related synonyms.
       operationId: list_synonym
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -432,7 +448,7 @@ paths:
       - name: orphacode
         in: path
         description: A unique and time-stable numerical identifier attributed randomly
-          by the database upon creation of the entity.
+          by the Orphanet database to each clinical entity upon its creation.
         required: true
         style: simple
         explode: false
@@ -443,7 +459,8 @@ paths:
           format: int64
       responses:
         "200":
-          description: Synonym(s) of disorder
+          description: Synonym(s) of clinical entity - a term that is perfectly equivalent
+            to the preferred term of the disease it is attached to.
           content:
             application/json:
               schema:
@@ -479,14 +496,14 @@ paths:
   /{lang}/ClinicalEntity/orphacode/{orphacode}/GroupType:
     get:
       tags:
-      - GroupType
-      summary: Search for the type of group of the clinical entity by its ORPHAcode.
-      description: The result is the ORPHAcode required with its related type of group.
+      - Classification level
+      summary: Search for a clinical entity's classification level by ORPHAcode.
+      description: The result is the ORPHAcode and the classification level.
       operationId: list_group
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -506,7 +523,7 @@ paths:
       - name: orphacode
         in: path
         description: A unique and time-stable numerical identifier attributed randomly
-          by the database upon creation of the entity.
+          by the Orphanet database to each clinical entity upon its creation.
         required: true
         style: simple
         explode: false
@@ -517,7 +534,8 @@ paths:
           format: int64
       responses:
         "200":
-          description: Type of group of the clinical entity
+          description: Each clinical entity is assigned a classification level (Group,
+            Disorder or Subtype of a disorder.
           content:
             application/json:
               schema:
@@ -553,14 +571,14 @@ paths:
   /{lang}/ClinicalEntity/orphacode/{orphacode}/Type:
     get:
       tags:
-      - Type
-      summary: Search for the type of the clinical entity by its ORPHAcode.
-      description: The result is the ORPHAcode required with its related type.
+      - Typology
+      summary: Search for a clinical entity's type by ORPHAcode.
+      description: The result is the ORPHAcode and the type.
       operationId: list_type
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -580,7 +598,7 @@ paths:
       - name: orphacode
         in: path
         description: A unique and time-stable numerical identifier attributed randomly
-          by the database upon creation of the entity.
+          by the Orphanet database to each clinical entity upon its creation.
         required: true
         style: simple
         explode: false
@@ -591,7 +609,14 @@ paths:
           format: int64
       responses:
         "200":
-          description: Type of clinical entity
+          description: a multi-hierarchical and polyparental system built on the Orphanet
+            nomenclature, organized around the major medical specialties and based
+            on clinical criteria according to diagnostic and therapeutic relevance.
+            Each clinical entity is assigned a classification level (Group, Disorder
+            or Subtype of a disorder), and is included in as many classification groups
+            as necessary depending on its clinical presentation and the medical specialties
+            to which it is relevant, reflecting the current state of knowledge and
+            the multidimensional nature of rare diseases.
           content:
             application/json:
               schema:
@@ -627,15 +652,15 @@ paths:
   /{lang}/ClinicalEntity/orphacode/{orphacode}/OrphanetURL:
     get:
       tags:
-      - OrphanetURL
-      summary: Search for the OrphanetURL of the clinical entity by its ORPHAcode.
+      - Orphanet URL
+      summary: Search for a clinical entity's Orphanet URL by ORPHAcode.
       description: The result is the ORPHAcode and the stable URL pointing to the
-        specific page of the clinical entity on the Orphanet website of the ORPHAcode.
+        specific page of the clinical entity on the Orphanet website.
       operationId: list_url
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -655,7 +680,7 @@ paths:
       - name: orphacode
         in: path
         description: A unique and time-stable numerical identifier attributed randomly
-          by the database upon creation of the entity.
+          by the Orphanet database to each clinical entity upon its creation.
         required: true
         style: simple
         explode: false
@@ -666,7 +691,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: OrphanetURL of the clinical entity
+          description: Orphanet URL of the clinical entity
           content:
             application/json:
               schema:
@@ -702,17 +727,15 @@ paths:
   /{lang}/ClinicalEntity/orphacode/{orphacode}/ORPHAcodeAgregation:
     get:
       tags:
-      - ORPHAcodeAgregation
-      summary: Search for or check the ORPHAcode agregation level of the clinical
-        entity by its ORPHAcode.
-      description: The result is the ORPHAcode and the preferred term of the agregation
-        level of the ORPHAcode that was sought.
-        Due to the current limitations of swagger UI, please explore the response scheme for the example.
+      - ORPHAcode aggregation
+      summary: Search for a clinical entity's aggregation code by ORPHAcode.
+      description: The result is the ORPHAcode and the preferred term of the aggregation
+        code.
       operationId: list_agregation
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -732,7 +755,7 @@ paths:
       - name: orphacode
         in: path
         description: A unique and time-stable numerical identifier attributed randomly
-          by the database upon creation of the entity.
+          by the Orphanet database to each clinical entity upon its creation.
         required: true
         style: simple
         explode: false
@@ -743,7 +766,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: ORPHAcode agregation level of the clinical entity
+          description: Aggregation ORPHAcode of the clinical entity
           content:
             application/json:
               schema:
@@ -780,16 +803,16 @@ paths:
     get:
       tags:
       - ICD10
-      summary: Search for ICD10 code(s) of the clinical entity by its ORPHAcode.
-      description: The result is a collection of data including ORPHAcode, the stable
-        URL pointing to the specific page of the clinical entity on the Orphanet website,
-        characterisation of the alignment between the clinical entity and ICD-10,
-        and status of the mapping (Validated or Not yet valiated).
+      summary: Search for a clinical entity's ICD10 code(s) by ORPHAcode.
+      description: |-
+        The result is a collection of dataset including ORPHAcode, characterisation of the alignment between the clinical entity and ICD-10 and the status of the mapping (Validated or Not yet valiated).
+
+        The disorder mapping relationship should be interpreted from the concept of Orphanet to the concept of ICD.
       operationId: list_icd10
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -809,7 +832,7 @@ paths:
       - name: orphacode
         in: path
         description: A unique and time-stable numerical identifier attributed randomly
-          by the database upon creation of the entity.
+          by the Orphanet database to each clinical entity upon its creation.
         required: true
         style: simple
         explode: false
@@ -857,14 +880,14 @@ paths:
     get:
       tags:
       - ICD10
-      summary: Search for the clinical entity's ORPHAcode by ICD-10 code.
-      description: The result is a dataset including ORPHAcode, status, preferred
-        term and definition.
+      summary: Search for a clinical entity's ORPHAcode by ICD-10 code.
+      description: The result is a collection of data set including ORPHAcode, status,
+        preferred term and definition.
       operationId: list_orpha_by_icd10
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -891,7 +914,7 @@ paths:
           type: string
       responses:
         "200":
-          description: Clinical entity corresponding to specific ICD10 code
+          description: Clinical entity corresponding to specific ICD10 codes
           content:
             application/json:
               schema:
@@ -928,8 +951,7 @@ paths:
     get:
       tags:
       - Classification
-      summary: Search for the list of classification(s) of the clinical entity by
-        its ORPHAcode.
+      summary: Search for the clinical entity's classification(s) by ORPHAcode.
       description: 'The result is the ORPHAcode and preferred term of the clinical
         entity with a data set or each classification where the clinical entity is
         present (set includes: unique identifier of the classification, name of the
@@ -938,7 +960,7 @@ paths:
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -958,7 +980,7 @@ paths:
       - name: orphacode
         in: path
         description: A unique and time-stable numerical identifier attributed randomly
-          by the database upon creation of the entity.
+          by the Orphanet database to each clinical entity upon its creation.
         required: true
         style: simple
         explode: false
@@ -1033,8 +1055,8 @@ paths:
           - PT
       - name: hchid
         in: path
-        description: The hierarchy ID (hchID) is a specific identifier attributed
-          to an Orphanet classification.
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the Orphanet database to each classification upon its creation.
         required: true
         style: simple
         explode: false
@@ -1110,8 +1132,8 @@ paths:
           - PT
       - name: hchid
         in: path
-        description: The hierarchy ID (hchID) is a specific identifier attributed
-          to an Orphanet classification.
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the Orphanet database to each classification upon its creation.
         required: true
         style: simple
         explode: false
@@ -1123,7 +1145,7 @@ paths:
       - name: orphacode
         in: path
         description: A unique and time-stable numerical identifier attributed randomly
-          by the database upon creation of the entity.
+          by the Orphanet database to each clinical entity upon its creation.
         required: true
         style: simple
         explode: false
@@ -1171,19 +1193,17 @@ paths:
     get:
       tags:
       - Child
-      summary: Search for information about the n-1 (child) of the clinical entity
-        in one specific classification by the clinical entity's ORPHAcode and unique
-        identifier of the classification.
-      description: 'The result returned the ORPHAcode and preferred term of the clinical
-        entity with a data collection for the searched classification  (data set includes:
-        unique identifier of the classification, name of the classification, ORPHAcode
-        and name of the n-1 clinical entity also named as ''child'' of the clinical
-        entity).'
+      summary: Search for a clinical entity's n-1 (child) in one specific classification
+        by ORPHAcode and unique identifier of the classification.
+      description: 'The result returned the ORPHAcode and the preferred term with
+        a data collection of child for the searched classification. includes: unique
+        identifier of the classification, name of the classification, ORPHAcode and
+        name of the n-1 clinical entity also named as ''child'' of the clinical entity).'
       operationId: list_child
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -1203,7 +1223,7 @@ paths:
       - name: orphacode
         in: path
         description: A unique and time-stable numerical identifier attributed randomly
-          by the database upon creation of the entity.
+          by the Orphanet database to each clinical entity upon its creation.
         required: true
         style: simple
         explode: false
@@ -1214,8 +1234,8 @@ paths:
           format: int64
       - name: hchid
         in: path
-        description: The hierarchy ID (hchID) is a specific identifier attributed
-          to an Orphanet classification.
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the Orphanet database to each classification upon its creation.
         required: true
         style: simple
         explode: false
@@ -1259,15 +1279,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.child_controller
-  /{lang}/ClinicalEntity/FindbyOMIM/{omimcode}:
+  /{lang}/ClinicalEntity/orphacode/{orphacode}/OMIM:
     get:
       tags:
       - OMIM
-      summary: Search for the clinical entity's information by OMIM code.
-      description: The result is a data set including ORPHAcode, status, preferred
-        term, definition, the relationship between the clinical entity and the OMIM
-        code and the status of the mapping.
-      operationId: list_orpha_by_omim
+      summary: Search for OMIM code(s) of the clinical entity by its ORPHAcode.
+      description: REVIEW
+      operationId: list_omim
       parameters:
       - name: lang
         in: path
@@ -1288,9 +1306,10 @@ paths:
           - NL
           - PL
           - PT
-      - name: omimcode
+      - name: orphacode
         in: path
-        description: Unique OMIM identifier
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the Orphanet database to each clinical entity upon its creation.
         required: true
         style: simple
         explode: false
@@ -1301,7 +1320,83 @@ paths:
           format: int64
       responses:
         "200":
-          description: Clinical entity corresponding to specified OMIM code
+          description: OMIM code(s) of the clinical entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/omim'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/omim'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.omim_controller
+  /{lang}/ClinicalEntity/FindbyOMIM/{omimcode}:
+    get:
+      tags:
+      - OMIM
+      summary: Search for a clinical entity by OMIM code.
+      description: The result is a collection of data set including ORPHAcode, status,
+        preferred term, definition, the relationship between the clinical entity and
+        the OMIM code and the status of the mapping.
+      operationId: list_orpha_by_omim
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - CS
+          - DE
+          - EN
+          - ES
+          - FR
+          - IT
+          - NL
+          - PL
+          - PT
+      - name: omimcode
+        in: path
+        description: Unique identifier of concepts in the Online Mendelian Inheritance
+          in Man.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 0
+          exclusiveMinimum: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Clinical entity and related OMIM codes.
           content:
             application/json:
               schema:
@@ -1337,15 +1432,15 @@ paths:
   /{lang}/ClinicalEntity/FindbyName/{label}:
     get:
       tags:
-      - Name
-      summary: Search for the clinical entity's information by name.
-      description: The result is a data set including ORPHAcode, status, preferred
-        term and  definition.
+      - Preferred term
+      summary: Search for a clinical entity by preferred term.
+      description: The result is a the ORPHAcode, the status, the preferred term and
+        the  definition.
       operationId: list_by_name
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -1364,7 +1459,7 @@ paths:
           - PT
       - name: label
         in: path
-        description: Entity preferred term
+        description: Preferred term of the clinical entity
         required: true
         style: simple
         explode: false
@@ -1656,30 +1751,53 @@ components:
           type: integer
           format: int32
           example: 10
-        OrphanetURL:
+        Preferred term:
           type: string
-          example: http://www.orpha.net/ORDO/Orphanet_10
-        Code ICD:
+          example: 48,XXYY syndrome
+        References ICD:
           type: array
           items:
-            $ref: '#/components/schemas/icd10_Code ICD'
+            $ref: '#/components/schemas/icd10_References ICD'
       example:
-        OrphanetURL: http://www.orpha.net/ORDO/Orphanet_10
-        Code ICD:
-        - DisorderMappingICDRelation: Attributed
-          DisorderMappingValidationStatus: Validated
-          Code ICD10: Q98.8
-          DisorderMappingRelation: NTBT
-        - DisorderMappingICDRelation: Attributed
-          DisorderMappingValidationStatus: Validated
-          Code ICD10: Q98.8
-          DisorderMappingRelation: NTBT
+        Preferred term: 48,XXYY syndrome
         ORPHAcode: 10
+        References ICD:
+        - DisorderMappingICDRelation: Attributed
+          DisorderMappingValidationStatus: Validated
+          Code ICD10: Q98.8
+          DisorderMappingRelation: NTBT
+        - DisorderMappingICDRelation: Attributed
+          DisorderMappingValidationStatus: Validated
+          Code ICD10: Q98.8
+          DisorderMappingRelation: NTBT
         Date: 2000-01-23T04:56:07.000+00:00
     Entity_by_icd:
-      type: array
-      items:
-        $ref: '#/components/schemas/ClinicalEntity_inner'
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+        Code ICD10:
+          type: string
+          example: Q98.8
+        References Orpha:
+          type: array
+          items:
+            $ref: '#/components/schemas/Entity_by_icd_References Orpha'
+      example:
+        Code ICD10: Q98.8
+        References Orpha:
+        - Preferred term: 48,XXYY syndrome
+          ORPHAcode: 10
+          DisorderMappingICDRelation: Attributed
+          DisorderMappingValidationStatus: Validated
+          DisorderMappingRelation: NTBT
+        - Preferred term: 48,XXYY syndrome
+          ORPHAcode: 10
+          DisorderMappingICDRelation: Attributed
+          DisorderMappingValidationStatus: Validated
+          DisorderMappingRelation: NTBT
+        Date: 2000-01-23T04:56:07.000+00:00
     Classification:
       type: object
       properties:
@@ -1786,10 +1904,60 @@ components:
           Child preferred term: Marfan syndrome type 1
         - Child ORPHAcode: 294973
           Child preferred term: Marfan syndrome type 2
+    omim:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 558
+        Preferred term:
+          type: string
+          example: Marfan syndrome
+        References OMIM:
+          type: array
+          items:
+            $ref: '#/components/schemas/omim_References OMIM'
+      example:
+        References OMIM:
+        - DisorderMappingValidationStatus: Validated
+          Code OMIM: 610168
+          DisorderMappingRelation: NTBT (narrower term maps to a broader term)
+        - DisorderMappingValidationStatus: Validated
+          Code OMIM: 610168
+          DisorderMappingRelation: NTBT (narrower term maps to a broader term)
+        Preferred term: Marfan syndrome
+        ORPHAcode: 558
+        Date: 2000-01-23T04:56:07.000+00:00
     FindbyOMIM:
-      type: array
-      items:
-        $ref: '#/components/schemas/FindbyOMIM_inner'
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+        Code OMIM:
+          type: integer
+          format: int64
+          example: 154700
+        References Orpha:
+          type: array
+          items:
+            $ref: '#/components/schemas/FindbyOMIM_References Orpha'
+      example:
+        Code OMIM: 154700
+        References Orpha:
+        - Preferred term: Marfan syndrome
+          ORPHAcode: 558
+          DisorderMappingValidationStatus: Validated
+          DisorderMappingRelation: NTBT
+        - Preferred term: Marfan syndrome
+          ORPHAcode: 558
+          DisorderMappingValidationStatus: Validated
+          DisorderMappingRelation: NTBT
+        Date: 2000-01-23T04:56:07.000+00:00
     FindbyName:
       type: object
       properties:
@@ -1869,7 +2037,7 @@ components:
           testosterone production, cognitive, affective and social functioning impairments,
           global developmental delay, and an increased risk of congenital malformations.
         Date: 2000-01-23T04:56:07.000+00:00
-    icd10_Code ICD:
+    icd10_References ICD:
       type: object
       properties:
         Code ICD10:
@@ -1903,6 +2071,46 @@ components:
         DisorderMappingICDRelation: Attributed
         DisorderMappingValidationStatus: Validated
         Code ICD10: Q98.8
+        DisorderMappingRelation: NTBT
+    Entity_by_icd_References Orpha:
+      type: object
+      properties:
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 10
+        Preferred term:
+          type: string
+          example: 48,XXYY syndrome
+        DisorderMappingRelation:
+          type: string
+          example: NTBT
+          enum:
+          - E
+          - NTBT
+          - BTNT
+          - NTBT/E
+          - BTNT/E
+          - ND
+        DisorderMappingICDRelation:
+          type: string
+          example: Attributed
+          enum:
+          - Specific code
+          - Inclusion term
+          - Index term
+          - Attributed
+        DisorderMappingValidationStatus:
+          type: string
+          example: Validated
+          enum:
+          - Validated
+          - Not yet validated
+      example:
+        Preferred term: 48,XXYY syndrome
+        ORPHAcode: 10
+        DisorderMappingICDRelation: Attributed
+        DisorderMappingValidationStatus: Validated
         DisorderMappingRelation: NTBT
     Classification_Classification:
       type: object
@@ -1955,33 +2163,43 @@ components:
           format: int32
         Child preferred term:
           type: string
-    FindbyOMIM_inner:
+    omim_References OMIM:
       type: object
       properties:
-        Date:
+        Code OMIM:
+          type: integer
+          format: int64
+          example: 610168
+        DisorderMappingRelation:
           type: string
-          format: date-time
+          example: NTBT (narrower term maps to a broader term)
+          enum:
+          - E
+          - NTBT
+          - BTNT
+          - NTBT/E
+          - BTNT/E
+          - ND
+        DisorderMappingValidationStatus:
+          type: string
+          example: Validated
+          enum:
+          - Validated
+          - Not yet validated
+      example:
+        DisorderMappingValidationStatus: Validated
+        Code OMIM: 610168
+        DisorderMappingRelation: NTBT (narrower term maps to a broader term)
+    FindbyOMIM_References Orpha:
+      type: object
+      properties:
         ORPHAcode:
           type: integer
           format: int32
           example: 558
-        Status:
-          type: string
-          example: Active
-          enum:
-          - Active
-          - Active_Historical entity
-          - Inactive_Deprecated entity
-          - Inactive_Obsolete entity
-          - Inactive_Non Rare disease in Europe
         Preferred term:
           type: string
           example: Marfan syndrome
-        Definition:
-          type: string
-          example: Marfan syndrome is a systemic disease of connective tissue characterized
-            by a variable combination of cardiovascular, musculo-skeletal, ophthalmic
-            and pulmonary manifestations.
         DisorderMappingRelation:
           type: string
           example: NTBT
@@ -1999,21 +2217,16 @@ components:
           - Validated
           - Not yet validated
       example:
-        Status: Active
         Preferred term: Marfan syndrome
         ORPHAcode: 558
         DisorderMappingValidationStatus: Validated
-        Definition: Marfan syndrome is a systemic disease of connective tissue characterized
-          by a variable combination of cardiovascular, musculo-skeletal, ophthalmic
-          and pulmonary manifestations.
-        Date: 2000-01-23T04:56:07.000+00:00
         DisorderMappingRelation: NTBT
   parameters:
     hchid:
       name: hchid
       in: path
-      description: The hierarchy ID (hchID) is a specific identifier attributed to
-        an Orphanet classification.
+      description: A unique and time-stable numerical identifier attributed randomly
+        by the Orphanet database to each classification upon its creation.
       required: true
       style: simple
       explode: false
@@ -2034,7 +2247,8 @@ components:
     omimcode:
       name: omimcode
       in: path
-      description: Unique OMIM identifier
+      description: Unique identifier of concepts in the Online Mendelian Inheritance
+        in Man.
       required: true
       style: simple
       explode: false
@@ -2047,7 +2261,7 @@ components:
       name: orphacode
       in: path
       description: A unique and time-stable numerical identifier attributed randomly
-        by the database upon creation of the entity.
+        by the Orphanet database to each clinical entity upon its creation.
       required: true
       style: simple
       explode: false
@@ -2057,9 +2271,8 @@ components:
         type: integer
         format: int64
   securitySchemes:
-    apiKey:
+    api_key:
       type: apiKey
-      name: apiKey
+      name: api_key
       in: header
-      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_apiKey
-
+      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_api_key
