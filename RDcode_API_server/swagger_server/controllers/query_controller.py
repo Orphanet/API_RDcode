@@ -19,6 +19,8 @@ def handle_query(es, index, query, size=1):
         # print(response)
     except elasticsearch.exceptions.ConnectionError:
         response = ("Elasticsearch node unavailable", 503)
+    except elasticsearch.exceptions.TransportError:
+        response = ("Elasticsearch node unavailable", 503)
     return response
 
 
