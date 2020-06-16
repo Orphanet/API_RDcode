@@ -82,6 +82,7 @@ def list_orpha_by_icd10(lang, icd10):  # noqa: E501
             for CodeICD in ref["Code ICD"]:
                 if CodeICD["Code ICD10"] == icd10:
                     reference["DisorderMappingRelation"] = CodeICD["DisorderMappingRelation"]
+                    reference["DisorderMappingICDRelation"] = CodeICD["DisorderMappingICDRelation"]
                     reference["DisorderMappingValidationStatus"] = CodeICD["DisorderMappingValidationStatus"]
             references.append(reference)
         # Sort references by Orphacode
