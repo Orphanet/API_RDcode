@@ -28,7 +28,7 @@ def list_by_name(lang, label):  # noqa: E501
 
     # Special EXACT MATCH query with keyword
     query = "{\"query\": {\"term\": {\"Preferred term.keyword\": " + "\"{}\"".format(label) + "}}," \
-            "\"_source\":[\"Date\", \"Definition\", \"ORPHAcode\", \"Preferred term\", \"Status\"]}"
+            "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
 
     response = single_res(es, index, query)
     return response

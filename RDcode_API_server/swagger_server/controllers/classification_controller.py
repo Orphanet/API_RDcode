@@ -49,14 +49,16 @@ def list_classification(lang, orphacode):  # noqa: E501
         if isinstance(response_classification, str) or isinstance(response_classification, tuple):
             return response_classification
         else:
-            # Extract the classification's data from each items
-            response_classification = [classification["Classification"] for classification in response_classification]
-            # Remove unwanted information
-            [classification.pop("hch_id", None) for classification in response_classification]
+            refined_classification = []
+            # Select desired information
+            for classification in response_classification:
+                classif_info = {"ID of the classification": classification["Classification"]["ID of the classification"],
+                        "Name of the classification": classification["Classification"]["Name of the classification"]}
+                refined_classification.append(classif_info)
             # Sort by classification ID
-            response_classification.sort(key=operator.itemgetter('ID of the classification'))
+            refined_classification.sort(key=operator.itemgetter('ID of the classification'))
             # Append the classification response to the disorder response
-            response["Classification"] = response_classification
+            response["Classification"] = refined_classification
         return response
 
 
@@ -94,7 +96,7 @@ def list_orpha_by_classification(lang, hchid):  # noqa: E501
 
         code_list = ",".join(["\"" + str(code["ORPHAcode"]) + "\"" for code in response_orphacode_hierarchy])
         query = "{\"query\": {\"terms\": {\"ORPHAcode\": [" + code_list + "]}}," \
-                "\"_source\":[\"Date\", \"ORPHAcode\", \"Definition\", \"Preferred term\", \"Status\"]}"
+                "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
 
         response = uncapped_res(es, index, query, size, scroll_timeout)
     return response

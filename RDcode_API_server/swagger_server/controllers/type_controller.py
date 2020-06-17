@@ -26,7 +26,7 @@ def list_type(lang, orphacode):  # noqa: E501
     index = "{}_{}".format(index, lang.lower())
 
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
-            "\"_source\":[\"Date\", \"ORPHAcode\", \"Type\"]}"
+            "\"_source\":[\"Date\", \"ORPHAcode\", \"Typology\"]}"
 
     response = single_res(es, index, query)
     return response
