@@ -50,7 +50,7 @@ def list_target(lang, orphacode):  # noqa: E501
                     response_default["Target ORPHAcode"] = association["OutDisorder"]["ORPHAcode"]
                     break
         else:
-            # Else if an DisorderDisorderAssociation is NOT applicable
+            # If an DisorderDisorderAssociation is NOT applicable
             pass
         return response_default
     return response

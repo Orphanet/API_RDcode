@@ -592,13 +592,13 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-  '/{lang}/ClinicalEntity/orphacode/{orphacode}/ORPHAcodeAgregation':
+  '/{lang}/ClinicalEntity/orphacode/{orphacode}/ORPHAcodeAggregation':
     get:
       summary: >-
         Search for a clinical entity's aggregation code by ORPHAcode
       description: >-
         The result retrieves the clinical entity's ORPHAcode, its preferred term as well as the ORPHAcode and the preferred term of the aggregation code.
-      operationId: ListAgregation
+      operationId: ListAggregation
       tags:
         - ORPHAcode aggregation
       parameters:
@@ -627,13 +627,13 @@ paths:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/ORPHAcodeAgregationApplicable'
-                  - $ref: '#/components/schemas/ORPHAcodeAgregationNotApplicable'
+                  - $ref: '#/components/schemas/ORPHAcodeAggregationApplicable'
+                  - $ref: '#/components/schemas/ORPHAcodeAggregationNotApplicable'
             application/yaml:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/ORPHAcodeAgregationApplicable'
-                  - $ref: '#/components/schemas/ORPHAcodeAgregationNotApplicable'
+                  - $ref: '#/components/schemas/ORPHAcodeAggregationApplicable'
+                  - $ref: '#/components/schemas/ORPHAcodeAggregationNotApplicable'
         '400':
           description: Bad request
         '401':
@@ -1438,28 +1438,28 @@ components:
         OrphanetURL:
           type: string
           example: 'http://www.orpha.net/ORDO/Orphanet_10'
-    ORPHAcodeAgregationApplicable:
+    ORPHAcodeAggregationApplicable:
       type: object
       properties:
         Date:
           type: string
           format: date-time
           example: '2019-07-18 18:44:24'
-        ORPHAcodeAgregation:
+        ORPHAcodeAggregation:
           type: integer
           format: int32
           example: 10
         Preferred term:
           type: string
           example: '48,XXYY syndrome'
-    ORPHAcodeAgregationNotApplicable:
+    ORPHAcodeAggregationNotApplicable:
       type: object
       properties:
         Date:
           type: string
           format: date-time
           example: '2019-07-18 18:44:24'
-        ORPHAcodeAgregation:
+        ORPHAcodeAggregation:
           type: string
           example: 'Not Applicable'
         Preferred term:
