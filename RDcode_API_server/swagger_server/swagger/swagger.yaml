@@ -16,7 +16,7 @@ info:
   contact:
     name: Orphanet team
     email: data.orphanet@inserm.fr
-  version: 2-oas3
+  version: 2.1-oas3
 servers:
 - url: /
   description: local testing host
@@ -710,8 +710,10 @@ paths:
       tags:
       - ORPHAcode aggregation
       summary: Search for a clinical entity's aggregation code by ORPHAcode
-      description: The result retrieves the clinical entity's ORPHAcode, its preferred
-        term as well as the ORPHAcode and the preferred term of the aggregation code.
+      description: "The result retrieves the clinical entity's ORPHAcode, its preferred term as well as the ORPHAcode and the preferred term of the aggregation code.
+
+
+      Due to the current limitations of swagger UI, please explore the response scheme for the example."
       operationId: list_aggregation
       parameters:
       - name: lang
