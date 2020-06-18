@@ -1602,6 +1602,10 @@ components:
     Parent:
       type: object
       properties:
+        Date:
+          type: string
+          format: date-time
+          example: 2000-01-23T04:56:07.000+00:00
         ORPHAcode:
           type: integer
           format: int32
@@ -1624,21 +1628,25 @@ components:
           items:
             type: object
             properties:
-              Parent ORPHAcode:
+              ORPHAcode:
                 type: integer
                 format: int32
-              Parent preferred term:
+              Preferred term:
                 type: string
           example:
-            - Parent ORPHAcode: 139030
-              Parent preferred term: Rare developmental defect with connective tissue involvement
-            - Parent ORPHAcode: 498448
-              Parent preferred term: Overgrowth or tall stature syndrome with skeletal involvement
-            - Parent ORPHAcode: 519292
-              Parent preferred term: Syndromic ectopia lentis
+            - ORPHAcode: 139030
+              Preferred term: Rare developmental defect with connective tissue involvement
+            - ORPHAcode: 498448
+              Preferred term: Overgrowth or tall stature syndrome with skeletal involvement
+            - ORPHAcode: 519292
+              Preferred term: Syndromic ectopia lentis
     Child:
       type: object
       properties:
+        Date:
+          type: string
+          format: date-time
+          example: 2000-01-23T04:56:07.000+00:00
         ORPHAcode:
           type: integer
           format: int32
@@ -1661,16 +1669,16 @@ components:
           items:
             type: object
             properties:
-              Child ORPHAcode:
+              ORPHAcode:
                 type: integer
                 format: int32
-              Child preferred term:
+              Preferred term:
                 type: string
           example:
-            - Child ORPHAcode: 294963
-              Child preferred term: Marfan syndrome type 1
-            - Child ORPHAcode: 294973
-              Child preferred term: Marfan syndrome type 2
+            - ORPHAcode: 294963
+              Preferred term: Marfan syndrome type 1
+            - ORPHAcode: 294973
+              Preferred term: Marfan syndrome type 2
     omim:
       type: object
       properties:

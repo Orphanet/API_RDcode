@@ -21,7 +21,7 @@ servers:
 - url: /
   description: local testing host
 security:
-- api_key: []
+- apiKey: []
 tags:
 - name: All Orphanet clinical entities
 - name: Preferred term
@@ -1815,6 +1815,10 @@ components:
     Parent:
       type: object
       properties:
+        Date:
+          type: string
+          format: date-time
+          example: 2000-01-23T04:56:07.000+00:00
         ORPHAcode:
           type: integer
           format: int32
@@ -1827,34 +1831,39 @@ components:
         Parent:
           type: array
           example:
-          - Parent ORPHAcode: 139030
-            Parent preferred term: Rare developmental defect with connective tissue
+          - ORPHAcode: 139030
+            Preferred term: Rare developmental defect with connective tissue
               involvement
-          - Parent ORPHAcode: 498448
-            Parent preferred term: Overgrowth or tall stature syndrome with skeletal
+          - ORPHAcode: 498448
+            Preferred term: Overgrowth or tall stature syndrome with skeletal
               involvement
-          - Parent ORPHAcode: 519292
-            Parent preferred term: Syndromic ectopia lentis
+          - ORPHAcode: 519292
+            Preferred term: Syndromic ectopia lentis
           items:
             $ref: '#/components/schemas/Parent_Parent'
       example:
+        Date: 2000-01-23T04:56:07.000+00:00
         Preferred term: Marfan syndrome
         ORPHAcode: 558
         Parent:
-        - Parent ORPHAcode: 139030
-          Parent preferred term: Rare developmental defect with connective tissue
+        - ORPHAcode: 139030
+          referred term: Rare developmental defect with connective tissue
             involvement
-        - Parent ORPHAcode: 498448
-          Parent preferred term: Overgrowth or tall stature syndrome with skeletal
+        - ORPHAcode: 498448
+          Preferred term: Overgrowth or tall stature syndrome with skeletal
             involvement
-        - Parent ORPHAcode: 519292
-          Parent preferred term: Syndromic ectopia lentis
+        - ORPHAcode: 519292
+          Preferred term: Syndromic ectopia lentis
         Classification:
           Name of the classification: Rare developmental defect during embryogenesis
           ID of the classification: 147
     Child:
       type: object
       properties:
+        Date:
+          type: string
+          format: date-time
+          example: 2000-01-23T04:56:07.000+00:00
         ORPHAcode:
           type: integer
           format: int32
@@ -1867,23 +1876,24 @@ components:
         Child:
           type: array
           example:
-          - Child ORPHAcode: 294963
-            Child preferred term: Marfan syndrome type 1
-          - Child ORPHAcode: 294973
-            Child preferred term: Marfan syndrome type 2
+          - ORPHAcode: 294963
+            Preferred term: Marfan syndrome type 1
+          - ORPHAcode: 294973
+            Preferred term: Marfan syndrome type 2
           items:
             $ref: '#/components/schemas/Child_Child'
       example:
+        Date: 2000-01-23T04:56:07.000+00:00
         Preferred term: Marfan syndrome
         ORPHAcode: 558
         Classification:
           Name of the classification: Rare developmental defect during embryogenesis
           ID of the classification: 147
         Child:
-        - Child ORPHAcode: 294963
-          Child preferred term: Marfan syndrome type 1
-        - Child ORPHAcode: 294973
-          Child preferred term: Marfan syndrome type 2
+        - ORPHAcode: 294963
+          Preferred term: Marfan syndrome type 1
+        - ORPHAcode: 294973
+          Preferred term: Marfan syndrome type 2
     omim:
       type: object
       properties:
@@ -2080,18 +2090,18 @@ components:
     Parent_Parent:
       type: object
       properties:
-        Parent ORPHAcode:
+        ORPHAcode:
           type: integer
           format: int32
-        Parent preferred term:
+        Preferred term:
           type: string
     Child_Child:
       type: object
       properties:
-        Child ORPHAcode:
+        ORPHAcode:
           type: integer
           format: int32
-        Child preferred term:
+        Preferred term:
           type: string
     omim_References:
       type: object
@@ -2201,9 +2211,9 @@ components:
         type: integer
         format: int64
   securitySchemes:
-    api_key:
+    apiKey:
       type: apiKey
-      name: api_key
+      name: apiKey
       in: header
-      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_api_key
+      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_apiKey
 
