@@ -1,5 +1,4 @@
 import connexion
-import six
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.models.synonym import Synonym  # noqa: E501
@@ -11,13 +10,13 @@ from controllers.query_controller import *
 
 
 def list_synonym(lang, orphacode):  # noqa: E501
-    """Search for the synonym(s) of the clinical entity by its ORPHAcode.
+    """Search for a clinical entity&#x27;s synonym(s) by ORPHAcode
 
-    The result is the ORPHAcode required with a collection of related synonyms. # noqa: E501
+    The result retrieves the clinical entity&#x27;s ORPHAcode and a collection of related synonyms. # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
+    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
 
     :rtype: Synonym

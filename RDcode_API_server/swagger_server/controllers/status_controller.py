@@ -9,13 +9,13 @@ from controllers.query_controller import *
 
 
 def list_status(lang, orphacode):  # noqa: E501
-    """Search for the status of the clinical entity by its ORPHAcode.
+    """Search for a clinical entity&#x27;s status by ORPHAcode
 
-    The result is the ORPHAcode and the status of the ORPHAcode. # noqa: E501
+    The result retrieves the clinical entity&#x27;s ORPHAcode and its status (active/inactive). # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
+    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
 
     :rtype: Status

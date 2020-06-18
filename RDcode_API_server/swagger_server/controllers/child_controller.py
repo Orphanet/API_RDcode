@@ -9,15 +9,15 @@ from controllers.query_controller import *
 
 
 def list_child(lang, orphacode, hchid):  # noqa: E501
-    """Search for information about the n-1 (child) of the clinical entity in one specific classification by the clinical entity&#x27;s ORPHAcode and unique identifier of the classification.
+    """Search for a clinical entity&#x27;s child(ren) by ORPHAcode and the unique identifier of a classification
 
-    The result returned the ORPHAcode and preferred term of the clinical entity with a data collection for the searched classification  (data set includes: unique identifier of the classification, name of the classification, ORPHAcode and name of the n-1 clinical entity also named as &#x27;child&#x27; of the clinical entity). # noqa: E501
+    The result retrieves the clinical entity&#x27;s ORPHAcode and preferred term as well as the unique identifier and the name of the queried classification, and the clinical entity&#x27;s child(ren), specifying ORPHAcode and preferred term. # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
+    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
-    :param hchid: The hierarchy ID (hchID) is a specific identifier attributed to an Orphanet classification.
+    :param hchid: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each classification upon its creation.
     :type hchid: int
 
     :rtype: Child

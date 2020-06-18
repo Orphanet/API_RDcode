@@ -10,13 +10,13 @@ from swagger_server.models.synonym import Synonym  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
-class TestSynonymController(BaseTestCase):
-    """SynonymController integration test stubs"""
+class TestSynonymSController(BaseTestCase):
+    """SynonymSController integration test stubs"""
 
     def test_list_synonym(self):
         """Test case for list_synonym
 
-        Search for the synonym(s) of the clinical entity by its ORPHAcode.
+        Search for a clinical entity's synonym(s) by ORPHAcode
         """
         # print("list_synonym")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:

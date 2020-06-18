@@ -4,6 +4,7 @@ import connexion
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.models.findby_omim import FindbyOMIM  # noqa: E501
+from swagger_server.models.omim import Omim  # noqa: E501
 from swagger_server import util
 
 import config
@@ -11,14 +12,16 @@ from controllers.query_controller import *
 
 
 def list_omim(lang, orphacode):  # noqa: E501
-    """Search for OMIM code(s) of the clinical entity by its ORPHAcode.
+    """Search for a clinical entity&#x27;s OMIM code(s) by ORPHAcode
 
-    :param lang: Desired language
+    The result retrieves the clinical entity&#x27;s ORPHAcode and its preferred term as well as annotated OMIM code(s), specifying the characterisation of the alignment between the clinical entity and OMIM code, and the status of the mapping (validated/not yet validated) # noqa: E501
+
+    :param lang: Language
     :type lang: str
-    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
+    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
 
-    :rtype: Icd10
+    :rtype: Omim
     """
     es = config.elastic_server
 
@@ -39,13 +42,13 @@ def list_omim(lang, orphacode):  # noqa: E501
 
 
 def list_orpha_by_omim(lang, omimcode):  # noqa: E501
-    """Search for the clinical entity&#x27;s information by OMIM code.
+    """Search for a clinical entity&#x27;s ORPHAcode by OMIM code
 
-    The result is a data set including ORPHAcode, status, preferred term, definition, the relationship between the clinical entity and the OMIM code and the status of the mapping. # noqa: E501
+    The result retrieves the OMIM code as well as annotated ORPHAcode(s) and preferred term, specifying the characterisation of the alignment between the clinical entity and OMIM code, and the status of the mapping (validated/not yet validated). # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param omimcode: Unique OMIM identifier
+    :param omimcode: Unique identifier of concepts in the Online Mendelian Inheritance in Man.
     :type omimcode: int
 
     :rtype: FindbyOMIM

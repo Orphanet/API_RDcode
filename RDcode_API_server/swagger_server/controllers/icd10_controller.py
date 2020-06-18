@@ -12,13 +12,13 @@ from controllers.query_controller import *
 
 
 def list_icd10(lang, orphacode):  # noqa: E501
-    """Search for ICD10 code(s) of the clinical entity by its ORPHAcode.
+    """Search for a clinical entity&#x27;s ICD10 code(s) by ORPHAcode
 
-    The result is a collection of data including ORPHAcode, the stable URL pointing to the specific page of the clinical entity on the Orphanet website, characterisation of the alignment between the clinical entity and ICD-10, and status of the mapping (Validated or Not yet valiated). # noqa: E501
+    The result retrieves the clinical entity&#x27;s ORPHAcode and its preferred term as well as annotated ICD-10 code(s), specifying the characterisation of the alignment between the clinical entity and ICD-10 code, and the status of the mapping (validated/not yet validated). # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
+    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
 
     :rtype: Icd10
@@ -42,11 +42,11 @@ def list_icd10(lang, orphacode):  # noqa: E501
 
 
 def list_orpha_by_icd10(lang, icd10):  # noqa: E501
-    """Search for the clinical entity&#x27;s ORPHAcode by ICD-10 code.
+    """Search for a clinical entity&#x27;s ORPHAcode(s) by ICD-10 code
 
-    The result is a dataset including ORPHAcode, status, preferred term and definition. # noqa: E501
+    The result retrieves the ICD-10 code as well as annotated ORPHAcode(s) and preferred term, specifying the characterisation of the alignment between the clinical entity and ICD-10 code, and the status of the mapping (validated/not yet validated). # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
     :param icd10: ICD10 code of entity
     :type icd10: str

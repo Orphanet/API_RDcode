@@ -10,13 +10,13 @@ from controllers.query_controller import *
 
 
 def list_by_name(lang, label):  # noqa: E501
-    """Search for the clinical entity&#x27;s information by name.
+    """Search for a clinical entity by preferred term
 
-    The result is a data set including ORPHAcode, status, preferred term and  definition. # noqa: E501
+    The result retrieves the clinical entity&#x27;s ORPHAcode and its preferred term. # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param label: Entity preferred term
+    :param label: Dataset
     :type label: str
 
     :rtype: FindbyName
@@ -35,13 +35,13 @@ def list_by_name(lang, label):  # noqa: E501
 
 
 def list_name(lang, orphacode):  # noqa: E501
-    """Search for the preferred term of the clinical entity by its ORPHAcode.
+    """Search for a clinical entity&#x27;s preferred term by ORPHAcode
 
-    The result is the ORPHAcode required with its preferred term. # noqa: E501
+    The result retrieves the clinical entity&#x27;s ORPHAcode and its preferred term. # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
+    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
 
     :rtype: Name

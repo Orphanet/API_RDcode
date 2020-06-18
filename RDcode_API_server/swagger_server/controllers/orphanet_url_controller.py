@@ -10,13 +10,13 @@ from controllers.query_controller import *
 
 
 def list_url(lang, orphacode):  # noqa: E501
-    """Search for the OrphanetURL of the clinical entity by its ORPHAcode.
+    """Search for a clinical entity&#x27;s URL by ORPHAcode
 
-    The result is the ORPHAcode and the stable URL pointing to the specific page of the clinical entity on the Orphanet website of the ORPHAcode. # noqa: E501
+    The result retrieves the clinical entity&#x27;s ORPHAcode and its stable URL pointing to the specific page of the clinical entity on the Orphanet website (www.orpha.net). # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
+    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
 
     :rtype: OrphanetURL

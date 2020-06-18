@@ -16,7 +16,7 @@ class TestChildController(BaseTestCase):
     def test_list_child(self):
         """Test case for list_child
 
-        Search for information about the n-1 (child) of the clinical entity in one specific classification by the clinical entity's ORPHAcode and unique identifier of the classification.
+        Search for a clinical entity's child(ren) by ORPHAcode and the unique identifier of a classification
         """
         # print("Child")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:

@@ -16,7 +16,7 @@ class TestStatusController(BaseTestCase):
     def test_list_status(self):
         """Test case for list_status
 
-        Search for the status of the clinical entity by its ORPHAcode.
+        Search for a clinical entity's status by ORPHAcode
         """
         # print("list_status")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:

@@ -9,11 +9,11 @@ from controllers.query_controller import *
 
 
 def list_entities(lang):  # noqa: E501
-    """Search for all Orphanet clinical entities.
+    """Search for all Orphanet clinical entities
 
-    The result is a data set that includes an ORPHAcode, the status, the preferred term and the definition (when one exists) of each active Orphanet clinical entity. # noqa: E501
+    The result is a collection of clinical entities (active/inactive) specifying the ORPHAcode, the preferred term, the status and the definition (when one exists) for each entity. # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
 
     :rtype: ClinicalEntity

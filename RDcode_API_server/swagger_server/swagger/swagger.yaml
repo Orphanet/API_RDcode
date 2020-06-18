@@ -1,29 +1,18 @@
 openapi: 3.0.0
 info:
-  title: ORPHA Nomenclature - RD-code project
-  description: The Orphanet nomenclature is a multilingual, standardised, controlled
-    medical terminology specific to rare diseases, that includes all clinical entities
-    registered in the Orphanet database (www.orpha.net). Each clinical entity (disorder,
-    group of disorders, or subtype of a disorder) is associated with a unique numerical
-    identifier named ORPHAcode, as well as a preferred term, synonyms, and a definition.
-    In the frame of the RD-code project, co-funded by the European Union’s Third Health
-    Program, Orphanet developped this API. It intends to support Member States in
-    the implementation of rare diseases-specific codification systems. Starting with
-    countries that have no systematic implementation of the Orpha codification yet,
-    but that are actively committed already in doing so, this project will provide
-    a sufficient real-world implementation experience to be captured by other countries
-    in the future. This API is part of the project RD-CODE which has received funding
-    from the European Union’s Health Programme (2014-2020).The API arise from the
-    RD-CODE project which has received funding from the European Union in the framework
-    of the Health Program. The content of this API represents the views of the author
-    only and is his/her sole responsibility; it cannot be considered to reflect the
-    views of the European Commission and/or the Consumers, Health, Agriculture and
-    Food Executive Agency or any other body of the European Union. The European Commission
-    and the Agency do not accept any responsibility for use that may be made of the
-    information it containsWe have chosen to apply the Commons Attribution 4.0 International
-    (CC BY 4.0) to all copyrightable parts of our databases. This means that you are
-    free to copy, distribute, display and make commercial use of these databases in
-    all legislations, provided you give us credit.
+  title: ORPHA Nomenclature - RD-CODE project
+  description: |-
+    The Orphanet nomenclature is a multilingual, standardised, controlled medical terminology specific to rare diseases, that includes all clinical entities registered in the Orphanet database (www.orpha.net). Each clinical entity (disorder, group of disorders, or subtype of a disorder) is associated with a unique numerical identifier named ORPHAcode, as well as a preferred term, synonyms, and a definition.
+
+    In the frame of the RD-CODE project, co-funded by the European Union’s Third Health Program, Orphanet developped this API. It intends to support Member States in the implementation of the ORPHA nomenclature to rare diseases-specific codification systems. Starting with countries that have no systematic implementation of the Orpha codification yet, but that are actively committed already in doing so, this project will provide a sufficient real-world implementation experience to be captured by other countries in the future.
+
+    Disclaimers:
+
+    The API arise from the RD-CODE project which has received funding from the European Union in the framework of the Health Program.
+
+    The content of this API represents the views of the author only and is his/her sole responsibility; it cannot be considered to reflect the views of the European Commission and/or the Consumers, Health, Agriculture and Food Executive Agency or any other body of the European Union. The European Commission and the Agency do not accept any responsibility for use that may be made of the information it contains.
+
+    We have chosen to apply the Commons Attribution 4.0 International (CC BY 4.0) to all copyrightable parts of our databases. This means that you are free to copy, distribute, display and make commercial use of these databases in all legislations, provided you give us credit.
   contact:
     name: Orphanet team
     email: data.orphanet@inserm.fr
@@ -36,7 +25,7 @@ servers:
 security:
 - api_key: []
 tags:
-- name: All clinical entities
+- name: All Orphanet clinical entities
 - name: Preferred term
 - name: Synonym(s)
 - name: Definition
@@ -55,11 +44,11 @@ paths:
   /{lang}/ClinicalEntity:
     get:
       tags:
-      - All clinical entities
-      summary: Search for all Orphanet clinical entities.
-      description: The result is a collection of data set that includes the ORPHAcode,
-        the preferred term, the status and the definition (when exists) of all clinical
-        entities.
+      - All Orphanet clinical entities
+      summary: Search for all Orphanet clinical entities
+      description: The result is a collection of clinical entities (active/inactive)
+        specifying the ORPHAcode, the preferred term, the status and the definition
+        (when one exists) for each entity.
       operationId: list_entities
       parameters:
       - name: lang
@@ -83,7 +72,7 @@ paths:
           - PT
       responses:
         "200":
-          description: Clinical entities informations
+          description: Dataset
           content:
             application/json:
               schema:
@@ -115,13 +104,14 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-      x-openapi-router-controller: swagger_server.controllers.all_clinical_entities_controller
+      x-openapi-router-controller: swagger_server.controllers.all_orphanet_clinical_entities_controller
   /{lang}/ClinicalEntity/orphacode/{orphacode}/Status:
     get:
       tags:
       - Status
-      summary: Search for a clinical entity's status by ORPHAcode.
-      description: The result is the ORPHAcode and the status.
+      summary: Search for a clinical entity's status by ORPHAcode
+      description: The result retrieves the clinical entity's ORPHAcode and its status
+        (active/inactive).
       operationId: list_status
       parameters:
       - name: lang
@@ -157,7 +147,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Status of clinical entity
+          description: Dataset
           content:
             application/json:
               schema:
@@ -194,9 +184,10 @@ paths:
     get:
       tags:
       - Target for inactive ORPHAcode
-      summary: Search for the target of an inactive clinical entity by ORPHAcode.
-      description: The result is the ORPHAcode and the status of the target clinical
-        entity.
+      summary: Search for the target of an inactive clinical entity by ORPHAcode
+      description: The result retrieves the clinical entity's ORPHAcode, its status
+        (inactive), the related target ORPHAcode as well as the relationship between
+        the clinical entity and its target ORPHAcode.
       operationId: list_target
       parameters:
       - name: lang
@@ -232,7 +223,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Target entity of inactive clinical entity.
+          description: Dataset
           content:
             application/json:
               schema:
@@ -264,13 +255,14 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-      x-openapi-router-controller: swagger_server.controllers.target_orpha_controller
+      x-openapi-router-controller: swagger_server.controllers.target_for_inactive_orph_acode_controller
   /{lang}/ClinicalEntity/orphacode/{orphacode}/Name:
     get:
       tags:
       - Preferred term
-      summary: Search for a clincial entity's preferred term by ORPHAcode.
-      description: The result is the ORPHAcode and the preferred term.
+      summary: Search for a clinical entity's preferred term by ORPHAcode
+      description: The result retrieves the clinical entity's ORPHAcode and its preferred
+        term.
       operationId: list_name
       parameters:
       - name: lang
@@ -306,8 +298,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Preferred term of clinical entity - the most generally accepted
-            name according to the literature, and as adopted by the medical community.
+          description: Dataset
           content:
             application/json:
               schema:
@@ -339,13 +330,13 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-      x-openapi-router-controller: swagger_server.controllers.name_controller
+      x-openapi-router-controller: swagger_server.controllers.preferred_term_controller
   /{lang}/ClinicalEntity/orphacode/{orphacode}/Definition:
     get:
       tags:
       - Definition
-      summary: Search for a clinical entity's definition by ORPHAcode.
-      description: The result is the ORPHAcode and the definition.
+      summary: Search for a clinical entity's definition by ORPHAcode
+      description: The result retrieves the cinical entity's ORPHAcode and its definition.
       operationId: list_definition
       parameters:
       - name: lang
@@ -381,11 +372,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Definition of clinical entity - a short text stating the group
-            of disorders that the clinical entity belongs to, and listing the major
-            clinical characteristics (e.g. clinical, pathological, radiological, etc.)
-            that define the entity and differentiate it from other entities classified
-            within the same clinical group.
+          description: Dataset
           content:
             application/json:
               schema:
@@ -422,8 +409,9 @@ paths:
     get:
       tags:
       - Synonym(s)
-      summary: Search for a clinical entity's synonym(s) by ORPHAcode.
-      description: The result is the ORPHAcode and a collection of related synonyms.
+      summary: Search for a clinical entity's synonym(s) by ORPHAcode
+      description: The result retrieves the clinical entity's ORPHAcode and a collection
+        of related synonyms.
       operationId: list_synonym
       parameters:
       - name: lang
@@ -459,8 +447,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Synonym(s) of clinical entity - a term that is perfectly equivalent
-            to the preferred term of the disease it is attached to.
+          description: Dataset
           content:
             application/json:
               schema:
@@ -492,13 +479,14 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-      x-openapi-router-controller: swagger_server.controllers.synonym_controller
+      x-openapi-router-controller: swagger_server.controllers.synonym_s_controller
   /{lang}/ClinicalEntity/orphacode/{orphacode}/GroupType:
     get:
       tags:
       - Classification level
-      summary: Search for a clinical entity's classification level by ORPHAcode.
-      description: The result is the ORPHAcode and the classification level.
+      summary: Search for a clinical entity's classification level by ORPHAcode
+      description: The result retrieves the clinical entity's ORPHAcode and its classification
+        level.
       operationId: list_group
       parameters:
       - name: lang
@@ -534,8 +522,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Each clinical entity is assigned a classification level (Group,
-            Disorder or Subtype of a disorder.
+          description: Dataset
           content:
             application/json:
               schema:
@@ -567,13 +554,13 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-      x-openapi-router-controller: swagger_server.controllers.group_type_controller
+      x-openapi-router-controller: swagger_server.controllers.classification_level_controller
   /{lang}/ClinicalEntity/orphacode/{orphacode}/Type:
     get:
       tags:
       - Typology
-      summary: Search for a clinical entity's type by ORPHAcode.
-      description: The result is the ORPHAcode and the type.
+      summary: Search for a clinical entity's typology by ORPHAcode.
+      description: The result retrieves the clinical entity's ORPHAcode and its typology
       operationId: list_type
       parameters:
       - name: lang
@@ -609,14 +596,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: a multi-hierarchical and polyparental system built on the Orphanet
-            nomenclature, organized around the major medical specialties and based
-            on clinical criteria according to diagnostic and therapeutic relevance.
-            Each clinical entity is assigned a classification level (Group, Disorder
-            or Subtype of a disorder), and is included in as many classification groups
-            as necessary depending on its clinical presentation and the medical specialties
-            to which it is relevant, reflecting the current state of knowledge and
-            the multidimensional nature of rare diseases.
+          description: Dataset
           content:
             application/json:
               schema:
@@ -648,14 +628,15 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-      x-openapi-router-controller: swagger_server.controllers.type_controller
+      x-openapi-router-controller: swagger_server.controllers.typology_controller
   /{lang}/ClinicalEntity/orphacode/{orphacode}/OrphanetURL:
     get:
       tags:
       - Orphanet URL
-      summary: Search for a clinical entity's Orphanet URL by ORPHAcode.
-      description: The result is the ORPHAcode and the stable URL pointing to the
-        specific page of the clinical entity on the Orphanet website.
+      summary: Search for a clinical entity's URL by ORPHAcode
+      description: The result retrieves the clinical entity's ORPHAcode and its stable
+        URL pointing to the specific page of the clinical entity on the Orphanet website
+        (www.orpha.net).
       operationId: list_url
       parameters:
       - name: lang
@@ -691,7 +672,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Orphanet URL of the clinical entity
+          description: Dataset
           content:
             application/json:
               schema:
@@ -724,14 +705,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.orphanet_url_controller
-  /{lang}/ClinicalEntity/orphacode/{orphacode}/ORPHAcodeAgregation:
+  /{lang}/ClinicalEntity/orphacode/{orphacode}/ORPHAcodeAggregation:
     get:
       tags:
       - ORPHAcode aggregation
-      summary: Search for a clinical entity's aggregation code by ORPHAcode.
-      description: The result is the ORPHAcode and the preferred term of the aggregation
-        code.
-      operationId: list_agregation
+      summary: Search for a clinical entity's aggregation code by ORPHAcode
+      description: The result retrieves the clinical entity's ORPHAcode, its preferred
+        term as well as the ORPHAcode and the preferred term of the aggregation code.
+      operationId: list_aggregation
       parameters:
       - name: lang
         in: path
@@ -766,7 +747,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Aggregation ORPHAcode of the clinical entity
+          description: Dataset
           content:
             application/json:
               schema:
@@ -798,16 +779,16 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-      x-openapi-router-controller: swagger_server.controllers.orph_acode_agregation_controller
+      x-openapi-router-controller: swagger_server.controllers.orph_acode_aggregation_controller
   /{lang}/ClinicalEntity/orphacode/{orphacode}/ICD10:
     get:
       tags:
       - ICD10
-      summary: Search for a clinical entity's ICD10 code(s) by ORPHAcode.
-      description: |-
-        The result is a collection of dataset including ORPHAcode, characterisation of the alignment between the clinical entity and ICD-10 and the status of the mapping (Validated or Not yet valiated).
-
-        The disorder mapping relationship should be interpreted from the concept of Orphanet to the concept of ICD.
+      summary: Search for a clinical entity's ICD10 code(s) by ORPHAcode
+      description: The result retrieves the clinical entity's ORPHAcode and its preferred
+        term as well as annotated ICD-10 code(s), specifying the characterisation
+        of the alignment between the clinical entity and ICD-10 code, and the status
+        of the mapping (validated/not yet validated).
       operationId: list_icd10
       parameters:
       - name: lang
@@ -843,7 +824,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: ICD10 code(s) of the clinical entity
+          description: Dataset
           content:
             application/json:
               schema:
@@ -880,9 +861,11 @@ paths:
     get:
       tags:
       - ICD10
-      summary: Search for a clinical entity's ORPHAcode by ICD-10 code.
-      description: The result is a collection of data set including ORPHAcode, status,
-        preferred term and definition.
+      summary: Search for a clinical entity's ORPHAcode(s) by ICD-10 code
+      description: The result retrieves the ICD-10 code as well as annotated ORPHAcode(s)
+        and preferred term, specifying the characterisation of the alignment between
+        the clinical entity and ICD-10 code, and the status of the mapping (validated/not
+        yet validated).
       operationId: list_orpha_by_icd10
       parameters:
       - name: lang
@@ -914,7 +897,7 @@ paths:
           type: string
       responses:
         "200":
-          description: Clinical entity corresponding to specific ICD10 codes
+          description: Dataset
           content:
             application/json:
               schema:
@@ -951,11 +934,11 @@ paths:
     get:
       tags:
       - Classification
-      summary: Search for the clinical entity's classification(s) by ORPHAcode.
-      description: 'The result is the ORPHAcode and preferred term of the clinical
-        entity with a data set or each classification where the clinical entity is
-        present (set includes: unique identifier of the classification, name of the
-        classification, ORPHAcode and name of the n+1 clinical entity).'
+      summary: Search for the classification(s) to which a clinical entity belongs
+        by ORPHAcode
+      description: The result retrieves the clinical entity's ORPHAcode and its preferred
+        term as well as a collection of dataset specifying the unique identifier and
+        the name of the classification(s) to which the searched clinical entity belongs.
       operationId: list_classification
       parameters:
       - name: lang
@@ -991,7 +974,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: List of classifications
+          description: Dataset
           content:
             application/json:
               schema:
@@ -1028,15 +1011,15 @@ paths:
     get:
       tags:
       - Classification
-      summary: Search for the list of clinical entities' ORPHAcodes in one specific
-        classification by the unique identifer of the classification.
-      description: The result is a data set including ORPHAcode, status, preferred
-        term and definition of all clinical entities.
+      summary: Search for all ORPHAcodes and preferred terms within a specific classification
+        by the unique identifer of the classification
+      description: The result is a collection of clinical entities (ORPHAcode and
+        preferred term) belonging to the queried classification.
       operationId: list_orpha_by_classification
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -1067,7 +1050,7 @@ paths:
           format: int32
       responses:
         "200":
-          description: List of clinical entities under specified classification
+          description: Dataset
           content:
             application/json:
               schema:
@@ -1104,16 +1087,16 @@ paths:
     get:
       tags:
       - Parent
-      summary: Search for information about the n+1 (parent) of the clinical entity
-        in one specific classification by the clinical entity's ORPHAcode and unique
-        identifier of the classification.
-      description: The result is a data set including ORPHAcode, status, preferred
-        term and definition of all clinical entities.
+      summary: Search for clinical entity's parent(s) by ORPHAcode and the unique
+        identifier of the classification
+      description: The result retrieves the clinical entity's ORPHAcode and preferred
+        term as well as the unique identifier and the name of the queried classification,
+        and the clinical entity's parent(s), specifying ORPHAcode and preferred term.
       operationId: list_parent
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -1156,7 +1139,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Parent of specified clinical entity
+          description: Dataset
           content:
             application/json:
               schema:
@@ -1193,12 +1176,11 @@ paths:
     get:
       tags:
       - Child
-      summary: Search for a clinical entity's n-1 (child) in one specific classification
-        by ORPHAcode and unique identifier of the classification.
-      description: 'The result returned the ORPHAcode and the preferred term with
-        a data collection of child for the searched classification. includes: unique
-        identifier of the classification, name of the classification, ORPHAcode and
-        name of the n-1 clinical entity also named as ''child'' of the clinical entity).'
+      summary: Search for a clinical entity's child(ren) by ORPHAcode and the unique
+        identifier of a classification
+      description: The result retrieves the clinical entity's ORPHAcode and preferred
+        term as well as the unique identifier and the name of the queried classification,
+        and the clinical entity's child(ren), specifying ORPHAcode and preferred term.
       operationId: list_child
       parameters:
       - name: lang
@@ -1246,7 +1228,7 @@ paths:
           format: int32
       responses:
         "200":
-          description: Child of specified clinical entity
+          description: Dataset
           content:
             application/json:
               schema:
@@ -1283,13 +1265,16 @@ paths:
     get:
       tags:
       - OMIM
-      summary: Search for OMIM code(s) of the clinical entity by its ORPHAcode.
-      description: REVIEW
+      summary: Search for a clinical entity's OMIM code(s) by ORPHAcode
+      description: The result retrieves the clinical entity's ORPHAcode and its preferred
+        term as well as annotated OMIM code(s), specifying the characterisation of
+        the alignment between the clinical entity and OMIM code, and the status of
+        the mapping (validated/not yet validated)
       operationId: list_omim
       parameters:
       - name: lang
         in: path
-        description: Desired language
+        description: Language
         required: true
         style: simple
         explode: false
@@ -1320,7 +1305,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: OMIM code(s) of the clinical entity
+          description: Dataset
           content:
             application/json:
               schema:
@@ -1357,10 +1342,11 @@ paths:
     get:
       tags:
       - OMIM
-      summary: Search for a clinical entity by OMIM code.
-      description: The result is a collection of data set including ORPHAcode, status,
-        preferred term, definition, the relationship between the clinical entity and
-        the OMIM code and the status of the mapping.
+      summary: Search for a clinical entity's ORPHAcode by OMIM code
+      description: The result retrieves the OMIM code as well as annotated ORPHAcode(s)
+        and preferred term, specifying the characterisation of the alignment between
+        the clinical entity and OMIM code, and the status of the mapping (validated/not
+        yet validated).
       operationId: list_orpha_by_omim
       parameters:
       - name: lang
@@ -1396,7 +1382,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: Clinical entity and related OMIM codes.
+          description: Dataset
           content:
             application/json:
               schema:
@@ -1433,9 +1419,9 @@ paths:
     get:
       tags:
       - Preferred term
-      summary: Search for a clinical entity by preferred term.
-      description: The result is a the ORPHAcode, the status, the preferred term and
-        the  definition.
+      summary: Search for a clinical entity by preferred term
+      description: The result retrieves the clinical entity's ORPHAcode and its preferred
+        term.
       operationId: list_by_name
       parameters:
       - name: lang
@@ -1459,7 +1445,7 @@ paths:
           - PT
       - name: label
         in: path
-        description: Preferred term of the clinical entity
+        description: Dataset
         required: true
         style: simple
         explode: false
@@ -1467,7 +1453,7 @@ paths:
           type: string
       responses:
         "200":
-          description: Clinical entity
+          description: Dataset
           content:
             application/json:
               schema:
@@ -1499,7 +1485,7 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-      x-openapi-router-controller: swagger_server.controllers.name_controller
+      x-openapi-router-controller: swagger_server.controllers.preferred_term_controller
 components:
   schemas:
     ErrorModel:
@@ -1716,26 +1702,26 @@ components:
         OrphanetURL: http://www.orpha.net/ORDO/Orphanet_10
         ORPHAcode: 10
         Date: 2000-01-23T04:56:07.000+00:00
-    ORPHAcodeAgregationApplicable:
+    ORPHAcodeAggregationApplicable:
       type: object
       properties:
         Date:
           type: string
           format: date-time
-        ORPHAcodeAgregation:
+        ORPHAcodeAggregation:
           type: integer
           format: int32
           example: 10
         Preferred term:
           type: string
           example: 48,XXYY syndrome
-    ORPHAcodeAgregationNotApplicable:
+    ORPHAcodeAggregationNotApplicable:
       type: object
       properties:
         Date:
           type: string
           format: date-time
-        ORPHAcodeAgregation:
+        ORPHAcodeAggregation:
           type: string
           example: Not Applicable
         Preferred term:
@@ -1995,8 +1981,8 @@ components:
         Date: 2000-01-23T04:56:07.000+00:00
     inline_response_200:
       oneOf:
-      - $ref: '#/components/schemas/ORPHAcodeAgregationApplicable'
-      - $ref: '#/components/schemas/ORPHAcodeAgregationNotApplicable'
+      - $ref: '#/components/schemas/ORPHAcodeAggregationApplicable'
+      - $ref: '#/components/schemas/ORPHAcodeAggregationNotApplicable'
     ClinicalEntity_inner:
       type: object
       properties:
@@ -2276,3 +2262,4 @@ components:
       name: api_key
       in: header
       x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_api_key
+

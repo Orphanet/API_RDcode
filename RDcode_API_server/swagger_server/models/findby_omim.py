@@ -1,8 +1,12 @@
 # coding: utf-8
 
 from __future__ import absolute_import
+from datetime import date, datetime  # noqa: F401
+
+from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
+from swagger_server.models.findby_omim_references_orpha import FindbyOMIMReferencesOrpha  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -11,15 +15,30 @@ class FindbyOMIM(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self):  # noqa: E501
+    def __init__(self, _date: datetime=None, code_omim: int=None, references_orpha: List[FindbyOMIMReferencesOrpha]=None):  # noqa: E501
         """FindbyOMIM - a model defined in Swagger
 
+        :param _date: The _date of this FindbyOMIM.  # noqa: E501
+        :type _date: datetime
+        :param code_omim: The code_omim of this FindbyOMIM.  # noqa: E501
+        :type code_omim: int
+        :param references_orpha: The references_orpha of this FindbyOMIM.  # noqa: E501
+        :type references_orpha: List[FindbyOMIMReferencesOrpha]
         """
         self.swagger_types = {
+            '_date': datetime,
+            'code_omim': int,
+            'references_orpha': List[FindbyOMIMReferencesOrpha]
         }
 
         self.attribute_map = {
+            '_date': 'Date',
+            'code_omim': 'Code OMIM',
+            'references_orpha': 'References Orpha'
         }
+        self.__date = _date
+        self._code_omim = code_omim
+        self._references_orpha = references_orpha
 
     @classmethod
     def from_dict(cls, dikt) -> 'FindbyOMIM':
@@ -31,3 +50,66 @@ class FindbyOMIM(Model):
         :rtype: FindbyOMIM
         """
         return util.deserialize_model(dikt, cls)
+
+    @property
+    def _date(self) -> datetime:
+        """Gets the _date of this FindbyOMIM.
+
+
+        :return: The _date of this FindbyOMIM.
+        :rtype: datetime
+        """
+        return self.__date
+
+    @_date.setter
+    def _date(self, _date: datetime):
+        """Sets the _date of this FindbyOMIM.
+
+
+        :param _date: The _date of this FindbyOMIM.
+        :type _date: datetime
+        """
+
+        self.__date = _date
+
+    @property
+    def code_omim(self) -> int:
+        """Gets the code_omim of this FindbyOMIM.
+
+
+        :return: The code_omim of this FindbyOMIM.
+        :rtype: int
+        """
+        return self._code_omim
+
+    @code_omim.setter
+    def code_omim(self, code_omim: int):
+        """Sets the code_omim of this FindbyOMIM.
+
+
+        :param code_omim: The code_omim of this FindbyOMIM.
+        :type code_omim: int
+        """
+
+        self._code_omim = code_omim
+
+    @property
+    def references_orpha(self) -> List[FindbyOMIMReferencesOrpha]:
+        """Gets the references_orpha of this FindbyOMIM.
+
+
+        :return: The references_orpha of this FindbyOMIM.
+        :rtype: List[FindbyOMIMReferencesOrpha]
+        """
+        return self._references_orpha
+
+    @references_orpha.setter
+    def references_orpha(self, references_orpha: List[FindbyOMIMReferencesOrpha]):
+        """Sets the references_orpha of this FindbyOMIM.
+
+
+        :param references_orpha: The references_orpha of this FindbyOMIM.
+        :type references_orpha: List[FindbyOMIMReferencesOrpha]
+        """
+
+        self._references_orpha = references_orpha

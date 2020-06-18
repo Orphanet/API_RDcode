@@ -9,13 +9,13 @@ from controllers.query_controller import *
 
 
 def list_group(lang, orphacode):  # noqa: E501
-    """Search for the type of group of the clinical entity by its ORPHAcode.
+    """Search for a clinical entity&#x27;s classification level by ORPHAcode
 
-    The result is the ORPHAcode required with its related type of group. # noqa: E501
+    The result retrieves the clinical entity&#x27;s ORPHAcode and its classification level. # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
+    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
 
     :rtype: GroupType

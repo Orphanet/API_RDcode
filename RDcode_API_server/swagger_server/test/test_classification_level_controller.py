@@ -10,13 +10,13 @@ from swagger_server.models.group_type import GroupType  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
-class TestGroupTypeController(BaseTestCase):
-    """GroupTypeController integration test stubs"""
+class TestClassificationLevelController(BaseTestCase):
+    """ClassificationLevelController integration test stubs"""
 
     def test_list_group(self):
         """Test case for list_group
 
-        Search for the type of group of the clinical entity by its ORPHAcode.
+        Search for a clinical entity's classification level by ORPHAcode
         """
         # print("list_group")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:

@@ -16,7 +16,7 @@ class TestICD10Controller(BaseTestCase):
     def test_list_icd10(self):
         """Test case for list_icd10
 
-        Search for ICD10 code(s) of the clinical entity by its ORPHAcode.
+        Search for a clinical entity's ICD10 code(s) by ORPHAcode
         """
         # print("list_ICD10")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
@@ -32,7 +32,7 @@ class TestICD10Controller(BaseTestCase):
     def test_list_orpha_by_icd10(self):
         """Test case for list_orpha_by_icd10
 
-        Search for the clinical entity's ORPHAcode by ICD-10 code.
+        Search for a clinical entity's ORPHAcode(s) by ICD-10 code
         """
         # print("list_orpha_by_icd10")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:

@@ -19,7 +19,7 @@ def main():
                                    'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
     # Force the direct encoding of accents in json
-    app.app.config['JSON_AS_ASCII'] = False
+    # app.app.config['JSON_AS_ASCII'] = False
     return app
 
 

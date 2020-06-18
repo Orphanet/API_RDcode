@@ -3,26 +3,25 @@
 from __future__ import absolute_import
 
 from flask import json
-from six import BytesIO
 
+from swagger_server.models.clinical_entity import ClinicalEntity  # noqa: E501
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
-from swagger_server.models.type import Type  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
-class TestTypeController(BaseTestCase):
-    """TypeController integration test stubs"""
+class TestAllOrphanetClinicalEntitiesController(BaseTestCase):
+    """AllOrphanetClinicalEntitiesController integration test stubs"""
 
-    def test_list_type(self):
-        """Test case for list_type
+    def test_list_entities(self):
+        """Test case for list_entities
 
-        Search for the type of the clinical entity by its ORPHAcode.
+        Search for all Orphanet clinical entities.
         """
-        # print("list_type")
+        # print("AllClinicalEntities")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
             # print(lang)
             response = self.client.open(
-                '/{lang}/ClinicalEntity/orphacode/{orphacode}/Type'.format(lang=lang, orphacode=558),
+                '/{lang}/ClinicalEntity'.format(lang=lang),
                 method='GET', headers={"api_key": "test"})
             if isinstance(response.json, str):
                 response.status = "500"

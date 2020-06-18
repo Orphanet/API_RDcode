@@ -6,23 +6,23 @@ from flask import json
 from six import BytesIO
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
-from swagger_server.models.orph_acode_agregation import ORPHAcodeAgregation  # noqa: E501
+from swagger_server.models.type import Type  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
-class TestORPHAcodeAgregationController(BaseTestCase):
-    """ORPHAcodeAgregationController integration test stubs"""
+class TestTypologyController(BaseTestCase):
+    """TypologyController integration test stubs"""
 
-    def test_list_agregation(self):
-        """Test case for list_agregation
+    def test_list_type(self):
+        """Test case for list_type
 
-        Search for or check the ORPHAcode agregation level of the clinical entity by its ORPHAcode.
+        Search for a clinical entity's typology by ORPHAcode.
         """
-        # print("list_agregation")
+        # print("list_type")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
             # print(lang)
             response = self.client.open(
-                '/{lang}/ClinicalEntity/orphacode/{orphacode}/ORPHAcodeAgregation'.format(lang=lang, orphacode=558),
+                '/{lang}/ClinicalEntity/orphacode/{orphacode}/Type'.format(lang=lang, orphacode=558),
                 method='GET', headers={"api_key": "test"})
             if isinstance(response.json, str):
                 response.status = "500"

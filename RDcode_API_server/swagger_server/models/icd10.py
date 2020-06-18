@@ -1,12 +1,12 @@
 # coding: utf-8
 
 from __future__ import absolute_import
-from datetime import datetime  # noqa: F401
+from datetime import date, datetime  # noqa: F401
 
-from typing import List  # noqa: F401
+from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.icd10_code_icd import Icd10CodeICD  # noqa: F401,E501
+from swagger_server.models.icd10_references_icd import Icd10ReferencesICD  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -15,35 +15,35 @@ class Icd10(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, _date: datetime=None, orph_acode: int=None, orphanet_url: str=None, code_icd: List[Icd10CodeICD]=None):  # noqa: E501
+    def __init__(self, _date: datetime=None, orph_acode: int=None, preferred_term: str=None, references_icd: List[Icd10ReferencesICD]=None):  # noqa: E501
         """Icd10 - a model defined in Swagger
 
         :param _date: The _date of this Icd10.  # noqa: E501
         :type _date: datetime
         :param orph_acode: The orph_acode of this Icd10.  # noqa: E501
         :type orph_acode: int
-        :param orphanet_url: The orphanet_url of this Icd10.  # noqa: E501
-        :type orphanet_url: str
-        :param code_icd: The code_icd of this Icd10.  # noqa: E501
-        :type code_icd: List[Icd10CodeICD]
+        :param preferred_term: The preferred_term of this Icd10.  # noqa: E501
+        :type preferred_term: str
+        :param references_icd: The references_icd of this Icd10.  # noqa: E501
+        :type references_icd: List[Icd10ReferencesICD]
         """
         self.swagger_types = {
             '_date': datetime,
             'orph_acode': int,
-            'orphanet_url': str,
-            'code_icd': List[Icd10CodeICD]
+            'preferred_term': str,
+            'references_icd': List[Icd10ReferencesICD]
         }
 
         self.attribute_map = {
             '_date': 'Date',
             'orph_acode': 'ORPHAcode',
-            'orphanet_url': 'OrphanetURL',
-            'code_icd': 'Code ICD'
+            'preferred_term': 'Preferred term',
+            'references_icd': 'References ICD'
         }
         self.__date = _date
         self._orph_acode = orph_acode
-        self._orphanet_url = orphanet_url
-        self._code_icd = code_icd
+        self._preferred_term = preferred_term
+        self._references_icd = references_icd
 
     @classmethod
     def from_dict(cls, dikt) -> 'Icd10':
@@ -99,43 +99,43 @@ class Icd10(Model):
         self._orph_acode = orph_acode
 
     @property
-    def orphanet_url(self) -> str:
-        """Gets the orphanet_url of this Icd10.
+    def preferred_term(self) -> str:
+        """Gets the preferred_term of this Icd10.
 
 
-        :return: The orphanet_url of this Icd10.
+        :return: The preferred_term of this Icd10.
         :rtype: str
         """
-        return self._orphanet_url
+        return self._preferred_term
 
-    @orphanet_url.setter
-    def orphanet_url(self, orphanet_url: str):
-        """Sets the orphanet_url of this Icd10.
+    @preferred_term.setter
+    def preferred_term(self, preferred_term: str):
+        """Sets the preferred_term of this Icd10.
 
 
-        :param orphanet_url: The orphanet_url of this Icd10.
-        :type orphanet_url: str
+        :param preferred_term: The preferred_term of this Icd10.
+        :type preferred_term: str
         """
 
-        self._orphanet_url = orphanet_url
+        self._preferred_term = preferred_term
 
     @property
-    def code_icd(self) -> List[Icd10CodeICD]:
-        """Gets the code_icd of this Icd10.
+    def references_icd(self) -> List[Icd10ReferencesICD]:
+        """Gets the references_icd of this Icd10.
 
 
-        :return: The code_icd of this Icd10.
-        :rtype: List[Icd10CodeICD]
+        :return: The references_icd of this Icd10.
+        :rtype: List[Icd10ReferencesICD]
         """
-        return self._code_icd
+        return self._references_icd
 
-    @code_icd.setter
-    def code_icd(self, code_icd: List[Icd10CodeICD]):
-        """Sets the code_icd of this Icd10.
+    @references_icd.setter
+    def references_icd(self, references_icd: List[Icd10ReferencesICD]):
+        """Sets the references_icd of this Icd10.
 
 
-        :param code_icd: The code_icd of this Icd10.
-        :type code_icd: List[Icd10CodeICD]
+        :param references_icd: The references_icd of this Icd10.
+        :type references_icd: List[Icd10ReferencesICD]
         """
 
-        self._code_icd = code_icd
+        self._references_icd = references_icd

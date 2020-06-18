@@ -12,13 +12,13 @@ from controllers.query_controller import *
 
 
 def list_classification(lang, orphacode):  # noqa: E501
-    """Search for the list of classification(s) of the clinical entity by its ORPHAcode.
+    """Search for the classification(s) to which a clinical entity belongs by ORPHAcode
 
-    The result is the ORPHAcode and preferred term of the clinical entity with a data set or each classification where the clinical entity is present (set includes: unique identifier of the classification, name of the classification, ORPHAcode and name of the n+1 clinical entity). # noqa: E501
+    The result retrieves the clinical entity&#x27;s ORPHAcode and its preferred term as well as a collection of dataset specifying the unique identifier and the name of the classification(s) to which the searched clinical entity belongs. # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
+    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
 
     :rtype: Classification
@@ -63,13 +63,13 @@ def list_classification(lang, orphacode):  # noqa: E501
 
 
 def list_orpha_by_classification(lang, hchid):  # noqa: E501
-    """Search for the list of clinical entities&#x27; ORPHAcodes in one specific classification by the unique identifer of the classification.
+    """Search for all ORPHAcodes and preferred terms within a specific classification by the unique identifer of the classification
 
-    The result is a data set including ORPHAcode, status, preferred term and definition of all clinical entities. # noqa: E501
+    The result is a collection of clinical entities (ORPHAcode and preferred term) belonging to the queried classification. # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param hchid: The hierarchy ID (hchID) is a specific identifier attributed to an Orphanet classification.
+    :param hchid: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each classification upon its creation.
     :type hchid: int
 
     :rtype: EntitiesByClassification

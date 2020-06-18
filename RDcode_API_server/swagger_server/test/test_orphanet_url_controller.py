@@ -16,7 +16,7 @@ class TestOrphanetURLController(BaseTestCase):
     def test_list_url(self):
         """Test case for list_url
 
-        Search for the OrphanetURL of the clinical entity by its ORPHAcode.
+        Search for a clinical entity's URL by ORPHAcode
         """
         # print("OrphanetURLController")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:

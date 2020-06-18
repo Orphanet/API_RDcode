@@ -16,7 +16,7 @@ class TestParentController(BaseTestCase):
     def test_list_parent(self):
         """Test case for list_parent
 
-        Search for information about the n+1 (parent) of the clinical entity in one specific classification by the clinical entity's ORPHAcode and unique identifier of the classification.
+        Search for clinical entity's parent(s) by ORPHAcode and the unique identifier of the classification
         """
         # print("list_parent")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:

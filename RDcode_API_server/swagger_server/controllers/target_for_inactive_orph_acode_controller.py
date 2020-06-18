@@ -10,13 +10,13 @@ from controllers.query_controller import *
 
 
 def list_target(lang, orphacode):  # noqa: E501
-    """Search for the target entity by the obsolete or deprecated clinical entity&#x27;s ORPHAcode.
+    """Search for the target of an inactive clinical entity by ORPHAcode
 
-    The result is the ORPHAcode and the status of the required entity, with additional &#x27;referred to&#x27; or &#x27;moved to&#x27; relations pointing to the target ORPHAcode. # noqa: E501
+    The result retrieves the clinical entity&#x27;s ORPHAcode, its status (inactive), the related target ORPHAcode as well as the relationship between the clinical entity and its target ORPHAcode. # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
+    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
 
     :rtype: TargetEntity
