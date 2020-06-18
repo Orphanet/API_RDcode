@@ -40,8 +40,8 @@ def list_target(lang, orphacode):  # noqa: E501
         response_default = {"Date": response["Date"],
                     "ORPHAcode": response["ORPHAcode"],
                     "Status": response["Status"],
-                    "Relation": "Not applicable",
-                    "Target ORPHAcode": "Not applicable",
+                    "Relation": "No relation: the entity is active",
+                    "Target ORPHAcode": "No target ORPHAcode: the entity is active",
                     }
         if response["DisorderDisorderAssociation"] is not None:
             for association in response["DisorderDisorderAssociation"]:
