@@ -20,8 +20,6 @@ info:
 servers:
 - url: /
   description: local testing host
-- url: https://virtserver.swaggerhub.com/orphanet/ClinicalEntity/2-oas3/
-  description: Remote testing host
 security:
 - api_key: []
 tags:
@@ -1742,14 +1740,14 @@ components:
         Preferred term:
           type: string
           example: 48,XXYY syndrome
-        References ICD:
+        References:
           type: array
           items:
-            $ref: '#/components/schemas/icd10_References ICD'
+            $ref: '#/components/schemas/icd10_References'
       example:
         Preferred term: 48,XXYY syndrome
         ORPHAcode: 10
-        References ICD:
+        References:
         - DisorderMappingICDRelation: Attributed
           DisorderMappingValidationStatus: Validated
           Code ICD10: Q98.8
@@ -1768,13 +1766,13 @@ components:
         Code ICD10:
           type: string
           example: Q98.8
-        References Orpha:
+        References:
           type: array
           items:
-            $ref: '#/components/schemas/Entity_by_icd_References Orpha'
+            $ref: '#/components/schemas/Entity_by_icd_References'
       example:
         Code ICD10: Q98.8
-        References Orpha:
+        References:
         - Preferred term: 48,XXYY syndrome
           ORPHAcode: 10
           DisorderMappingICDRelation: Attributed
@@ -1807,13 +1805,7 @@ components:
         Preferred term: Rare Cardiomyopathy
         ORPHAcode: 167848
         Classification:
-        - Preferred term: Rare cardiac disease
-          ORPHAcode: 97929
-          Name of the classification: Rare cardiac disease
-          ID of the classification: 146
-        - Preferred term: Rare cardiac disease
-          ORPHAcode: 97929
-          Name of the classification: Rare cardiac disease
+        - Name of the classification: Rare cardiac disease
           ID of the classification: 146
         Date: 2000-01-23T04:56:07.000+00:00
     Entities_by_classification:
@@ -1905,12 +1897,12 @@ components:
         Preferred term:
           type: string
           example: Marfan syndrome
-        References OMIM:
+        References:
           type: array
           items:
-            $ref: '#/components/schemas/omim_References OMIM'
+            $ref: '#/components/schemas/omim_References'
       example:
-        References OMIM:
+        References:
         - DisorderMappingValidationStatus: Validated
           Code OMIM: 610168
           DisorderMappingRelation: NTBT (narrower term maps to a broader term)
@@ -1930,13 +1922,13 @@ components:
           type: integer
           format: int64
           example: 154700
-        References Orpha:
+        References:
           type: array
           items:
-            $ref: '#/components/schemas/FindbyOMIM_References Orpha'
+            $ref: '#/components/schemas/FindbyOMIM_References'
       example:
         Code OMIM: 154700
-        References Orpha:
+        References:
         - Preferred term: Marfan syndrome
           ORPHAcode: 558
           DisorderMappingValidationStatus: Validated
@@ -1956,30 +1948,12 @@ components:
           type: integer
           format: int32
           example: 558
-        Status:
-          type: string
-          example: Active
-          enum:
-          - Active
-          - Active_Historical entity
-          - Inactive_Deprecated entity
-          - Inactive_Obsolete entity
-          - Inactive_Non Rare disease in Europe
         Preferred term:
           type: string
           example: Marfan syndrome
-        Definition:
-          type: string
-          example: Marfan syndrome is a systemic disease of connective tissue characterized
-            by a variable combination of cardiovascular, musculo-skeletal, ophthalmic
-            and pulmonary manifestations.
       example:
-        Status: Active
         Preferred term: Marfan syndrome
         ORPHAcode: 558
-        Definition: Marfan syndrome is a systemic disease of connective tissue characterized
-          by a variable combination of cardiovascular, musculo-skeletal, ophthalmic
-          and pulmonary manifestations.
         Date: 2000-01-23T04:56:07.000+00:00
     inline_response_200:
       oneOf:
@@ -1995,37 +1969,14 @@ components:
           type: integer
           format: int32
           example: 10
-        Status:
-          type: string
-          example: Active
-          enum:
-          - Active
-          - Active_Historical entity
-          - Inactive_Deprecated entity
-          - Inactive_Obsolete entity
-          - Inactive_Non Rare disease in Europe
         Preferred term:
           type: string
           example: 48,XXYY syndrome
-        Definition:
-          type: string
-          example: A rare sex chromosome number anomaly disorder characterized, genetically,
-            by the presence of an extra X and Y chromosome in males and, clinically,
-            by tall stature, dysfunctional testes associated with infertility and
-            insufficient testosterone production, cognitive, affective and social
-            functioning impairments, global developmental delay, and an increased
-            risk of congenital malformations.
       example:
-        Status: Active
         Preferred term: 48,XXYY syndrome
         ORPHAcode: 10
-        Definition: A rare sex chromosome number anomaly disorder characterized, genetically,
-          by the presence of an extra X and Y chromosome in males and, clinically,
-          by tall stature, dysfunctional testes associated with infertility and insufficient
-          testosterone production, cognitive, affective and social functioning impairments,
-          global developmental delay, and an increased risk of congenital malformations.
         Date: 2000-01-23T04:56:07.000+00:00
-    icd10_References ICD:
+    icd10_References:
       type: object
       properties:
         Code ICD10:
@@ -2060,7 +2011,7 @@ components:
         DisorderMappingValidationStatus: Validated
         Code ICD10: Q98.8
         DisorderMappingRelation: NTBT
-    Entity_by_icd_References Orpha:
+    Entity_by_icd_References:
       type: object
       properties:
         ORPHAcode:
@@ -2110,16 +2061,7 @@ components:
         Name of the classification:
           type: string
           example: Rare cardiac disease
-        ORPHAcode:
-          type: integer
-          format: int32
-          example: 97929
-        Preferred term:
-          type: string
-          example: Rare cardiac disease
       example:
-        Preferred term: Rare cardiac disease
-        ORPHAcode: 97929
         Name of the classification: Rare cardiac disease
         ID of the classification: 146
     Parent_Classification:
@@ -2151,7 +2093,7 @@ components:
           format: int32
         Child preferred term:
           type: string
-    omim_References OMIM:
+    omim_References:
       type: object
       properties:
         Code OMIM:
@@ -2178,7 +2120,7 @@ components:
         DisorderMappingValidationStatus: Validated
         Code OMIM: 610168
         DisorderMappingRelation: NTBT (narrower term maps to a broader term)
-    FindbyOMIM_References Orpha:
+    FindbyOMIM_References:
       type: object
       properties:
         ORPHAcode:

@@ -26,8 +26,6 @@ security:
 servers:
   - url: '/'
     description: local testing host
-  - url: 'https://virtserver.swaggerhub.com/orphanet/ClinicalEntity/2-oas3/'
-    description: Remote testing host
 tags:
 - name: All Orphanet clinical entities
 - name: Preferred term
@@ -1481,7 +1479,7 @@ components:
         Preferred term:
           type: string
           example: '48,XXYY syndrome'
-        References ICD:
+        References:
           type: array
           items:
             type: object
@@ -1523,7 +1521,7 @@ components:
         Code ICD10:
           type: string
           example: Q98.8
-        References Orpha:
+        References:
           type: array
           items:
             type: object
@@ -1585,13 +1583,6 @@ components:
               Name of the classification:
                 type: string
                 example: Rare cardiac disease
-              ORPHAcode:
-                type: integer
-                format: int32
-                example: 97929
-              Preferred term:
-                type: string
-                example: Rare cardiac disease
     Entities_by_classification:
       type: array
       items:
@@ -1605,28 +1596,9 @@ components:
             type: integer
             format: int32
             example: 10
-          Status:
-            type: string
-            enum:
-              - Active
-              - Active_Historical entity
-              - Inactive_Deprecated entity
-              - Inactive_Obsolete entity
-              - Inactive_Non Rare disease in Europe
-            example: Active
           Preferred term:
             type: string
             example: '48,XXYY syndrome'
-          Definition:
-            type: string
-            example: >-
-              A rare sex chromosome number anomaly disorder characterized,
-              genetically, by the presence of an extra X and Y chromosome in
-              males and, clinically, by tall stature, dysfunctional testes
-              associated with infertility and insufficient testosterone
-              production, cognitive, affective and social functioning
-              impairments, global developmental delay, and an increased risk of
-              congenital malformations.
     Parent:
       type: object
       properties:
@@ -1713,7 +1685,7 @@ components:
         Preferred term:
           type: string
           example: 'Marfan syndrome'
-        References OMIM:
+        References:
           type: array
           items:
             type: object
@@ -1749,7 +1721,7 @@ components:
           type: integer
           format: int64
           example: 154700
-        References Orpha:
+        References:
           type: array
           items:
             type: object
@@ -1788,24 +1760,9 @@ components:
           type: integer
           format: int32
           example: 558
-        Status:
-          type: string
-          enum:
-            - Active
-            - Active_Historical entity
-            - Inactive_Deprecated entity
-            - Inactive_Obsolete entity
-            - Inactive_Non Rare disease in Europe
-          example: Active
         Preferred term:
           type: string
           example: Marfan syndrome
-        Definition:
-          type: string
-          example: >-
-            Marfan syndrome is a systemic disease of connective tissue
-            characterized by a variable combination of cardiovascular,
-            musculo-skeletal, ophthalmic and pulmonary manifestations.
   securitySchemes:
     api_key:
       type: apiKey
