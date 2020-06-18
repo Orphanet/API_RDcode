@@ -410,7 +410,7 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-  '/{lang}/ClinicalEntity/orphacode/{orphacode}/GroupType':
+  '/{lang}/ClinicalEntity/orphacode/{orphacode}/ClassificationLevel':
     get:
       summary: Search for a clinical entity's classification level by ORPHAcode
       description: The result retrieves the clinical entity's ORPHAcode and its classification level.
@@ -442,10 +442,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GroupType'
+                $ref: '#/components/schemas/ClassificationLevel'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/GroupType'
+                $ref: '#/components/schemas/ClassificationLevel'
         '400':
           description: Bad request
         '401':
@@ -470,11 +470,11 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-  '/{lang}/ClinicalEntity/orphacode/{orphacode}/Type':
+  '/{lang}/ClinicalEntity/orphacode/{orphacode}/Typology':
     get:
       summary: Search for a clinical entity's typology by ORPHAcode.
       description: The result retrieves the clinical entity's ORPHAcode and its typology
-      operationId: ListType
+      operationId: list_typology
       tags:
         - Typology
       parameters:
@@ -502,10 +502,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Type'
+                $ref: '#/components/schemas/Typology'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Type'
+                $ref: '#/components/schemas/Typology'
         '400':
           description: Bad request
         '401':
@@ -1382,7 +1382,7 @@ components:
             - Idiopathic massive osteolysis
             - Progressive massive osteolysis
             - Vanishing bone disease
-    GroupType:
+    ClassificationLevel:
       type: object
       properties:
         Date:
@@ -1393,14 +1393,14 @@ components:
           type: integer
           format: int32
           example: 10
-        GroupType:
+        ClassificationLevel:
           type: string
           enum:
             - Group
             - Disorder
             - SubType
           example: Group
-    Type:
+    Typology:
       type: object
       properties:
         Date:
@@ -1411,7 +1411,7 @@ components:
           type: integer
           format: int32
           example: 10
-        Type:
+        Typology:
           type: string
           enum:
             - biological anomaly

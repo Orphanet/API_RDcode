@@ -8,7 +8,7 @@ import config
 from controllers.query_controller import *
 
 
-def list_type(lang, orphacode):  # noqa: E501
+def list_typology(lang, orphacode):  # noqa: E501
     """Search for a clinical entity&#x27;s typology by ORPHAcode.
 
     The result retrieves the clinical entity&#x27;s ORPHAcode and its typology # noqa: E501
@@ -18,7 +18,7 @@ def list_type(lang, orphacode):  # noqa: E501
     :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
 
-    :rtype: Type
+    :rtype: Typology
     """
     es = config.elastic_server
 

@@ -18,7 +18,7 @@ def list_group(lang, orphacode):  # noqa: E501
     :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
 
-    :rtype: GroupType
+    :rtype: ClassificationLevel
     """
     es = config.elastic_server
 
@@ -26,7 +26,7 @@ def list_group(lang, orphacode):  # noqa: E501
     index = "{}_{}".format(index, lang.lower())
 
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
-            "\"_source\":[\"Date\", \"GroupType\", \"ORPHAcode\"]}"
+            "\"_source\":[\"Date\", \"ClassificationLevel\", \"ORPHAcode\"]}"
 
     response = single_res(es, index, query)
     return response

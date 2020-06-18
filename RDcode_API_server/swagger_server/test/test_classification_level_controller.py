@@ -13,8 +13,8 @@ from swagger_server.test import BaseTestCase
 class TestClassificationLevelController(BaseTestCase):
     """ClassificationLevelController integration test stubs"""
 
-    def test_list_group(self):
-        """Test case for list_group
+    def test_list_classification_level(self):
+        """Test case for list_classification_level
 
         Search for a clinical entity's classification level by ORPHAcode
         """
@@ -22,7 +22,7 @@ class TestClassificationLevelController(BaseTestCase):
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
             # print(lang)
             response = self.client.open(
-                '/{lang}/ClinicalEntity/orphacode/{orphacode}/GroupType'.format(lang=lang, orphacode=558),
+                '/{lang}/ClinicalEntity/orphacode/{orphacode}/ClassificationLevel'.format(lang=lang, orphacode=558),
                 method='GET', headers={"api_key": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
