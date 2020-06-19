@@ -6,7 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.findby_omim_references_orpha import FindbyOMIMReferencesOrpha  # noqa: F401,E501
+from swagger_server.models.findby_omim_references import FindbyOMIMReferences  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -15,30 +15,30 @@ class FindbyOMIM(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, _date: datetime=None, code_omim: int=None, references_orpha: List[FindbyOMIMReferencesOrpha]=None):  # noqa: E501
+    def __init__(self, _date: datetime=None, code_omim: int=None, references: List[FindbyOMIMReferences]=None):  # noqa: E501
         """FindbyOMIM - a model defined in Swagger
 
         :param _date: The _date of this FindbyOMIM.  # noqa: E501
         :type _date: datetime
         :param code_omim: The code_omim of this FindbyOMIM.  # noqa: E501
         :type code_omim: int
-        :param references_orpha: The references_orpha of this FindbyOMIM.  # noqa: E501
-        :type references_orpha: List[FindbyOMIMReferencesOrpha]
+        :param references: The references of this FindbyOMIM.  # noqa: E501
+        :type references: List[FindbyOMIMReferences]
         """
         self.swagger_types = {
             '_date': datetime,
             'code_omim': int,
-            'references_orpha': List[FindbyOMIMReferencesOrpha]
+            'references': List[FindbyOMIMReferences]
         }
 
         self.attribute_map = {
             '_date': 'Date',
             'code_omim': 'Code OMIM',
-            'references_orpha': 'References Orpha'
+            'references': 'References'
         }
         self.__date = _date
         self._code_omim = code_omim
-        self._references_orpha = references_orpha
+        self._references = references
 
     @classmethod
     def from_dict(cls, dikt) -> 'FindbyOMIM':
@@ -94,22 +94,22 @@ class FindbyOMIM(Model):
         self._code_omim = code_omim
 
     @property
-    def references_orpha(self) -> List[FindbyOMIMReferencesOrpha]:
-        """Gets the references_orpha of this FindbyOMIM.
+    def references(self) -> List[FindbyOMIMReferences]:
+        """Gets the references of this FindbyOMIM.
 
 
-        :return: The references_orpha of this FindbyOMIM.
-        :rtype: List[FindbyOMIMReferencesOrpha]
+        :return: The references of this FindbyOMIM.
+        :rtype: List[FindbyOMIMReferences]
         """
-        return self._references_orpha
+        return self._references
 
-    @references_orpha.setter
-    def references_orpha(self, references_orpha: List[FindbyOMIMReferencesOrpha]):
-        """Sets the references_orpha of this FindbyOMIM.
+    @references.setter
+    def references(self, references: List[FindbyOMIMReferences]):
+        """Sets the references of this FindbyOMIM.
 
 
-        :param references_orpha: The references_orpha of this FindbyOMIM.
-        :type references_orpha: List[FindbyOMIMReferencesOrpha]
+        :param references: The references of this FindbyOMIM.
+        :type references: List[FindbyOMIMReferences]
         """
 
-        self._references_orpha = references_orpha
+        self._references = references

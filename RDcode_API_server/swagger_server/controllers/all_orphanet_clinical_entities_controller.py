@@ -1,6 +1,6 @@
 import connexion
 
-from swagger_server.models.clinical_entity import ClinicalEntity  # noqa: E501
+from swagger_server.models.all_clinical_entity import AllClinicalEntity  # noqa: E501
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server import util
 
@@ -16,7 +16,7 @@ def list_entities(lang):  # noqa: E501
     :param lang: Language
     :type lang: str
 
-    :rtype: ClinicalEntity
+    :rtype: AllClinicalEntity
     """
     es = config.elastic_server
 

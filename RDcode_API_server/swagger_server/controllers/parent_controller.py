@@ -1,3 +1,5 @@
+import operator
+
 import connexion
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
@@ -47,5 +49,6 @@ def list_parent(lang, hchid, orphacode):  # noqa: E501
         response_parent = multiple_res(es, index, query, 1000)
         if isinstance(response_parent, str) or isinstance(response_parent, tuple):
             return response_parent
+        response_parent.sort(key=operator.itemgetter('ORPHAcode'))
         response["Parent"] = response_parent
     return response

@@ -16,9 +16,11 @@ class Parent(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, orph_acode: int=None, preferred_term: str=None, classification: ParentClassification=None, parent: List[ParentParent]=None):  # noqa: E501
+    def __init__(self, _date: datetime=None, orph_acode: int=None, preferred_term: str=None, classification: ParentClassification=None, parent: List[ParentParent]=None):  # noqa: E501
         """Parent - a model defined in Swagger
 
+        :param _date: The _date of this Parent.  # noqa: E501
+        :type _date: datetime
         :param orph_acode: The orph_acode of this Parent.  # noqa: E501
         :type orph_acode: int
         :param preferred_term: The preferred_term of this Parent.  # noqa: E501
@@ -29,6 +31,7 @@ class Parent(Model):
         :type parent: List[ParentParent]
         """
         self.swagger_types = {
+            '_date': datetime,
             'orph_acode': int,
             'preferred_term': str,
             'classification': ParentClassification,
@@ -36,11 +39,13 @@ class Parent(Model):
         }
 
         self.attribute_map = {
+            '_date': 'Date',
             'orph_acode': 'ORPHAcode',
             'preferred_term': 'Preferred term',
             'classification': 'Classification',
             'parent': 'Parent'
         }
+        self.__date = _date
         self._orph_acode = orph_acode
         self._preferred_term = preferred_term
         self._classification = classification
@@ -56,6 +61,27 @@ class Parent(Model):
         :rtype: Parent
         """
         return util.deserialize_model(dikt, cls)
+
+    @property
+    def _date(self) -> datetime:
+        """Gets the _date of this Parent.
+
+
+        :return: The _date of this Parent.
+        :rtype: datetime
+        """
+        return self.__date
+
+    @_date.setter
+    def _date(self, _date: datetime):
+        """Sets the _date of this Parent.
+
+
+        :param _date: The _date of this Parent.
+        :type _date: datetime
+        """
+
+        self.__date = _date
 
     @property
     def orph_acode(self) -> int:

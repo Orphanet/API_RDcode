@@ -6,7 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.omim_references_omim import OmimReferencesOMIM  # noqa: F401,E501
+from swagger_server.models.omim_references import OmimReferences  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -15,7 +15,7 @@ class Omim(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, _date: datetime=None, orph_acode: int=None, preferred_term: str=None, references_omim: List[OmimReferencesOMIM]=None):  # noqa: E501
+    def __init__(self, _date: datetime=None, orph_acode: int=None, preferred_term: str=None, references: List[OmimReferences]=None):  # noqa: E501
         """Omim - a model defined in Swagger
 
         :param _date: The _date of this Omim.  # noqa: E501
@@ -24,26 +24,26 @@ class Omim(Model):
         :type orph_acode: int
         :param preferred_term: The preferred_term of this Omim.  # noqa: E501
         :type preferred_term: str
-        :param references_omim: The references_omim of this Omim.  # noqa: E501
-        :type references_omim: List[OmimReferencesOMIM]
+        :param references: The references of this Omim.  # noqa: E501
+        :type references: List[OmimReferences]
         """
         self.swagger_types = {
             '_date': datetime,
             'orph_acode': int,
             'preferred_term': str,
-            'references_omim': List[OmimReferencesOMIM]
+            'references': List[OmimReferences]
         }
 
         self.attribute_map = {
             '_date': 'Date',
             'orph_acode': 'ORPHAcode',
             'preferred_term': 'Preferred term',
-            'references_omim': 'References OMIM'
+            'references': 'References'
         }
         self.__date = _date
         self._orph_acode = orph_acode
         self._preferred_term = preferred_term
-        self._references_omim = references_omim
+        self._references = references
 
     @classmethod
     def from_dict(cls, dikt) -> 'Omim':
@@ -120,22 +120,22 @@ class Omim(Model):
         self._preferred_term = preferred_term
 
     @property
-    def references_omim(self) -> List[OmimReferencesOMIM]:
-        """Gets the references_omim of this Omim.
+    def references(self) -> List[OmimReferences]:
+        """Gets the references of this Omim.
 
 
-        :return: The references_omim of this Omim.
-        :rtype: List[OmimReferencesOMIM]
+        :return: The references of this Omim.
+        :rtype: List[OmimReferences]
         """
-        return self._references_omim
+        return self._references
 
-    @references_omim.setter
-    def references_omim(self, references_omim: List[OmimReferencesOMIM]):
-        """Sets the references_omim of this Omim.
+    @references.setter
+    def references(self, references: List[OmimReferences]):
+        """Sets the references of this Omim.
 
 
-        :param references_omim: The references_omim of this Omim.
-        :type references_omim: List[OmimReferencesOMIM]
+        :param references: The references of this Omim.
+        :type references: List[OmimReferences]
         """
 
-        self._references_omim = references_omim
+        self._references = references

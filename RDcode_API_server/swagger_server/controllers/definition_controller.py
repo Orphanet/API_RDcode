@@ -11,7 +11,7 @@ from controllers.query_controller import *
 def list_definition(lang, orphacode):  # noqa: E501
     """Search for a clinical entity&#x27;s definition by ORPHAcode
 
-    The result retrieves the cinical entity&#x27;s ORPHAcode and its definition. # noqa: E501
+    The result retrieves the clinical entity&#x27;s ORPHAcode and its definition. # noqa: E501
 
     :param lang: Language
     :type lang: str

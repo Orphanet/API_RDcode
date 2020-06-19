@@ -6,7 +6,7 @@ from flask import json
 from six import BytesIO
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
-from swagger_server.models.type import Type  # noqa: E501
+from swagger_server.models.typology import Typology  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
@@ -14,7 +14,7 @@ class TestTypologyController(BaseTestCase):
     """TypologyController integration test stubs"""
 
     def test_list_typology(self):
-        """Test case for list_type
+        """Test case for list_typology
 
         Search for a clinical entity's typology by ORPHAcode.
         """

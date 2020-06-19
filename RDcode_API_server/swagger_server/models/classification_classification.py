@@ -14,35 +14,25 @@ class ClassificationClassification(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, id_of_the_classification: int=None, name_of_the_classification: str=None, orph_acode: int=None, preferred_term: str=None):  # noqa: E501
+    def __init__(self, id_of_the_classification: int=None, name_of_the_classification: str=None):  # noqa: E501
         """ClassificationClassification - a model defined in Swagger
 
         :param id_of_the_classification: The id_of_the_classification of this ClassificationClassification.  # noqa: E501
         :type id_of_the_classification: int
         :param name_of_the_classification: The name_of_the_classification of this ClassificationClassification.  # noqa: E501
         :type name_of_the_classification: str
-        :param orph_acode: The orph_acode of this ClassificationClassification.  # noqa: E501
-        :type orph_acode: int
-        :param preferred_term: The preferred_term of this ClassificationClassification.  # noqa: E501
-        :type preferred_term: str
         """
         self.swagger_types = {
             'id_of_the_classification': int,
-            'name_of_the_classification': str,
-            'orph_acode': int,
-            'preferred_term': str
+            'name_of_the_classification': str
         }
 
         self.attribute_map = {
             'id_of_the_classification': 'ID of the classification',
-            'name_of_the_classification': 'Name of the classification',
-            'orph_acode': 'ORPHAcode',
-            'preferred_term': 'Preferred term'
+            'name_of_the_classification': 'Name of the classification'
         }
         self._id_of_the_classification = id_of_the_classification
         self._name_of_the_classification = name_of_the_classification
-        self._orph_acode = orph_acode
-        self._preferred_term = preferred_term
 
     @classmethod
     def from_dict(cls, dikt) -> 'ClassificationClassification':
@@ -96,45 +86,3 @@ class ClassificationClassification(Model):
         """
 
         self._name_of_the_classification = name_of_the_classification
-
-    @property
-    def orph_acode(self) -> int:
-        """Gets the orph_acode of this ClassificationClassification.
-
-
-        :return: The orph_acode of this ClassificationClassification.
-        :rtype: int
-        """
-        return self._orph_acode
-
-    @orph_acode.setter
-    def orph_acode(self, orph_acode: int):
-        """Sets the orph_acode of this ClassificationClassification.
-
-
-        :param orph_acode: The orph_acode of this ClassificationClassification.
-        :type orph_acode: int
-        """
-
-        self._orph_acode = orph_acode
-
-    @property
-    def preferred_term(self) -> str:
-        """Gets the preferred_term of this ClassificationClassification.
-
-
-        :return: The preferred_term of this ClassificationClassification.
-        :rtype: str
-        """
-        return self._preferred_term
-
-    @preferred_term.setter
-    def preferred_term(self, preferred_term: str):
-        """Sets the preferred_term of this ClassificationClassification.
-
-
-        :param preferred_term: The preferred_term of this ClassificationClassification.
-        :type preferred_term: str
-        """
-
-        self._preferred_term = preferred_term

@@ -14,40 +14,30 @@ class FindbyName(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, _date: datetime=None, orph_acode: int=None, status: str=None, preferred_term: str=None, definition: str=None):  # noqa: E501
+    def __init__(self, _date: datetime=None, orph_acode: int=None, preferred_term: str=None):  # noqa: E501
         """FindbyName - a model defined in Swagger
 
         :param _date: The _date of this FindbyName.  # noqa: E501
         :type _date: datetime
         :param orph_acode: The orph_acode of this FindbyName.  # noqa: E501
         :type orph_acode: int
-        :param status: The status of this FindbyName.  # noqa: E501
-        :type status: str
         :param preferred_term: The preferred_term of this FindbyName.  # noqa: E501
         :type preferred_term: str
-        :param definition: The definition of this FindbyName.  # noqa: E501
-        :type definition: str
         """
         self.swagger_types = {
             '_date': datetime,
             'orph_acode': int,
-            'status': str,
-            'preferred_term': str,
-            'definition': str
+            'preferred_term': str
         }
 
         self.attribute_map = {
             '_date': 'Date',
             'orph_acode': 'ORPHAcode',
-            'status': 'Status',
-            'preferred_term': 'Preferred term',
-            'definition': 'Definition'
+            'preferred_term': 'Preferred term'
         }
         self.__date = _date
         self._orph_acode = orph_acode
-        self._status = status
         self._preferred_term = preferred_term
-        self._definition = definition
 
     @classmethod
     def from_dict(cls, dikt) -> 'FindbyName':
@@ -103,33 +93,6 @@ class FindbyName(Model):
         self._orph_acode = orph_acode
 
     @property
-    def status(self) -> str:
-        """Gets the status of this FindbyName.
-
-
-        :return: The status of this FindbyName.
-        :rtype: str
-        """
-        return self._status
-
-    @status.setter
-    def status(self, status: str):
-        """Sets the status of this FindbyName.
-
-
-        :param status: The status of this FindbyName.
-        :type status: str
-        """
-        allowed_values = ["Active", "Active_Historical entity", "Inactive_Deprecated entity", "Inactive_Obsolete entity", "Inactive_Non Rare disease in Europe"]  # noqa: E501
-        if status not in allowed_values:
-            raise ValueError(
-                "Invalid value for `status` ({0}), must be one of {1}"
-                .format(status, allowed_values)
-            )
-
-        self._status = status
-
-    @property
     def preferred_term(self) -> str:
         """Gets the preferred_term of this FindbyName.
 
@@ -149,24 +112,3 @@ class FindbyName(Model):
         """
 
         self._preferred_term = preferred_term
-
-    @property
-    def definition(self) -> str:
-        """Gets the definition of this FindbyName.
-
-
-        :return: The definition of this FindbyName.
-        :rtype: str
-        """
-        return self._definition
-
-    @definition.setter
-    def definition(self, definition: str):
-        """Sets the definition of this FindbyName.
-
-
-        :param definition: The definition of this FindbyName.
-        :type definition: str
-        """
-
-        self._definition = definition

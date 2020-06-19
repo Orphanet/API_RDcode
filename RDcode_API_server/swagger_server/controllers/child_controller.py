@@ -1,3 +1,5 @@
+import operator
+
 import connexion
 
 from swagger_server.models.child import Child  # noqa: E501
@@ -50,5 +52,6 @@ def list_child(lang, orphacode, hchid):  # noqa: E501
             response_child = multiple_res(es, index, query, 1000)
             if isinstance(response_child, str) or isinstance(response_child, tuple):
                 return response_child
+            response_child.sort(key=operator.itemgetter('ORPHAcode'))
         response["Child"] = response_child
     return response

@@ -1,7 +1,7 @@
 import connexion
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
-from swagger_server.models.type import Type  # noqa: E501
+from swagger_server.models.typology import Typology  # noqa: E501
 from swagger_server import util
 
 import config

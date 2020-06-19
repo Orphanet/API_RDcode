@@ -708,7 +708,8 @@ paths:
       tags:
       - ORPHAcode aggregation
       summary: Search for a clinical entity's aggregation code by ORPHAcode
-      description: The result retrieves the clinical entity's ORPHAcode, its preferred term as well as the ORPHAcode and the preferred term of the aggregation code.
+      description: The result retrieves the clinical entity's ORPHAcode, its preferred
+        term as well as the ORPHAcode and the preferred term of the aggregation code.
       operationId: list_aggregation
       parameters:
       - name: lang
@@ -1516,11 +1517,11 @@ components:
           type: string
           example: Active
           enum:
-            - Active
-            - Active historical
-            - Inactive deprecated
-            - Inactive obsolete
-            - Inactive Non rare disease in Europe
+          - Active
+          - Active historical
+          - Inactive deprecated
+          - Inactive obsolete
+          - Inactive Non rare disease in Europe
       example:
         Status: Active
         ORPHAcode: 10
@@ -1679,8 +1680,8 @@ components:
           - particular clinical situation in a disease or syndrome
           - Category
       example:
-        Typology: disease
         ORPHAcode: 10
+        Typology: disease
         Date: "2019-07-10 11:47:17"
     OrphanetURL:
       type: object
@@ -1712,6 +1713,10 @@ components:
         Preferred term:
           type: string
           example: 48,XXYY syndrome
+      example:
+        Preferred term: 48,XXYY syndrome
+        ORPHAcodeAggregation: 10
+        Date: "2019-07-10 11:47:17"
     icd10:
       type: object
       properties:
@@ -1737,10 +1742,6 @@ components:
           DisorderMappingValidationStatus: Validated
           Code ICD10: Q98.8
           DisorderMappingRelation: NTBT
-        - DisorderMappingICDRelation: Attributed
-          DisorderMappingValidationStatus: Validated
-          Code ICD10: Q98.8
-          DisorderMappingRelation: NTBT
         Date: "2019-07-10 11:47:17"
     Entity_by_icd:
       type: object
@@ -1758,11 +1759,6 @@ components:
       example:
         Code ICD10: Q98.8
         References:
-        - Preferred term: 48,XXYY syndrome
-          ORPHAcode: 10
-          DisorderMappingICDRelation: Attributed
-          DisorderMappingValidationStatus: Validated
-          DisorderMappingRelation: NTBT
         - Preferred term: 48,XXYY syndrome
           ORPHAcode: 10
           DisorderMappingICDRelation: Attributed
@@ -1796,7 +1792,7 @@ components:
     Entities_by_classification:
       type: array
       items:
-        $ref: '#/components/schemas/ClinicalEntity_inner'
+        $ref: '#/components/schemas/Entities_by_classification_inner'
     Parent:
       type: object
       properties:
@@ -1866,7 +1862,7 @@ components:
           - ORPHAcode: 294973
             Preferred term: Marfan syndrome type 2
           items:
-            $ref: '#/components/schemas/Child_Child'
+            $ref: '#/components/schemas/Parent_Parent'
       example:
         Date: "2019-07-10 11:47:17"
         Preferred term: Marfan syndrome
@@ -1953,6 +1949,15 @@ components:
           type: integer
           format: int32
           example: 10
+        Status:
+          type: string
+          example: Active
+          enum:
+          - Active
+          - Active historical
+          - Inactive deprecated
+          - Inactive obsolete
+          - Inactive Non rare disease in Europe
         Preferred term:
           type: string
           example: 48,XXYY syndrome
@@ -1964,43 +1969,16 @@ components:
             insufficient testosterone production, cognitive, affective and social
             functioning impairments, global developmental delay, and an increased
             risk of congenital malformations.
-        Status:
-          type: string
-          example: Active
-          enum:
-            - Active
-            - Active historical
-            - Inactive deprecated
-            - Inactive obsolete
-            - Inactive Non rare disease in Europe
       example:
         Date: "2019-07-10 11:47:17"
         ORPHAcode: 10
-        Preferred term: 48,XXYY syndrome
-        Definition: "A rare sex chromosome number anomaly disorder characterized, genetically,
-          by the presence of an extra X and Y chromosome in males and, clinically,
-          by tall stature, dysfunctional testes associated with infertility and
-          insufficient testosterone production, cognitive, affective and social
-          functioning impairments, global developmental delay, and an increased
-          risk of congenital malformations."
         Status: Active
-    ClinicalEntity_inner:
-      type: object
-      properties:
-        Date:
-          type: string
-          format: date-time
-        ORPHAcode:
-          type: integer
-          format: int32
-          example: 10
-        Preferred term:
-          type: string
-          example: 48,XXYY syndrome
-      example:
         Preferred term: 48,XXYY syndrome
-        ORPHAcode: 10
-        Date: "2019-07-10 11:47:17"
+        Definition: A rare sex chromosome number anomaly disorder characterized, genetically,
+          by the presence of an extra X and Y chromosome in males and, clinically,
+          by tall stature, dysfunctional testes associated with infertility and insufficient
+          testosterone production, cognitive, affective and social functioning impairments,
+          global developmental delay, and an increased risk of congenital malformations.
     icd10_References:
       type: object
       properties:
@@ -2089,6 +2067,23 @@ components:
       example:
         Name of the classification: Rare cardiac disease
         ID of the classification: 146
+    Entities_by_classification_inner:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 10
+        Preferred term:
+          type: string
+          example: 48,XXYY syndrome
+      example:
+        Preferred term: 48,XXYY syndrome
+        ORPHAcode: 10
+        Date: 2000-01-23T04:56:07.000+00:00
     Parent_Classification:
       type: object
       properties:
@@ -2103,14 +2098,6 @@ components:
         Name of the classification: Rare developmental defect during embryogenesis
         ID of the classification: 147
     Parent_Parent:
-      type: object
-      properties:
-        ORPHAcode:
-          type: integer
-          format: int32
-        Preferred term:
-          type: string
-    Child_Child:
       type: object
       properties:
         ORPHAcode:

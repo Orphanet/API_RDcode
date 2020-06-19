@@ -6,7 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.entity_by_icd_references_orpha import EntityByIcdReferencesOrpha  # noqa: F401,E501
+from swagger_server.models.entity_by_icd_references import EntityByIcdReferences  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -15,30 +15,30 @@ class EntityByIcd(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, _date: datetime=None, code_icd10: str=None, references_orpha: List[EntityByIcdReferencesOrpha]=None):  # noqa: E501
+    def __init__(self, _date: datetime=None, code_icd10: str=None, references: List[EntityByIcdReferences]=None):  # noqa: E501
         """EntityByIcd - a model defined in Swagger
 
         :param _date: The _date of this EntityByIcd.  # noqa: E501
         :type _date: datetime
         :param code_icd10: The code_icd10 of this EntityByIcd.  # noqa: E501
         :type code_icd10: str
-        :param references_orpha: The references_orpha of this EntityByIcd.  # noqa: E501
-        :type references_orpha: List[EntityByIcdReferencesOrpha]
+        :param references: The references of this EntityByIcd.  # noqa: E501
+        :type references: List[EntityByIcdReferences]
         """
         self.swagger_types = {
             '_date': datetime,
             'code_icd10': str,
-            'references_orpha': List[EntityByIcdReferencesOrpha]
+            'references': List[EntityByIcdReferences]
         }
 
         self.attribute_map = {
             '_date': 'Date',
             'code_icd10': 'Code ICD10',
-            'references_orpha': 'References Orpha'
+            'references': 'References'
         }
         self.__date = _date
         self._code_icd10 = code_icd10
-        self._references_orpha = references_orpha
+        self._references = references
 
     @classmethod
     def from_dict(cls, dikt) -> 'EntityByIcd':
@@ -94,22 +94,22 @@ class EntityByIcd(Model):
         self._code_icd10 = code_icd10
 
     @property
-    def references_orpha(self) -> List[EntityByIcdReferencesOrpha]:
-        """Gets the references_orpha of this EntityByIcd.
+    def references(self) -> List[EntityByIcdReferences]:
+        """Gets the references of this EntityByIcd.
 
 
-        :return: The references_orpha of this EntityByIcd.
-        :rtype: List[EntityByIcdReferencesOrpha]
+        :return: The references of this EntityByIcd.
+        :rtype: List[EntityByIcdReferences]
         """
-        return self._references_orpha
+        return self._references
 
-    @references_orpha.setter
-    def references_orpha(self, references_orpha: List[EntityByIcdReferencesOrpha]):
-        """Sets the references_orpha of this EntityByIcd.
+    @references.setter
+    def references(self, references: List[EntityByIcdReferences]):
+        """Sets the references of this EntityByIcd.
 
 
-        :param references_orpha: The references_orpha of this EntityByIcd.
-        :type references_orpha: List[EntityByIcdReferencesOrpha]
+        :param references: The references of this EntityByIcd.
+        :type references: List[EntityByIcdReferences]
         """
 
-        self._references_orpha = references_orpha
+        self._references = references

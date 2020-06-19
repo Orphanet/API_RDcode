@@ -6,7 +6,7 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.icd10_references_icd import Icd10ReferencesICD  # noqa: F401,E501
+from swagger_server.models.icd10_references import Icd10References  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -15,7 +15,7 @@ class Icd10(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, _date: datetime=None, orph_acode: int=None, preferred_term: str=None, references_icd: List[Icd10ReferencesICD]=None):  # noqa: E501
+    def __init__(self, _date: datetime=None, orph_acode: int=None, preferred_term: str=None, references: List[Icd10References]=None):  # noqa: E501
         """Icd10 - a model defined in Swagger
 
         :param _date: The _date of this Icd10.  # noqa: E501
@@ -24,26 +24,26 @@ class Icd10(Model):
         :type orph_acode: int
         :param preferred_term: The preferred_term of this Icd10.  # noqa: E501
         :type preferred_term: str
-        :param references_icd: The references_icd of this Icd10.  # noqa: E501
-        :type references_icd: List[Icd10ReferencesICD]
+        :param references: The references of this Icd10.  # noqa: E501
+        :type references: List[Icd10References]
         """
         self.swagger_types = {
             '_date': datetime,
             'orph_acode': int,
             'preferred_term': str,
-            'references_icd': List[Icd10ReferencesICD]
+            'references': List[Icd10References]
         }
 
         self.attribute_map = {
             '_date': 'Date',
             'orph_acode': 'ORPHAcode',
             'preferred_term': 'Preferred term',
-            'references_icd': 'References ICD'
+            'references': 'References'
         }
         self.__date = _date
         self._orph_acode = orph_acode
         self._preferred_term = preferred_term
-        self._references_icd = references_icd
+        self._references = references
 
     @classmethod
     def from_dict(cls, dikt) -> 'Icd10':
@@ -120,22 +120,22 @@ class Icd10(Model):
         self._preferred_term = preferred_term
 
     @property
-    def references_icd(self) -> List[Icd10ReferencesICD]:
-        """Gets the references_icd of this Icd10.
+    def references(self) -> List[Icd10References]:
+        """Gets the references of this Icd10.
 
 
-        :return: The references_icd of this Icd10.
-        :rtype: List[Icd10ReferencesICD]
+        :return: The references of this Icd10.
+        :rtype: List[Icd10References]
         """
-        return self._references_icd
+        return self._references
 
-    @references_icd.setter
-    def references_icd(self, references_icd: List[Icd10ReferencesICD]):
-        """Sets the references_icd of this Icd10.
+    @references.setter
+    def references(self, references: List[Icd10References]):
+        """Sets the references of this Icd10.
 
 
-        :param references_icd: The references_icd of this Icd10.
-        :type references_icd: List[Icd10ReferencesICD]
+        :param references: The references of this Icd10.
+        :type references: List[Icd10References]
         """
 
-        self._references_icd = references_icd
+        self._references = references

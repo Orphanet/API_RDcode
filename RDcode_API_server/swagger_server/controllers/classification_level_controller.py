@@ -1,7 +1,7 @@
 import connexion
 
+from swagger_server.models.classification_level import ClassificationLevel  # noqa: E501
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
-from swagger_server.models.group_type import GroupType  # noqa: E501
 from swagger_server import util
 
 import config

@@ -4,7 +4,7 @@ from __future__ import absolute_import
 
 from flask import json
 
-from swagger_server.models.clinical_entity import ClinicalEntity  # noqa: E501
+from swagger_server.models.all_clinical_entity import AllClinicalEntity  # noqa: E501
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.test import BaseTestCase
 
@@ -15,7 +15,7 @@ class TestAllOrphanetClinicalEntitiesController(BaseTestCase):
     def test_list_entities(self):
         """Test case for list_entities
 
-        Search for all Orphanet clinical entities.
+        Search for all Orphanet clinical entities
         """
         # print("AllClinicalEntities")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:

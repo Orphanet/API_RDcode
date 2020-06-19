@@ -6,7 +6,7 @@ from flask import json
 from six import BytesIO
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
-from swagger_server.models.inline_response200 import InlineResponse200  # noqa: E501
+from swagger_server.models.orph_acode_aggregation import ORPHAcodeAggregation  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
@@ -18,7 +18,7 @@ class TestORPHAcodeAggregationController(BaseTestCase):
 
         Search for a clinical entity's aggregation code by ORPHAcode
         """
-        # print("list_agregation")
+        # print("list_aggregation")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
             # print(lang)
             response = self.client.open(

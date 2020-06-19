@@ -412,7 +412,7 @@ paths:
     get:
       summary: Search for a clinical entity's classification level by ORPHAcode
       description: The result retrieves the clinical entity's ORPHAcode and its classification level.
-      operationId: ListGroup
+      operationId: ClassificationLevel
       tags:
         - Classification level
       parameters:
@@ -1315,7 +1315,7 @@ components:
             - Inactive deprecated
             - Inactive obsolete
             - Inactive Non rare disease in Europe
-          example: Active
+          example: Inactive obsolete
         Relation:
           type: string
           enum:

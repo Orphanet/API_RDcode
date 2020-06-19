@@ -1,7 +1,7 @@
 import connexion
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
-from swagger_server.models.inline_response200 import InlineResponse200  # noqa: E501
+from swagger_server.models.orph_acode_aggregation import ORPHAcodeAggregation  # noqa: E501
 from swagger_server import util
 
 import config
@@ -18,7 +18,7 @@ def list_aggregation(lang, orphacode):  # noqa: E501
     :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
 
-    :rtype: InlineResponse200
+    :rtype: ORPHAcodeAggregation
     """
     es = config.elastic_server
 
