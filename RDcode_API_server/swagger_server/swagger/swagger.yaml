@@ -1502,10 +1502,6 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/AllClinicalEntity_inner'
-    ClinicalEntity:
-      type: array
-      items:
-        $ref: '#/components/schemas/ClinicalEntity_inner'
     Status:
       type: object
       properties:

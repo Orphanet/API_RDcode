@@ -1276,41 +1276,6 @@ components:
             insufficient testosterone production, cognitive, affective and social
             functioning impairments, global developmental delay, and an increased
             risk of congenital malformations."
-    ClinicalEntity:
-      type: array
-      items:
-        type: object
-        properties:
-          Date:
-            type: string
-            format: date-time
-            example: '2019-07-18 18:44:24'
-          ORPHAcode:
-            type: integer
-            format: int32
-            example: 10
-          Status:
-            type: string
-            enum:
-              - Active
-              - Active historical
-              - Inactive deprecated
-              - Inactive obsolete
-              - Inactive Non rare disease in Europe
-            example: Active
-          Preferred term:
-            type: string
-            example: '48,XXYY syndrome'
-          Definition:
-            type: string
-            example: >-
-              A rare sex chromosome number anomaly disorder characterized,
-              genetically, by the presence of an extra X and Y chromosome in
-              males and, clinically, by tall stature, dysfunctional testes
-              associated with infertility and insufficient testosterone
-              production, cognitive, affective and social functioning
-              impairments, global developmental delay, and an increased risk of
-              congenital malformations.
     Status:
       type: object
       properties:
