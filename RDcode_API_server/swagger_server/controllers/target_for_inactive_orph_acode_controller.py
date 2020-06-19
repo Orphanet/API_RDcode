@@ -27,7 +27,7 @@ def list_target(lang, orphacode):  # noqa: E501
     index = "{}_{}".format(index, lang.lower())
 
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
-            "\"_source\":[\"Date\", \"ORPHAcode\", \"Status\", \"DisorderDisorderAssociation\"]}"
+            "\"_source\":[\"Date\", \"ORPHAcode\", \"Status\", \"DisorderDisorderAssociation\", \"FlagValue\"]}"
 
     response = single_res(es, index, query)
 
@@ -38,19 +38,24 @@ def list_target(lang, orphacode):  # noqa: E501
         # If an DisorderDisorderAssociation is applicable return the Target ORPHAcode and Relation
         # from the DisorderDisorderAssociation
         response_default = {"Date": response["Date"],
-                    "ORPHAcode": response["ORPHAcode"],
-                    "Status": response["Status"],
-                    "Relation": "No relation: the entity is active",
-                    "Target ORPHAcode": "No target ORPHAcode: the entity is active",
-                    }
-        if response["DisorderDisorderAssociation"] is not None:
-            for association in response["DisorderDisorderAssociation"]:
-                if association["OutDisorder"]:
-                    response_default["Relation"] = association["DisorderDisorderAssociationType"]
-                    response_default["Target ORPHAcode"] = association["OutDisorder"]["ORPHAcode"]
-                    break
-        else:
-            # If an DisorderDisorderAssociation is NOT applicable
-            pass
+                            "ORPHAcode": response["ORPHAcode"],
+                            "Status": response["Status"],
+                            "Relation": "No relation: the entity is active",
+                            "Target ORPHAcode": "No target ORPHAcode: the entity is active",
+                            }
+        # If the entity is NOT active ("FlagValue" != 1)
+        if int(response["FlagValue"]) != 1:
+            # "DisorderDisorderAssociation" contains information
+            if response["DisorderDisorderAssociation"] is not None:
+                for association in response["DisorderDisorderAssociation"]:
+                    if association["OutDisorder"]:
+                        if association["OutDisorder"]["ORPHAcode"]:
+                            response_default["Relation"] = association["DisorderDisorderAssociationType"]
+                            response_default["Target ORPHAcode"] = association["OutDisorder"]["ORPHAcode"]
+                            break
+            else:
+                # If an DisorderDisorderAssociation is NOT applicable
+                response_default["Relation"] = "Not Applicable"
+                response_default["Target ORPHAcode"] = "Not Applicable"
         return response_default
     return response

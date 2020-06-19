@@ -74,10 +74,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ClinicalEntity'
+                $ref: '#/components/schemas/AllClinicalEntity'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/ClinicalEntity'
+                $ref: '#/components/schemas/AllClinicalEntity'
         "400":
           description: Bad request
         "401":
@@ -334,7 +334,7 @@ paths:
       tags:
       - Definition
       summary: Search for a clinical entity's definition by ORPHAcode
-      description: The result retrieves the cinical entity's ORPHAcode and its definition.
+      description: The result retrieves the clinical entity's ORPHAcode and its definition.
       operationId: list_definition
       parameters:
       - name: lang
@@ -708,10 +708,7 @@ paths:
       tags:
       - ORPHAcode aggregation
       summary: Search for a clinical entity's aggregation code by ORPHAcode
-      description: "The result retrieves the clinical entity's ORPHAcode, its preferred term as well as the ORPHAcode and the preferred term of the aggregation code.
-
-
-      Due to the current limitations of swagger UI, please explore the response scheme for the example."
+      description: The result retrieves the clinical entity's ORPHAcode, its preferred term as well as the ORPHAcode and the preferred term of the aggregation code.
       operationId: list_aggregation
       parameters:
       - name: lang
@@ -751,10 +748,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200'
+                $ref: '#/components/schemas/ORPHAcodeAggregation'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/inline_response_200'
+                $ref: '#/components/schemas/ORPHAcodeAggregation'
         "400":
           description: Bad request
         "401":
@@ -1501,6 +1498,10 @@ components:
         message:
           type: string
           example: Error
+    AllClinicalEntity:
+      type: array
+      items:
+        $ref: '#/components/schemas/AllClinicalEntity_inner'
     ClinicalEntity:
       type: array
       items:
@@ -1519,15 +1520,15 @@ components:
           type: string
           example: Active
           enum:
-          - Active
-          - Active_Historical entity
-          - Inactive_Deprecated entity
-          - Inactive_Obsolete entity
-          - Inactive_Non Rare disease in Europe
+            - Active
+            - Active historical
+            - Inactive deprecated
+            - Inactive obsolete
+            - Inactive Non rare disease in Europe
       example:
         Status: Active
         ORPHAcode: 10
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2019-07-10 11:47:17"
     TargetEntity:
       type: object
       properties:
@@ -1537,32 +1538,32 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: 10
+          example: 70470
         Status:
           type: string
-          example: Active
+          example: Inactive obsolete
           enum:
           - Active
-          - Active_Historical entity
-          - Inactive_Deprecated entity
-          - Inactive_Obsolete entity
-          - Inactive_Non Rare disease in Europe
+          - Active historical
+          - Inactive deprecated
+          - Inactive obsolete
+          - Inactive Non rare disease in Europe
         Relation:
           type: string
-          example: referred to
+          example: Referred to
           enum:
-          - referred to
+          - Referred to
           - Moved to
         Target ORPHAcode:
           type: integer
           format: int32
-          example: 100
+          example: 444490
       example:
-        Status: Active
-        Relation: referred to
-        ORPHAcode: 10
-        Target ORPHAcode: 100
-        Date: 2000-01-23T04:56:07.000+00:00
+        Status: Inactive obsolete
+        Relation: Referred to
+        ORPHAcode: 70470
+        Target ORPHAcode: 444490
+        Date: "2019-07-10 11:47:17"
     Name:
       type: object
       properties:
@@ -1579,7 +1580,7 @@ components:
       example:
         Preferred term: 48,XXYY syndrome
         ORPHAcode: 10
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2019-07-10 11:47:17"
     Definition:
       type: object
       properties:
@@ -1605,7 +1606,7 @@ components:
           by tall stature, dysfunctional testes associated with infertility and insufficient
           testosterone production, cognitive, affective and social functioning impairments,
           global developmental delay, and an increased risk of congenital malformations.
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2019-07-10 11:47:17"
     Synonym:
       type: object
       properties:
@@ -1634,7 +1635,7 @@ components:
         - Idiopathic massive osteolysis
         - Progressive massive osteolysis
         - Vanishing bone disease
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2019-07-10 11:47:17"
     ClassificationLevel:
       type: object
       properties:
@@ -1655,7 +1656,7 @@ components:
       example:
         ORPHAcode: 10
         ClassificationLevel: Group
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2019-07-10 11:47:17"
     Typology:
       type: object
       properties:
@@ -1684,7 +1685,7 @@ components:
       example:
         Typology: disease
         ORPHAcode: 10
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2019-07-10 11:47:17"
     OrphanetURL:
       type: object
       properties:
@@ -1701,8 +1702,8 @@ components:
       example:
         OrphanetURL: http://www.orpha.net/ORDO/Orphanet_10
         ORPHAcode: 10
-        Date: 2000-01-23T04:56:07.000+00:00
-    ORPHAcodeAggregationApplicable:
+        Date: "2019-07-10 11:47:17"
+    ORPHAcodeAggregation:
       type: object
       properties:
         Date:
@@ -1715,18 +1716,6 @@ components:
         Preferred term:
           type: string
           example: 48,XXYY syndrome
-    ORPHAcodeAggregationNotApplicable:
-      type: object
-      properties:
-        Date:
-          type: string
-          format: date-time
-        ORPHAcodeAggregation:
-          type: string
-          example: Not Applicable
-        Preferred term:
-          type: string
-          example: Not Applicable
     icd10:
       type: object
       properties:
@@ -1756,7 +1745,7 @@ components:
           DisorderMappingValidationStatus: Validated
           Code ICD10: Q98.8
           DisorderMappingRelation: NTBT
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2019-07-10 11:47:17"
     Entity_by_icd:
       type: object
       properties:
@@ -1783,7 +1772,7 @@ components:
           DisorderMappingICDRelation: Attributed
           DisorderMappingValidationStatus: Validated
           DisorderMappingRelation: NTBT
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2019-07-10 11:47:17"
     Classification:
       type: object
       properties:
@@ -1807,7 +1796,7 @@ components:
         Classification:
         - Name of the classification: Rare cardiac disease
           ID of the classification: 146
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2019-07-10 11:47:17"
     Entities_by_classification:
       type: array
       items:
@@ -1818,7 +1807,7 @@ components:
         Date:
           type: string
           format: date-time
-          example: 2000-01-23T04:56:07.000+00:00
+          example: "2019-07-10 11:47:17"
         ORPHAcode:
           type: integer
           format: int32
@@ -1842,7 +1831,7 @@ components:
           items:
             $ref: '#/components/schemas/Parent_Parent'
       example:
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2019-07-10 11:47:17"
         Preferred term: Marfan syndrome
         ORPHAcode: 558
         Parent:
@@ -1863,7 +1852,7 @@ components:
         Date:
           type: string
           format: date-time
-          example: 2000-01-23T04:56:07.000+00:00
+          example: "2019-07-10 11:47:17"
         ORPHAcode:
           type: integer
           format: int32
@@ -1883,7 +1872,7 @@ components:
           items:
             $ref: '#/components/schemas/Child_Child'
       example:
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2019-07-10 11:47:17"
         Preferred term: Marfan syndrome
         ORPHAcode: 558
         Classification:
@@ -1916,12 +1905,9 @@ components:
         - DisorderMappingValidationStatus: Validated
           Code OMIM: 610168
           DisorderMappingRelation: NTBT (narrower term maps to a broader term)
-        - DisorderMappingValidationStatus: Validated
-          Code OMIM: 610168
-          DisorderMappingRelation: NTBT (narrower term maps to a broader term)
         Preferred term: Marfan syndrome
         ORPHAcode: 558
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2019-07-10 11:47:17"
     FindbyOMIM:
       type: object
       properties:
@@ -1943,11 +1929,7 @@ components:
           ORPHAcode: 558
           DisorderMappingValidationStatus: Validated
           DisorderMappingRelation: NTBT
-        - Preferred term: Marfan syndrome
-          ORPHAcode: 558
-          DisorderMappingValidationStatus: Validated
-          DisorderMappingRelation: NTBT
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2019-07-10 11:47:17"
     FindbyName:
       type: object
       properties:
@@ -1964,11 +1946,48 @@ components:
       example:
         Preferred term: Marfan syndrome
         ORPHAcode: 558
-        Date: 2000-01-23T04:56:07.000+00:00
-    inline_response_200:
-      oneOf:
-      - $ref: '#/components/schemas/ORPHAcodeAggregationApplicable'
-      - $ref: '#/components/schemas/ORPHAcodeAggregationNotApplicable'
+        Date: "2019-07-10 11:47:17"
+    AllClinicalEntity_inner:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 10
+        Preferred term:
+          type: string
+          example: 48,XXYY syndrome
+        Definition:
+          type: string
+          example: A rare sex chromosome number anomaly disorder characterized, genetically,
+            by the presence of an extra X and Y chromosome in males and, clinically,
+            by tall stature, dysfunctional testes associated with infertility and
+            insufficient testosterone production, cognitive, affective and social
+            functioning impairments, global developmental delay, and an increased
+            risk of congenital malformations.
+        Status:
+          type: string
+          example: Active
+          enum:
+            - Active
+            - Active historical
+            - Inactive deprecated
+            - Inactive obsolete
+            - Inactive Non rare disease in Europe
+      example:
+        Date: "2019-07-10 11:47:17"
+        ORPHAcode: 10
+        Preferred term: 48,XXYY syndrome
+        Definition: "A rare sex chromosome number anomaly disorder characterized, genetically,
+          by the presence of an extra X and Y chromosome in males and, clinically,
+          by tall stature, dysfunctional testes associated with infertility and
+          insufficient testosterone production, cognitive, affective and social
+          functioning impairments, global developmental delay, and an increased
+          risk of congenital malformations."
+        Status: Active
     ClinicalEntity_inner:
       type: object
       properties:
@@ -1985,7 +2004,7 @@ components:
       example:
         Preferred term: 48,XXYY syndrome
         ORPHAcode: 10
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2019-07-10 11:47:17"
     icd10_References:
       type: object
       properties:
