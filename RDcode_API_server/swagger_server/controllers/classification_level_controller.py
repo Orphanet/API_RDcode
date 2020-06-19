@@ -25,8 +25,13 @@ def list_group(lang, orphacode):  # noqa: E501
     index = "rdcode_orphanomenclature"
     index = "{}_{}".format(index, lang.lower())
 
+    # query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
+    #         "\"_source\":[\"Date\", \"ClassificationLevel\", \"ORPHAcode\"]}"
+
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
-            "\"_source\":[\"Date\", \"ClassificationLevel\", \"ORPHAcode\"]}"
+            "\"_source\":[\"Date\", \"GroupType\", \"ORPHAcode\"]}"
 
     response = single_res(es, index, query)
+
+    response["ClassificationLevel"] = response.pop("GroupType")
     return response
