@@ -24,7 +24,7 @@ class TestOMIMController(BaseTestCase):
             # print(lang)
             response = self.client.open(
                 '/{lang}/ClinicalEntity/orphacode/{orphacode}/OMIM'.format(lang=lang, orphacode=558),
-                method='GET', headers={"api_key": "test"})
+                method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
             self.assert200(response,
@@ -40,7 +40,7 @@ class TestOMIMController(BaseTestCase):
             # print(lang)
             response = self.client.open(
                 '/{lang}/ClinicalEntity/FindbyOMIM/{codeOMIM}'.format(lang=lang, codeOMIM=558),
-                method='GET', headers={"api_key": "test"})
+                method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
             self.assert200(response,

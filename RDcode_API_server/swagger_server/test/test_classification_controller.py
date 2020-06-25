@@ -24,7 +24,7 @@ class TestClassificationController(BaseTestCase):
             # print(lang)
             response = self.client.open(
                 '/{lang}/ClinicalEntity/orphacode/{orphacode}/Classification'.format(lang=lang, orphacode=558),
-                method='GET', headers={"api_key": "test"})
+                method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
             self.assert200(response,
@@ -40,7 +40,7 @@ class TestClassificationController(BaseTestCase):
             # print(lang)
             response = self.client.open(
                 '/{lang}/Classification/{hchid}'.format(lang=lang, hchid=146),
-                method='GET', headers={"api_key": "test"})
+                method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
             self.assert200(response,

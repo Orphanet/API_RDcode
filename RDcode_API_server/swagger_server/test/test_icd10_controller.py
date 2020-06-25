@@ -23,7 +23,7 @@ class TestICD10Controller(BaseTestCase):
             # print(lang)
             response = self.client.open(
                 '/{lang}/ClinicalEntity/orphacode/{orphacode}/ICD10'.format(lang=lang, orphacode=558),
-                method='GET', headers={"api_key": "test"})
+                method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
             self.assert200(response,
@@ -39,7 +39,7 @@ class TestICD10Controller(BaseTestCase):
             # print(lang)
             response = self.client.open(
                 '/{lang}/ClinicalEntity/ICD10/{icd10}'.format(lang=lang, icd10='Q87.4'),
-                method='GET', headers={"api_key": "test"})
+                method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
             self.assert200(response,

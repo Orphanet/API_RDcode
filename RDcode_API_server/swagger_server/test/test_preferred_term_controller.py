@@ -32,7 +32,7 @@ class TestPreferredTermController(BaseTestCase):
             # print(test)
             response = self.client.open(
                 '/{lang}/ClinicalEntity/FindbyName/{label}'.format(lang=test[0], label=test[1]),
-                method='GET', headers={"api_key": "test"})
+                method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
             self.assert200(response,
@@ -48,7 +48,7 @@ class TestPreferredTermController(BaseTestCase):
             # print(lang)
             response = self.client.open(
                 '/{lang}/ClinicalEntity/orphacode/{orphacode}/Name'.format(lang=lang, orphacode=558),
-                method='GET', headers={"api_key": "test"})
+                method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
             self.assert200(response,

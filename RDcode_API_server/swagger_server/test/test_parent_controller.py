@@ -23,7 +23,7 @@ class TestParentController(BaseTestCase):
             # print(lang)
             response = self.client.open(
                 '/{lang}/Classification/{hchid}/orphacode/{orphacode}/Parent'.format(lang=lang, hchid=147, orphacode=558),
-                method='GET', headers={"api_key": "test"})
+                method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
             self.assert200(response,
