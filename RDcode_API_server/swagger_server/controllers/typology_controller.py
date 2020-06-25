@@ -25,14 +25,9 @@ def list_typology(lang, orphacode):  # noqa: E501
     index = "rdcode_orphanomenclature"
     index = "{}_{}".format(index, lang.lower())
 
-    # query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
-    #         "\"_source\":[\"Date\", \"ORPHAcode\", \"Typology\"]}"
-
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
-            "\"_source\":[\"Date\", \"ORPHAcode\", \"Type\"]}"
+            "\"_source\":[\"Date\", \"ORPHAcode\", \"Typology\"]}"
 
     response = single_res(es, index, query)
-
-    response["Typology"] = response.pop("Type")
 
     return response
