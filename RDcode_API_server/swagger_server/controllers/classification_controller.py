@@ -59,6 +59,9 @@ def list_classification(lang, orphacode):  # noqa: E501
             refined_classification.sort(key=operator.itemgetter('ID of the classification'))
             # Append the classification response to the disorder response
             response["Classification"] = refined_classification
+
+            # return yaml if needed
+            response = if_yaml(connexion.request.accept_mimetypes.best, response)
         return response
 
 
@@ -99,4 +102,7 @@ def list_orpha_by_classification(lang, hchid):  # noqa: E501
                 "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
 
         response = uncapped_res(es, index, query, size, scroll_timeout)
+
+        # return yaml if needed
+        response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response

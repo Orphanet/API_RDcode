@@ -38,6 +38,9 @@ def list_icd10(lang, orphacode):  # noqa: E501
     else:
         references = response.pop("Code ICD")
         response["References"] = references
+
+        # return yaml if needed
+        response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response
 
 
@@ -91,4 +94,7 @@ def list_orpha_by_icd10(lang, icd10):  # noqa: E501
         response["Date"] = response_icd_to_orpha[0]["Date"]
         response["Code ICD10"] = icd10
         response["References"] = references
+
+        # return yaml if needed
+        response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response

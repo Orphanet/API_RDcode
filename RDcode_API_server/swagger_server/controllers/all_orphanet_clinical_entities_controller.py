@@ -31,4 +31,7 @@ def list_entities(lang):  # noqa: E501
     scroll_timeout = config.scroll_timeout
 
     response = uncapped_res(es, index, query, size, scroll_timeout)
+
+    # return yaml if needed
+    response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response

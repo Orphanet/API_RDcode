@@ -30,4 +30,7 @@ def list_group(lang, orphacode):  # noqa: E501
 
     response = single_res(es, index, query)
 
+    # return yaml if needed
+    response = if_yaml(connexion.request.accept_mimetypes.best, response)
+
     return response

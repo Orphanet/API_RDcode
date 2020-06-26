@@ -4,7 +4,6 @@ from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.models.synonym import Synonym  # noqa: E501
 from swagger_server import util
 
-
 import config
 from controllers.query_controller import *
 
@@ -30,4 +29,7 @@ def list_synonym(lang, orphacode):  # noqa: E501
             "\"_source\":[\"Date\", \"ORPHAcode\", \"Synonym\"]}"
 
     response = single_res(es, index, query)
+
+    # return yaml if needed
+    response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response

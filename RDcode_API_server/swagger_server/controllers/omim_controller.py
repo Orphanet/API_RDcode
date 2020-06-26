@@ -38,6 +38,9 @@ def list_omim(lang, orphacode):  # noqa: E501
     else:
         references = response.pop("Code OMIM")
         response["References"] = references
+
+        # return yaml if needed
+        response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response
 
 
@@ -90,4 +93,7 @@ def list_orpha_by_omim(lang, omimcode):  # noqa: E501
         response["Date"] = response_omim_to_orpha[0]["Date"]
         response["Code OMIM"] = omimcode
         response["References"] = references
+
+        # return yaml if needed
+        response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response

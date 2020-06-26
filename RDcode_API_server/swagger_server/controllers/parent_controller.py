@@ -51,4 +51,7 @@ def list_parent(lang, hchid, orphacode):  # noqa: E501
             return response_parent
         response_parent.sort(key=operator.itemgetter('ORPHAcode'))
         response["Parent"] = response_parent
+
+        # return yaml if needed
+        response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response

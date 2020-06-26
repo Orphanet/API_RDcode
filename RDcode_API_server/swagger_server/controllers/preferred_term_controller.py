@@ -31,6 +31,9 @@ def list_by_name(lang, label):  # noqa: E501
             "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
 
     response = single_res(es, index, query)
+
+    # return yaml if needed
+    response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response
 
 
@@ -55,4 +58,7 @@ def list_name(lang, orphacode):  # noqa: E501
             "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
 
     response = single_res(es, index, query)
+
+    # return yaml if needed
+    response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response

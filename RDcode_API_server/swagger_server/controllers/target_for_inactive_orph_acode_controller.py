@@ -29,33 +29,36 @@ def list_target(lang, orphacode):  # noqa: E501
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
             "\"_source\":[\"Date\", \"ORPHAcode\", \"Status\", \"DisorderDisorderAssociation\", \"FlagValue\"]}"
 
-    response = single_res(es, index, query)
+    response_raw = single_res(es, index, query)
 
     # Check for error, an error will be returned as text or tuple
-    if isinstance(response, str) or isinstance(response, tuple):
-        pass
+    if isinstance(response_raw, str) or isinstance(response_raw, tuple):
+        return response_raw
     else:
         # If an DisorderDisorderAssociation is applicable return the Target ORPHAcode and Relation
         # from the DisorderDisorderAssociation
-        response_default = {"Date": response["Date"],
-                            "ORPHAcode": response["ORPHAcode"],
-                            "Status": response["Status"],
+        response = {"Date": response_raw["Date"],
+                            "ORPHAcode": response_raw["ORPHAcode"],
+                            "Status": response_raw["Status"],
                             "Relation": "No relation: the entity is active",
                             "Target ORPHAcode": "No target ORPHAcode: the entity is active",
-                            }
+                    }
         # If the entity is NOT active ("FlagValue" != 1)
-        if int(response["FlagValue"]) != 1:
+        if int(response_raw["FlagValue"]) != 1:
             # "DisorderDisorderAssociation" contains information
-            if response["DisorderDisorderAssociation"] is not None:
-                for association in response["DisorderDisorderAssociation"]:
+            if response_raw["DisorderDisorderAssociation"] is not None:
+                # Multiple associations can occur but ATM there is only one association["TargetDisorder"]
+                for association in response_raw["DisorderDisorderAssociation"]:
                     if association["TargetDisorder"]:
                         if association["TargetDisorder"]["ORPHAcode"]:
-                            response_default["Relation"] = association["DisorderDisorderAssociationType"]
-                            response_default["Target ORPHAcode"] = association["TargetDisorder"]["ORPHAcode"]
+                            response["Relation"] = association["DisorderDisorderAssociationType"]
+                            response["Target ORPHAcode"] = association["TargetDisorder"]["ORPHAcode"]
                             break
             else:
-                # If an DisorderDisorderAssociation is NOT applicable
-                response_default["Relation"] = "Not Applicable"
-                response_default["Target ORPHAcode"] = "Not Applicable"
-        return response_default
-    return response
+                # DisorderDisorderAssociation is NOT applicable if there is no records
+                response["Relation"] = "Not Applicable"
+                response["Target ORPHAcode"] = "Not Applicable"
+
+            # return yaml if needed
+            response = if_yaml(connexion.request.accept_mimetypes.best, response)
+        return response

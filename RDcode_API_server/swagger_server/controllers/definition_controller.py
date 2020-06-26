@@ -29,4 +29,7 @@ def list_definition(lang, orphacode):  # noqa: E501
             "\"_source\":[\"Date\", \"Definition\", \"ORPHAcode\"]}"
 
     response = single_res(es, index, query)
+
+    # return yaml if needed
+    response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response

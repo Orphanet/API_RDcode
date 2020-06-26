@@ -46,4 +46,7 @@ def list_aggregation(lang, orphacode):  # noqa: E501
                         "ORPHAcodeAggregation": response["AggregationLevelSection"]["AggregationLevelStatus"],
                         "Preferred term": response["AggregationLevelSection"]["AggregationLevelStatus"],
                         }
+
+            # return yaml if needed
+            response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response
