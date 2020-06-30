@@ -37,6 +37,7 @@ def list_omim(lang, orphacode):  # noqa: E501
         return response
     else:
         references = response.pop("Code OMIM")
+        references.sort(key=operator.itemgetter("Code OMIM"))
         response["References"] = references
 
         # return yaml if needed

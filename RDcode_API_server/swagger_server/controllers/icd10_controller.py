@@ -37,6 +37,7 @@ def list_icd10(lang, orphacode):  # noqa: E501
         return response
     else:
         references = response.pop("Code ICD")
+        references.sort(key=operator.itemgetter("Code ICD10"))
         response["References"] = references
 
         # return yaml if needed

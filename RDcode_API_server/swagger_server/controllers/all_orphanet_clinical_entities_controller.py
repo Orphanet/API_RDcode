@@ -1,3 +1,5 @@
+import operator
+
 import connexion
 
 from swagger_server.models.all_clinical_entity import AllClinicalEntity  # noqa: E501
@@ -31,7 +33,11 @@ def list_entities(lang):  # noqa: E501
     scroll_timeout = config.scroll_timeout
 
     response = uncapped_res(es, index, query, size, scroll_timeout)
+    if isinstance(response, str) or isinstance(response, tuple):
+        return response
+    else:
+        response.sort(key=operator.itemgetter("ORPHAcode"))
 
-    # return yaml if needed
-    response = if_yaml(connexion.request.accept_mimetypes.best, response)
+        # return yaml if needed
+        response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response
