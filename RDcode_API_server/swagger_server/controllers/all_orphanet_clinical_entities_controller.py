@@ -33,9 +33,11 @@ def list_entities(lang):  # noqa: E501
     scroll_timeout = config.scroll_timeout
 
     response = uncapped_res(es, index, query, size, scroll_timeout)
+    # Test to return error
     if isinstance(response, str) or isinstance(response, tuple):
         return response
     else:
+        # Sort by ORPHAcode
         response.sort(key=operator.itemgetter("ORPHAcode"))
 
         # return yaml if needed
