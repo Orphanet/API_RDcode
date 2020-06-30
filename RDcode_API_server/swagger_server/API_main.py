@@ -10,8 +10,8 @@ from swagger_server import encoder
 
 
 def main():
-    # swagger_url = path to ui
-    # "swagger_ui_config": {"defaultModelsExpandDepth": -1} = do not display data models
+    # swagger_url => path to ui
+    # "swagger_ui_config": {"defaultModelsExpandDepth": -1} => do not display data models
     options = {'swagger_url': '/', "swagger_ui_config": {"defaultModelsExpandDepth": -1}}
     app = connexion.App(__name__, specification_dir='swagger/', options=options)
     app.app.json_encoder = encoder.JSONEncoder
