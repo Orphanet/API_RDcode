@@ -102,6 +102,11 @@ def list_orpha_by_classification(lang, hchid):  # noqa: E501
                 "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
 
         response = uncapped_res(es, index, query, size, scroll_timeout)
+        # Test to return error
+        if isinstance(response, str) or isinstance(response, tuple):
+            return response
+        # Sort by classification ID
+        response.sort(key=operator.itemgetter('ORPHAcode'))
 
         # return yaml if needed
         response = if_yaml(connexion.request.accept_mimetypes.best, response)

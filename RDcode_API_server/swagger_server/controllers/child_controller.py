@@ -50,6 +50,7 @@ def list_child(lang, orphacode, hchid):  # noqa: E501
                     "\"_source\":[\"ORPHAcode\", \"Preferred term\"]}"
 
             response_child = multiple_res(es, index, query, 1000)
+            # Test to return error
             if isinstance(response_child, str) or isinstance(response_child, tuple):
                 return response_child
             response_child.sort(key=operator.itemgetter('ORPHAcode'))
