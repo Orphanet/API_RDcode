@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8">
     <title>{{ title | default('API RDcode') }}</title>
-    <link rel="stylesheet" type="text/css" href="./static/swagger-ui.css" >
+    <link rel="stylesheet" type="text/css" href="./swagger-ui.css" >
     <link rel="icon" type="image/png" href="favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/png" href="favicon.ico" sizes="16x16" />
     <style>
@@ -42,15 +42,12 @@
         <div></div>
         <div>
             <a href="https://www.orpha.net/consor/cgi-bin/index.php">
-                <img src="./static/logo_orphanet_transp.png" alt="orphanet" height="50px";>
+                <img src="./media/logo_orphanet_transp.png" alt="orphanet" height="50px";>
             </a>
-            <!--<p style="text-align:center; margin: 0;">
-                RDcode
-            </p>-->
         </div>
         <div>
             <a href="http://www.rd-code.eu/">
-                <img src="./static/rd_code.jpg" alt="rd_code" height="50px";>
+                <img src="./media/rd_code.png" alt="rd_code" height="70px";>
             </a>
         </div>
         <div></div>
@@ -58,8 +55,8 @@
 
     <div id="swagger-ui"></div>
 
-    <script src="./static/swagger-ui-bundle.js"> </script>
-    <script src="./static/swagger-ui-standalone-preset.js"> </script>
+    <script src="./swagger-ui-bundle.js"> </script>
+    <script src="./swagger-ui-standalone-preset.js"> </script>
     <script>
     window.onload = function() {
       // Begin Swagger UI call region
