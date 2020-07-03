@@ -8,7 +8,7 @@ import config
 from controllers.query_controller import *
 
 
-def list_group(lang, orphacode):  # noqa: E501
+def classification_level(lang, orphacode):  # noqa: E501
     """Search for a clinical entity&#x27;s classification level by ORPHAcode
 
     The result retrieves the clinical entity&#x27;s ORPHAcode and its classification level. # noqa: E501

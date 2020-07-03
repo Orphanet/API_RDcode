@@ -485,7 +485,7 @@ paths:
       summary: Search for a clinical entity's classification level by ORPHAcode
       description: The result retrieves the clinical entity's ORPHAcode and its classification
         level.
-      operationId: list_group
+      operationId: classification_level
       parameters:
       - name: lang
         in: path
@@ -1518,14 +1518,13 @@ components:
           example: Active
           enum:
           - Active
-          - Active historical
-          - Inactive deprecated
-          - Inactive obsolete
-          - Inactive Non rare disease in Europe
+          - 'Inactive: Non rare disease in Europe'
+          - 'Inactive: Obsolete'
+          - 'Inactive: Deprecated'
       example:
         Status: Active
         ORPHAcode: 10
-        Date: "2019-07-10 11:47:17"
+        Date: "2020-06-29 11:48:08"
     TargetEntity:
       type: object
       properties:
@@ -1538,13 +1537,12 @@ components:
           example: 70470
         Status:
           type: string
-          example: Inactive obsolete
+          example: 'Inactive: Obsolete'
           enum:
           - Active
-          - Active historical
-          - Inactive deprecated
-          - Inactive obsolete
-          - Inactive Non rare disease in Europe
+          - 'Inactive: Non rare disease in Europe'
+          - 'Inactive: Obsolete'
+          - 'Inactive: Deprecated'
         Relation:
           type: string
           example: Referred to
@@ -1556,11 +1554,11 @@ components:
           format: int32
           example: 444490
       example:
-        Status: Inactive obsolete
+        Status: 'Inactive: Obsolete'
         Relation: Referred to
         ORPHAcode: 70470
         Target ORPHAcode: 444490
-        Date: "2019-07-10 11:47:17"
+        Date: "2020-06-29 11:48:08"
     Name:
       type: object
       properties:
@@ -1577,7 +1575,7 @@ components:
       example:
         Preferred term: 48,XXYY syndrome
         ORPHAcode: 10
-        Date: "2019-07-10 11:47:17"
+        Date: "2020-06-29 11:48:08"
     Definition:
       type: object
       properties:
@@ -1603,7 +1601,7 @@ components:
           by tall stature, dysfunctional testes associated with infertility and insufficient
           testosterone production, cognitive, affective and social functioning impairments,
           global developmental delay, and an increased risk of congenital malformations.
-        Date: "2019-07-10 11:47:17"
+        Date: "2020-06-29 11:48:08"
     Synonym:
       type: object
       properties:
@@ -1632,7 +1630,7 @@ components:
         - Idiopathic massive osteolysis
         - Progressive massive osteolysis
         - Vanishing bone disease
-        Date: "2019-07-10 11:47:17"
+        Date: "2020-06-29 11:48:08"
     ClassificationLevel:
       type: object
       properties:
@@ -1645,15 +1643,15 @@ components:
           example: 10
         ClassificationLevel:
           type: string
-          example: Group
+          example: Disorder
           enum:
-          - Group
           - Disorder
-          - SubType
+          - Subtype of disorder
+          - Group of disorders
       example:
         ORPHAcode: 10
-        ClassificationLevel: Group
-        Date: "2019-07-10 11:47:17"
+        ClassificationLevel: Disorder
+        Date: "2020-06-29 11:48:08"
     Typology:
       type: object
       properties:
@@ -1666,23 +1664,23 @@ components:
           example: 10
         Typology:
           type: string
-          example: disease
+          example: Malformation syndrome
           enum:
-          - biological anomaly
-          - clinical subtype
-          - clinical syndrome
-          - disease
-          - etiological subtype
+          - Disease
+          - Malformation syndrome
+          - Clinical subtype
           - Clinical group
-          - histopathological subtype
-          - malformation syndrome
-          - morphological anomaly
-          - particular clinical situation in a disease or syndrome
           - Category
+          - Particular clinical situation in a disease or syndrome
+          - Morphological anomaly
+          - Etiological subtype
+          - Biological anomaly
+          - Clinical syndrome
+          - Histopathological subtype
       example:
         ORPHAcode: 10
-        Typology: disease
-        Date: "2019-07-10 11:47:17"
+        Typology: Malformation syndrome
+        Date: "2020-06-29 11:48:08"
     OrphanetURL:
       type: object
       properties:
@@ -1695,11 +1693,11 @@ components:
           example: 10
         OrphanetURL:
           type: string
-          example: http://www.orpha.net/ORDO/Orphanet_10
+          example: http://www.orpha.net/consor/cgi-bin/OC_Exp.php?lng=en&Expert=10
       example:
-        OrphanetURL: http://www.orpha.net/ORDO/Orphanet_10
+        OrphanetURL: http://www.orpha.net/consor/cgi-bin/OC_Exp.php?lng=en&Expert=10
         ORPHAcode: 10
-        Date: "2019-07-10 11:47:17"
+        Date: "2020-06-29 11:48:08"
     ORPHAcodeAggregation:
       type: object
       properties:
@@ -1716,7 +1714,7 @@ components:
       example:
         Preferred term: 48,XXYY syndrome
         ORPHAcodeAggregation: 10
-        Date: "2019-07-10 11:47:17"
+        Date: "2020-06-29 11:48:08"
     icd10:
       type: object
       properties:
@@ -1738,11 +1736,13 @@ components:
         Preferred term: 48,XXYY syndrome
         ORPHAcode: 10
         References:
-        - DisorderMappingICDRelation: Attributed
+        - DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by
+            Orphanet)
           DisorderMappingValidationStatus: Validated
           Code ICD10: Q98.8
-          DisorderMappingRelation: NTBT
-        Date: "2019-07-10 11:47:17"
+          DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
+            Term)
+        Date: "2020-06-29 11:48:08"
     Entity_by_icd:
       type: object
       properties:
@@ -1757,14 +1757,16 @@ components:
           items:
             $ref: '#/components/schemas/Entity_by_icd_References'
       example:
-        Code ICD10: Q98.8
         References:
         - Preferred term: 48,XXYY syndrome
           ORPHAcode: 10
-          DisorderMappingICDRelation: Attributed
+          DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by
+            Orphanet)
           DisorderMappingValidationStatus: Validated
-          DisorderMappingRelation: NTBT
-        Date: "2019-07-10 11:47:17"
+          DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
+            Term)
+        Code ICD10: Q98.8
+        Date: "2020-06-29 11:48:08"
     Classification:
       type: object
       properties:
@@ -1786,9 +1788,9 @@ components:
         Preferred term: Rare Cardiomyopathy
         ORPHAcode: 167848
         Classification:
-        - Name of the classification: Rare cardiac disease
+        - Name of the classification: Orphanet classification of rare cardiac diseases
           ID of the classification: 146
-        Date: "2019-07-10 11:47:17"
+        Date: "2020-06-29 11:48:08"
     Entities_by_classification:
       type: array
       items:
@@ -1799,7 +1801,7 @@ components:
         Date:
           type: string
           format: date-time
-          example: "2019-07-10 11:47:17"
+          example: "2020-06-29 11:48:08"
         ORPHAcode:
           type: integer
           format: int32
@@ -1813,30 +1815,27 @@ components:
           type: array
           example:
           - ORPHAcode: 139030
-            Preferred term: Rare developmental defect with connective tissue
-              involvement
+            Preferred term: Rare developmental defect with connective tissue involvement
           - ORPHAcode: 498448
-            Preferred term: Overgrowth or tall stature syndrome with skeletal
-              involvement
+            Preferred term: Overgrowth or tall stature syndrome with skeletal involvement
           - ORPHAcode: 519292
             Preferred term: Syndromic ectopia lentis
           items:
             $ref: '#/components/schemas/Parent_Parent'
       example:
-        Date: "2019-07-10 11:47:17"
+        Date: "2020-06-29 11:48:08"
         Preferred term: Marfan syndrome
         ORPHAcode: 558
         Parent:
         - ORPHAcode: 139030
-          referred term: Rare developmental defect with connective tissue
-            involvement
+          Preferred term: Rare developmental defect with connective tissue involvement
         - ORPHAcode: 498448
-          Preferred term: Overgrowth or tall stature syndrome with skeletal
-            involvement
+          Preferred term: Overgrowth or tall stature syndrome with skeletal involvement
         - ORPHAcode: 519292
           Preferred term: Syndromic ectopia lentis
         Classification:
-          Name of the classification: Rare developmental defect during embryogenesis
+          Name of the classification: Orphanet classification of rare developmental
+            anomalies during embryogenesis
           ID of the classification: 147
     Child:
       type: object
@@ -1844,7 +1843,7 @@ components:
         Date:
           type: string
           format: date-time
-          example: "2019-07-10 11:47:17"
+          example: "2020-06-29 11:48:08"
         ORPHAcode:
           type: integer
           format: int32
@@ -1864,17 +1863,18 @@ components:
           items:
             $ref: '#/components/schemas/Parent_Parent'
       example:
-        Date: "2019-07-10 11:47:17"
         Preferred term: Marfan syndrome
         ORPHAcode: 558
         Classification:
-          Name of the classification: Rare developmental defect during embryogenesis
+          Name of the classification: Orphanet classification of rare developmental
+            anomalies during embryogenesis
           ID of the classification: 147
         Child:
         - ORPHAcode: 294963
           Preferred term: Marfan syndrome type 1
         - ORPHAcode: 294973
           Preferred term: Marfan syndrome type 2
+        Date: "2020-06-29 11:48:08"
     omim:
       type: object
       properties:
@@ -1893,13 +1893,14 @@ components:
           items:
             $ref: '#/components/schemas/omim_References'
       example:
-        References:
-        - DisorderMappingValidationStatus: Validated
-          Code OMIM: 610168
-          DisorderMappingRelation: NTBT (narrower term maps to a broader term)
         Preferred term: Marfan syndrome
         ORPHAcode: 558
-        Date: "2019-07-10 11:47:17"
+        References:
+        - DisorderMappingValidationStatus: Validated
+          Code OMIM: 154700
+          DisorderMappingRelation: BTNT (ORPHA code's Broader Term maps to a Narrower
+            Term)
+        Date: "2020-06-29 11:48:08"
     FindbyOMIM:
       type: object
       properties:
@@ -1915,13 +1916,14 @@ components:
           items:
             $ref: '#/components/schemas/FindbyOMIM_References'
       example:
-        Code OMIM: 154700
         References:
         - Preferred term: Marfan syndrome
           ORPHAcode: 558
           DisorderMappingValidationStatus: Validated
-          DisorderMappingRelation: NTBT
-        Date: "2019-07-10 11:47:17"
+          DisorderMappingRelation: BTNT (ORPHA code's Broader Term maps to a Narrower
+            Term)
+        Code OMIM: 154700
+        Date: "2020-06-29 11:48:08"
     FindbyName:
       type: object
       properties:
@@ -1938,7 +1940,7 @@ components:
       example:
         Preferred term: Marfan syndrome
         ORPHAcode: 558
-        Date: "2019-07-10 11:47:17"
+        Date: "2020-06-29 11:48:08"
     AllClinicalEntity_inner:
       type: object
       properties:
@@ -1954,10 +1956,9 @@ components:
           example: Active
           enum:
           - Active
-          - Active historical
-          - Inactive deprecated
-          - Inactive obsolete
-          - Inactive Non rare disease in Europe
+          - 'Inactive: Non rare disease in Europe'
+          - 'Inactive: Obsolete'
+          - 'Inactive: Deprecated'
         Preferred term:
           type: string
           example: 48,XXYY syndrome
@@ -1970,7 +1971,7 @@ components:
             functioning impairments, global developmental delay, and an increased
             risk of congenital malformations.
       example:
-        Date: "2019-07-10 11:47:17"
+        Date: "2020-06-29 11:48:08"
         ORPHAcode: 10
         Status: Active
         Preferred term: 48,XXYY syndrome
@@ -1987,22 +1988,24 @@ components:
           example: Q98.8
         DisorderMappingRelation:
           type: string
-          example: NTBT
+          example: NTBT (ORPHA code's Narrower Term maps to a Broader Term)
           enum:
-          - E
-          - NTBT
-          - BTNT
-          - NTBT/E
+          - 'E (Exact mapping: the two concepts are equivalent)'
+          - NTBT (ORPHA code's Narrower Term maps to a Broader Term)
+          - BTNT (ORPHA code's Broader Term maps to a Narrower Term)
+          - NTBT/E (ORPHA code's Narrower Term maps to a Broader Term because of an
+            Exact mapping with a synonym in the target terminology)
           - BTNT/E
-          - ND
+          - ND (not yet decided/unable to decide)
         DisorderMappingICDRelation:
           type: string
-          example: Attributed
+          example: Attributed (The ICD10 code is attributed by Orphanet)
           enum:
-          - Specific code
-          - Inclusion term
-          - Index term
-          - Attributed
+          - Specific code (The ORPHA code has its own code in the ICD10)
+          - Inclusion term (The ORPHA code is included under a ICD10 category and
+            has not its own code)
+          - Index term (The ORPHA code is listed in the ICD10 Index)
+          - Attributed (The ICD10 code is attributed by Orphanet)
         DisorderMappingValidationStatus:
           type: string
           example: Validated
@@ -2010,10 +2013,11 @@ components:
           - Validated
           - Not yet validated
       example:
-        DisorderMappingICDRelation: Attributed
+        DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by Orphanet)
         DisorderMappingValidationStatus: Validated
         Code ICD10: Q98.8
-        DisorderMappingRelation: NTBT
+        DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
+          Term)
     Entity_by_icd_References:
       type: object
       properties:
@@ -2026,22 +2030,24 @@ components:
           example: 48,XXYY syndrome
         DisorderMappingRelation:
           type: string
-          example: NTBT
+          example: NTBT (ORPHA code's Narrower Term maps to a Broader Term)
           enum:
-          - E
-          - NTBT
-          - BTNT
-          - NTBT/E
+          - 'E (Exact mapping: the two concepts are equivalent)'
+          - NTBT (ORPHA code's Narrower Term maps to a Broader Term)
+          - BTNT (ORPHA code's Broader Term maps to a Narrower Term)
+          - NTBT/E (ORPHA code's Narrower Term maps to a Broader Term because of an
+            Exact mapping with a synonym in the target terminology)
           - BTNT/E
-          - ND
+          - ND (not yet decided/unable to decide)
         DisorderMappingICDRelation:
           type: string
-          example: Attributed
+          example: Attributed (The ICD10 code is attributed by Orphanet)
           enum:
-          - Specific code
-          - Inclusion term
-          - Index term
-          - Attributed
+          - Specific code (The ORPHA code has its own code in the ICD10)
+          - Inclusion term (The ORPHA code is included under a ICD10 category and
+            has not its own code)
+          - Index term (The ORPHA code is listed in the ICD10 Index)
+          - Attributed (The ICD10 code is attributed by Orphanet)
         DisorderMappingValidationStatus:
           type: string
           example: Validated
@@ -2051,9 +2057,10 @@ components:
       example:
         Preferred term: 48,XXYY syndrome
         ORPHAcode: 10
-        DisorderMappingICDRelation: Attributed
+        DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by Orphanet)
         DisorderMappingValidationStatus: Validated
-        DisorderMappingRelation: NTBT
+        DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
+          Term)
     Classification_Classification:
       type: object
       properties:
@@ -2063,9 +2070,9 @@ components:
           example: 146
         Name of the classification:
           type: string
-          example: Rare cardiac disease
+          example: Orphanet classification of rare cardiac diseases
       example:
-        Name of the classification: Rare cardiac disease
+        Name of the classification: Orphanet classification of rare cardiac diseases
         ID of the classification: 146
     Entities_by_classification_inner:
       type: object
@@ -2076,14 +2083,14 @@ components:
         ORPHAcode:
           type: integer
           format: int32
-          example: 10
+          example: 7
         Preferred term:
           type: string
-          example: 48,XXYY syndrome
+          example: 3C syndrome
       example:
-        Preferred term: 48,XXYY syndrome
-        ORPHAcode: 10
-        Date: 2000-01-23T04:56:07.000+00:00
+        Preferred term: 3C syndrome
+        ORPHAcode: 7
+        Date: "2020-06-29 11:48:08"
     Parent_Classification:
       type: object
       properties:
@@ -2093,9 +2100,11 @@ components:
           example: 147
         Name of the classification:
           type: string
-          example: Rare developmental defect during embryogenesis
+          example: Orphanet classification of rare developmental anomalies during
+            embryogenesis
       example:
-        Name of the classification: Rare developmental defect during embryogenesis
+        Name of the classification: Orphanet classification of rare developmental
+          anomalies during embryogenesis
         ID of the classification: 147
     Parent_Parent:
       type: object
@@ -2111,17 +2120,18 @@ components:
         Code OMIM:
           type: integer
           format: int64
-          example: 610168
+          example: 154700
         DisorderMappingRelation:
           type: string
-          example: NTBT (narrower term maps to a broader term)
+          example: BTNT (ORPHA code's Broader Term maps to a Narrower Term)
           enum:
-          - E
-          - NTBT
-          - BTNT
-          - NTBT/E
+          - 'E (Exact mapping: the two concepts are equivalent)'
+          - NTBT (ORPHA code's Narrower Term maps to a Broader Term)
+          - BTNT (ORPHA code's Broader Term maps to a Narrower Term)
+          - NTBT/E (ORPHA code's Narrower Term maps to a Broader Term because of an
+            Exact mapping with a synonym in the target terminology)
           - BTNT/E
-          - ND
+          - ND (not yet decided/unable to decide)
         DisorderMappingValidationStatus:
           type: string
           example: Validated
@@ -2130,8 +2140,9 @@ components:
           - Not yet validated
       example:
         DisorderMappingValidationStatus: Validated
-        Code OMIM: 610168
-        DisorderMappingRelation: NTBT (narrower term maps to a broader term)
+        Code OMIM: 154700
+        DisorderMappingRelation: BTNT (ORPHA code's Broader Term maps to a Narrower
+          Term)
     FindbyOMIM_References:
       type: object
       properties:
@@ -2144,14 +2155,15 @@ components:
           example: Marfan syndrome
         DisorderMappingRelation:
           type: string
-          example: NTBT
+          example: BTNT (ORPHA code's Broader Term maps to a Narrower Term)
           enum:
-          - E
-          - NTBT
-          - BTNT
-          - NTBT/E
+          - 'E (Exact mapping: the two concepts are equivalent)'
+          - NTBT (ORPHA code's Narrower Term maps to a Broader Term)
+          - BTNT (ORPHA code's Broader Term maps to a Narrower Term)
+          - NTBT/E (ORPHA code's Narrower Term maps to a Broader Term because of an
+            Exact mapping with a synonym in the target terminology)
           - BTNT/E
-          - ND
+          - ND (not yet decided/unable to decide)
         DisorderMappingValidationStatus:
           type: string
           example: Validated
@@ -2162,7 +2174,8 @@ components:
         Preferred term: Marfan syndrome
         ORPHAcode: 558
         DisorderMappingValidationStatus: Validated
-        DisorderMappingRelation: NTBT
+        DisorderMappingRelation: BTNT (ORPHA code's Broader Term maps to a Narrower
+          Term)
   parameters:
     hchid:
       name: hchid
