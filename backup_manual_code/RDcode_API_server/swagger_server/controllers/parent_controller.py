@@ -1,3 +1,5 @@
+import operator
+
 import connexion
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
@@ -9,15 +11,15 @@ from controllers.query_controller import *
 
 
 def list_parent(lang, hchid, orphacode):  # noqa: E501
-    """Search for information about the n+1 (parent) of the clinical entity in one specific classification by the clinical entity&#x27;s ORPHAcode and unique identifier of the classification.
+    """Search for clinical entity&#x27;s parent(s) by ORPHAcode and the unique identifier of the classification
 
-    The result is a data set including ORPHAcode, status, preferred term and definition of all clinical entities. # noqa: E501
+    The result retrieves the clinical entity&#x27;s ORPHAcode and preferred term as well as the unique identifier and the name of the queried classification, and the clinical entity&#x27;s parent(s), specifying ORPHAcode and preferred term. # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param hchid: The hierarchy ID (hchID) is a specific identifier attributed to an Orphanet classification.
+    :param hchid: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each classification upon its creation.
     :type hchid: int
-    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
+    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
 
     :rtype: Parent
@@ -45,7 +47,12 @@ def list_parent(lang, hchid, orphacode):  # noqa: E501
                 "\"_source\":[\"ORPHAcode\", \"Preferred term\"]}"
 
         response_parent = multiple_res(es, index, query, 1000)
+        # Test to return error
         if isinstance(response_parent, str) or isinstance(response_parent, tuple):
             return response_parent
+        response_parent.sort(key=operator.itemgetter('ORPHAcode'))
         response["Parent"] = response_parent
+
+        # return yaml if needed
+        response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response

@@ -29,18 +29,20 @@ python-flask-server.requirements.txt:
 ## Server setup
 
 Create a server stub with the OpenAPI v3 description 
-([swagger_v3_Rdcode](backup_manual_code/BU_RDcode-2-oas3-swagger.yaml))
+([swagger_v3_Rdcode](../backup_manual_code/API rdcode 2020_07_3.yaml))
 with Python3-flask.
 
 Two possibilities:
 * Use the [online swagger-codegen](https://editor.swagger.io/)
 (frequent new releases and features, potentially unstable)
-* Use the [swagger-codegen-cli.jar](./tools/swagger-codegen-cli.jar)
+* Use the [swagger-codegen-cli.jar](../tools/generator 3.0.16/swagger-codegen-cli.jar)
 from this distribution and follow the 
 [swagger codegen instructions](./tools/swagger%20codegen%20instructions.txt)
 
 /!\ One copy of OpenAPI definition MUST be kept separated from the one included
  in the RDcode_API_server because the codegen dereference everything /!\
+
+Backup RDcode_API_server.
 
 One convenient way to deploy a new stub is to create a new branch to do 
 a MANUAL merge with pycharm "VCS/Git/compare with branch"

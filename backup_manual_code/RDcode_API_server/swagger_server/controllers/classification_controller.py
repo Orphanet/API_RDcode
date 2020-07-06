@@ -12,13 +12,13 @@ from controllers.query_controller import *
 
 
 def list_classification(lang, orphacode):  # noqa: E501
-    """Search for the list of classification(s) of the clinical entity by its ORPHAcode.
+    """Search for the classification(s) to which a clinical entity belongs by ORPHAcode
 
-    The result is the ORPHAcode and preferred term of the clinical entity with a data set or each classification where the clinical entity is present (set includes: unique identifier of the classification, name of the classification, ORPHAcode and name of the n+1 clinical entity). # noqa: E501
+    The result retrieves the clinical entity&#x27;s ORPHAcode and its preferred term as well as a collection of dataset specifying the unique identifier and the name of the classification(s) to which the searched clinical entity belongs. # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the database upon creation of the entity.
+    :param orphacode: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each clinical entity upon its creation.
     :type orphacode: int
 
     :rtype: Classification
@@ -49,25 +49,30 @@ def list_classification(lang, orphacode):  # noqa: E501
         if isinstance(response_classification, str) or isinstance(response_classification, tuple):
             return response_classification
         else:
-            # Extract the classification's data from each items
-            response_classification = [classification["Classification"] for classification in response_classification]
-            # Remove unwanted information
-            [classification.pop("hch_id", None) for classification in response_classification]
+            refined_classification = []
+            # Select desired information
+            for classification in response_classification:
+                classif_info = {"ID of the classification": classification["Classification"]["ID of the classification"],
+                        "Name of the classification": classification["Classification"]["Name of the classification"]}
+                refined_classification.append(classif_info)
             # Sort by classification ID
-            response_classification.sort(key=operator.itemgetter('ID of the classification'))
+            refined_classification.sort(key=operator.itemgetter('ID of the classification'))
             # Append the classification response to the disorder response
-            response["Classification"] = response_classification
+            response["Classification"] = refined_classification
+
+            # return yaml if needed
+            response = if_yaml(connexion.request.accept_mimetypes.best, response)
         return response
 
 
 def list_orpha_by_classification(lang, hchid):  # noqa: E501
-    """Search for the list of clinical entities&#x27; ORPHAcodes in one specific classification by the unique identifer of the classification.
+    """Search for all ORPHAcodes and preferred terms within a specific classification by the unique identifer of the classification
 
-    The result is a data set including ORPHAcode, status, preferred term and definition of all clinical entities. # noqa: E501
+    The result is a collection of clinical entities (ORPHAcode and preferred term) belonging to the queried classification. # noqa: E501
 
-    :param lang: Desired language
+    :param lang: Language
     :type lang: str
-    :param hchid: The hierarchy ID (hchID) is a specific identifier attributed to an Orphanet classification.
+    :param hchid: A unique and time-stable numerical identifier attributed randomly by the Orphanet database to each classification upon its creation.
     :type hchid: int
 
     :rtype: EntitiesByClassification
@@ -94,7 +99,15 @@ def list_orpha_by_classification(lang, hchid):  # noqa: E501
 
         code_list = ",".join(["\"" + str(code["ORPHAcode"]) + "\"" for code in response_orphacode_hierarchy])
         query = "{\"query\": {\"terms\": {\"ORPHAcode\": [" + code_list + "]}}," \
-                "\"_source\":[\"Date\", \"ORPHAcode\", \"Definition\", \"Preferred term\", \"Status\"]}"
+                "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
 
         response = uncapped_res(es, index, query, size, scroll_timeout)
+        # Test to return error
+        if isinstance(response, str) or isinstance(response, tuple):
+            return response
+        # Sort by classification ID
+        response.sort(key=operator.itemgetter('ORPHAcode'))
+
+        # return yaml if needed
+        response = if_yaml(connexion.request.accept_mimetypes.best, response)
     return response

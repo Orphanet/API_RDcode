@@ -1,6 +1,9 @@
 # coding: utf-8
 
 from __future__ import absolute_import
+from datetime import date, datetime  # noqa: F401
+
+from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
 from swagger_server import util
@@ -11,25 +14,25 @@ class ParentParent(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, parent_orph_acode: int=None, parent_preferred_term: str=None):  # noqa: E501
+    def __init__(self, orph_acode: int=None, preferred_term: str=None):  # noqa: E501
         """ParentParent - a model defined in Swagger
 
-        :param parent_orph_acode: The parent_orph_acode of this ParentParent.  # noqa: E501
-        :type parent_orph_acode: int
-        :param parent_preferred_term: The parent_preferred_term of this ParentParent.  # noqa: E501
-        :type parent_preferred_term: str
+        :param orph_acode: The orph_acode of this ParentParent.  # noqa: E501
+        :type orph_acode: int
+        :param preferred_term: The preferred_term of this ParentParent.  # noqa: E501
+        :type preferred_term: str
         """
         self.swagger_types = {
-            'parent_orph_acode': int,
-            'parent_preferred_term': str
+            'orph_acode': int,
+            'preferred_term': str
         }
 
         self.attribute_map = {
-            'parent_orph_acode': 'Parent ORPHAcode',
-            'parent_preferred_term': 'Parent preferred term'
+            'orph_acode': 'ORPHAcode',
+            'preferred_term': 'Preferred term'
         }
-        self._parent_orph_acode = parent_orph_acode
-        self._parent_preferred_term = parent_preferred_term
+        self._orph_acode = orph_acode
+        self._preferred_term = preferred_term
 
     @classmethod
     def from_dict(cls, dikt) -> 'ParentParent':
@@ -43,43 +46,43 @@ class ParentParent(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def parent_orph_acode(self) -> int:
-        """Gets the parent_orph_acode of this ParentParent.
+    def orph_acode(self) -> int:
+        """Gets the orph_acode of this ParentParent.
 
 
-        :return: The parent_orph_acode of this ParentParent.
+        :return: The orph_acode of this ParentParent.
         :rtype: int
         """
-        return self._parent_orph_acode
+        return self._orph_acode
 
-    @parent_orph_acode.setter
-    def parent_orph_acode(self, parent_orph_acode: int):
-        """Sets the parent_orph_acode of this ParentParent.
+    @orph_acode.setter
+    def orph_acode(self, orph_acode: int):
+        """Sets the orph_acode of this ParentParent.
 
 
-        :param parent_orph_acode: The parent_orph_acode of this ParentParent.
-        :type parent_orph_acode: int
+        :param orph_acode: The orph_acode of this ParentParent.
+        :type orph_acode: int
         """
 
-        self._parent_orph_acode = parent_orph_acode
+        self._orph_acode = orph_acode
 
     @property
-    def parent_preferred_term(self) -> str:
-        """Gets the parent_preferred_term of this ParentParent.
+    def preferred_term(self) -> str:
+        """Gets the preferred_term of this ParentParent.
 
 
-        :return: The parent_preferred_term of this ParentParent.
+        :return: The preferred_term of this ParentParent.
         :rtype: str
         """
-        return self._parent_preferred_term
+        return self._preferred_term
 
-    @parent_preferred_term.setter
-    def parent_preferred_term(self, parent_preferred_term: str):
-        """Sets the parent_preferred_term of this ParentParent.
+    @preferred_term.setter
+    def preferred_term(self, preferred_term: str):
+        """Sets the preferred_term of this ParentParent.
 
 
-        :param parent_preferred_term: The parent_preferred_term of this ParentParent.
-        :type parent_preferred_term: str
+        :param preferred_term: The preferred_term of this ParentParent.
+        :type preferred_term: str
         """
 
-        self._parent_preferred_term = parent_preferred_term
+        self._preferred_term = preferred_term

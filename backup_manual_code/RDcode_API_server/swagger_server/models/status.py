@@ -1,7 +1,9 @@
 # coding: utf-8
 
 from __future__ import absolute_import
-from datetime import datetime  # noqa: F401
+from datetime import date, datetime  # noqa: F401
+
+from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
 from swagger_server import util
@@ -108,7 +110,7 @@ class Status(Model):
         :param status: The status of this Status.
         :type status: str
         """
-        allowed_values = ["Active", "Active_Historical entity", "Inactive_Deprecated entity", "Inactive_Obsolete entity", "Inactive_Non Rare disease in Europe"]  # noqa: E501
+        allowed_values = ["Active", "Active historical", "Inactive deprecated", "Inactive obsolete", "Inactive Non rare disease in Europe"]  # noqa: E501
         if status not in allowed_values:
             raise ValueError(
                 "Invalid value for `status` ({0}), must be one of {1}"

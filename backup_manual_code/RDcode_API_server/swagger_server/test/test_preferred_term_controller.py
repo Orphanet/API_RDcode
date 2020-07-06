@@ -11,13 +11,13 @@ from swagger_server.models.name import Name  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
-class TestNameController(BaseTestCase):
-    """NameController integration test stubs"""
+class TestPreferredTermController(BaseTestCase):
+    """PreferredTermController integration test stubs"""
 
     def test_list_by_name(self):
         """Test case for list_by_name
 
-        Search for the clinical entity's information by name.
+        Search for a clinical entity by preferred term
         """
         # print("list_by_name")
         for test in [("CS", "Marfanův syndrom"),
@@ -32,7 +32,7 @@ class TestNameController(BaseTestCase):
             # print(test)
             response = self.client.open(
                 '/{lang}/ClinicalEntity/FindbyName/{label}'.format(lang=test[0], label=test[1]),
-                method='GET', headers={"api_key": "test"})
+                method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
             self.assert200(response,
@@ -41,14 +41,14 @@ class TestNameController(BaseTestCase):
     def test_list_name(self):
         """Test case for list_name
 
-        Search for the preferred term of the clinical entity by its ORPHAcode.
+        Search for a clinical entity's preferred term by ORPHAcode
         """
         # print("list_name")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
             # print(lang)
             response = self.client.open(
                 '/{lang}/ClinicalEntity/orphacode/{orphacode}/Name'.format(lang=lang, orphacode=558),
-                method='GET', headers={"api_key": "test"})
+                method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
             self.assert200(response,

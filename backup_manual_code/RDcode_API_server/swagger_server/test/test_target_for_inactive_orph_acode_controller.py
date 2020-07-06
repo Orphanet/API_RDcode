@@ -10,13 +10,13 @@ from swagger_server.models.target_entity import TargetEntity  # noqa: E501
 from swagger_server.test import BaseTestCase
 
 
-class TestTargetORPHAController(BaseTestCase):
-    """TargetORPHAController integration test stubs"""
+class TestTargetForInactiveORPHAcodeController(BaseTestCase):
+    """TargetForInactiveORPHAcodeController integration test stubs"""
 
     def test_list_target(self):
         """Test case for list_target
 
-        Search for the target entity by the obsolete or deprecated clinical entity's ORPHAcode.
+        Search for the target of an inactive clinical entity by ORPHAcode
         """
         # print("list_target")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
@@ -24,7 +24,7 @@ class TestTargetORPHAController(BaseTestCase):
                 # print(lang)
                 response = self.client.open(
                     '/{lang}/ClinicalEntity/orphacode/{orphacode}/TargetEntity'.format(lang=lang, orphacode=code),
-                    method='GET', headers={"api_key": "test"})
+                    method='GET', headers={"apiKey": "test"})
                 if isinstance(response.json, str):
                     response.status = "500"
                 self.assert200(response,

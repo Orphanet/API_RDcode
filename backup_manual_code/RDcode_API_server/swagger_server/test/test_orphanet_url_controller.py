@@ -16,14 +16,14 @@ class TestOrphanetURLController(BaseTestCase):
     def test_list_url(self):
         """Test case for list_url
 
-        Search for the OrphanetURL of the clinical entity by its ORPHAcode.
+        Search for a clinical entity's URL by ORPHAcode
         """
         # print("OrphanetURLController")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
             # print(lang)
             response = self.client.open(
                 '/{lang}/ClinicalEntity/orphacode/{orphacode}/OrphanetURL'.format(lang=lang, orphacode=558),
-                method='GET', headers={"api_key": "test"})
+                method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
             self.assert200(response,

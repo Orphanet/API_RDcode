@@ -27,10 +27,32 @@
         margin:0;
         background: #fafafa;
       }
+      #image_head
+      {
+        margin: 30px 0px 0px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
     </style>
   </head>
 
   <body>
+    <div id="image_head">
+        <div></div>
+        <div>
+            <a href="https://www.orpha.net/consor/cgi-bin/index.php">
+                <img src="./media/logo_orphanet_transp.png" alt="orphanet" height="50px";>
+            </a>
+        </div>
+        <div>
+            <a href="http://www.rd-code.eu/">
+                <img src="./media/rd_code.png" alt="rd_code" height="70px";>
+            </a>
+        </div>
+        <div></div>
+    </div>
+
     <div id="swagger-ui"></div>
 
     <script src="./swagger-ui-bundle.js"> </script>
@@ -59,5 +81,6 @@
       window.ui = ui
     }
   </script>
+  <br>
   </body>
 </html>

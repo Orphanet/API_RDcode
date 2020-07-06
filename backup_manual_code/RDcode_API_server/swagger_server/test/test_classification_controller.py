@@ -17,14 +17,14 @@ class TestClassificationController(BaseTestCase):
     def test_list_classification(self):
         """Test case for list_classification
 
-        Search for the list of classification(s) of the clinical entity by its ORPHAcode.
+        Search for the classification(s) to which a clinical entity belongs by ORPHAcode
         """
         # print("list_classification")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
             # print(lang)
             response = self.client.open(
                 '/{lang}/ClinicalEntity/orphacode/{orphacode}/Classification'.format(lang=lang, orphacode=558),
-                method='GET', headers={"api_key": "test"})
+                method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
             self.assert200(response,
@@ -33,14 +33,14 @@ class TestClassificationController(BaseTestCase):
     def test_list_orpha_by_classification(self):
         """Test case for list_orpha_by_classification
 
-        Search for the list of clinical entities' ORPHAcodes in one specific classification by the unique identifer of the classification.
+        Search for all ORPHAcodes and preferred terms within a specific classification by the unique identifer of the classification
         """
         # print("list_orpha_by_classification")
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
             # print(lang)
             response = self.client.open(
                 '/{lang}/Classification/{hchid}'.format(lang=lang, hchid=146),
-                method='GET', headers={"api_key": "test"})
+                method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"
             self.assert200(response,

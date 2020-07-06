@@ -1,12 +1,13 @@
 # coding: utf-8
 
 from __future__ import absolute_import
+from datetime import date, datetime  # noqa: F401
 
-from typing import List  # noqa: F401
+from typing import List, Dict  # noqa: F401
 
 from swagger_server.models.base_model_ import Model
-from swagger_server.models.child_child import ChildChild  # noqa: F401,E501
 from swagger_server.models.parent_classification import ParentClassification  # noqa: F401,E501
+from swagger_server.models.parent_parent import ParentParent  # noqa: F401,E501
 from swagger_server import util
 
 
@@ -15,9 +16,11 @@ class Child(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, orph_acode: int=None, preferred_term: str=None, classification: ParentClassification=None, child: List[ChildChild]=None):  # noqa: E501
+    def __init__(self, _date: datetime=None, orph_acode: int=None, preferred_term: str=None, classification: ParentClassification=None, child: List[ParentParent]=None):  # noqa: E501
         """Child - a model defined in Swagger
 
+        :param _date: The _date of this Child.  # noqa: E501
+        :type _date: datetime
         :param orph_acode: The orph_acode of this Child.  # noqa: E501
         :type orph_acode: int
         :param preferred_term: The preferred_term of this Child.  # noqa: E501
@@ -25,21 +28,24 @@ class Child(Model):
         :param classification: The classification of this Child.  # noqa: E501
         :type classification: ParentClassification
         :param child: The child of this Child.  # noqa: E501
-        :type child: List[ChildChild]
+        :type child: List[ParentParent]
         """
         self.swagger_types = {
+            '_date': datetime,
             'orph_acode': int,
             'preferred_term': str,
             'classification': ParentClassification,
-            'child': List[ChildChild]
+            'child': List[ParentParent]
         }
 
         self.attribute_map = {
+            '_date': 'Date',
             'orph_acode': 'ORPHAcode',
             'preferred_term': 'Preferred term',
             'classification': 'Classification',
             'child': 'Child'
         }
+        self.__date = _date
         self._orph_acode = orph_acode
         self._preferred_term = preferred_term
         self._classification = classification
@@ -55,6 +61,27 @@ class Child(Model):
         :rtype: Child
         """
         return util.deserialize_model(dikt, cls)
+
+    @property
+    def _date(self) -> datetime:
+        """Gets the _date of this Child.
+
+
+        :return: The _date of this Child.
+        :rtype: datetime
+        """
+        return self.__date
+
+    @_date.setter
+    def _date(self, _date: datetime):
+        """Sets the _date of this Child.
+
+
+        :param _date: The _date of this Child.
+        :type _date: datetime
+        """
+
+        self.__date = _date
 
     @property
     def orph_acode(self) -> int:
@@ -120,22 +147,22 @@ class Child(Model):
         self._classification = classification
 
     @property
-    def child(self) -> List[ChildChild]:
+    def child(self) -> List[ParentParent]:
         """Gets the child of this Child.
 
 
         :return: The child of this Child.
-        :rtype: List[ChildChild]
+        :rtype: List[ParentParent]
         """
         return self._child
 
     @child.setter
-    def child(self, child: List[ChildChild]):
+    def child(self, child: List[ParentParent]):
         """Sets the child of this Child.
 
 
         :param child: The child of this Child.
-        :type child: List[ChildChild]
+        :type child: List[ParentParent]
         """
 
         self._child = child

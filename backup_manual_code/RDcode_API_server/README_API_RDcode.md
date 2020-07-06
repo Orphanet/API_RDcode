@@ -12,6 +12,7 @@ The API description is written according to OpenAPI v3 standards.
 
 The server stub has been auto-generated from the description
  with swagger-codegen version 3.0.20 in Python3-flask.
+More information about swagger-codegen is available in the README.md shipped with the server stub.
 
 Developed with Elasticsearch 7.X.
 
@@ -28,21 +29,20 @@ python-flask-server.requirements.txt:
 ## Server setup
 
 Create a server stub with the OpenAPI v3 description 
-([swagger_v3_Rdcode](backup_manual_code/BU_RDcode-2-oas3-swagger.yaml))
+([swagger_v3_Rdcode](../backup_manual_code/API rdcode 2020_07_3.yaml))
 with Python3-flask.
 
 Two possibilities:
 * Use the [online swagger-codegen](https://editor.swagger.io/)
 (frequent new releases and features, potentially unstable)
-* Use the [swagger-codegen-cli.jar](./tools/swagger-codegen-cli.jar)
+* Use the [swagger-codegen-cli.jar](../tools/generator 3.0.16/swagger-codegen-cli.jar)
 from this distribution and follow the 
 [swagger codegen instructions](./tools/swagger%20codegen%20instructions.txt)
 
 /!\ One copy of OpenAPI definition MUST be kept separated from the one included
  in the RDcode_API_server because the codegen dereference everything /!\
 
-/!\ Backup the full RDcode_API_server folder to 
-[backup_manual_code](./backup_manual_code) /!\
+Backup RDcode_API_server.
 
 One convenient way to deploy a new stub is to create a new branch to do 
 a MANUAL merge with pycharm "VCS/Git/compare with branch"
@@ -63,7 +63,7 @@ Gandi.net
 SFTP:
 
     3723642@sftp.sd3.gpaas.net
-pwd:
+pwd: (cf. Marc Hanauer)
 
     5d...C6
 
@@ -84,7 +84,21 @@ To upload and deploy from the local build folder:
     # OR append local branch name if necessary
     ssh 3723642@git.sd3.gpaas.net deploy default.git deployment
 
-Server URL:
+After initialization if you do not need to add new packages,
+you can connect to 3723642@sftp.sd3.gpaas.net to directly overwrite the files.
+(WinSCP)
+
+##### Instance admin page
+
+Here you can reload the server and purge the cache, it's also a shortcut to some logs.
+
+    https://3723642.admin.sd3.gpaas.net/
+
+pwd: (cf. Marc Hanauer)
+    
+    5d...C6
+
+##### Server URL:
 
 https://api.orphacode.org/
 
@@ -93,6 +107,6 @@ Mandatory in request header:
 
 * any string for user level
 
-        curl -X GET "http://localhost:8080/.../..."
+        curl -X GET "http://api.orphacode.org/.../..."
              -H  "accept: application/json"
-             -H  "SIMPLE-API-KEY: test"
+             -H  "apiKey: test"
