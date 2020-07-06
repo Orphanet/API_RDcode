@@ -29,7 +29,7 @@ python-flask-server.requirements.txt:
 ## Server setup
 
 Create a server stub with the OpenAPI v3 description 
-([swagger_v3_Rdcode](../backup_manual_code/API rdcode 2020_07_3.yaml))
+([swagger_v3_Rdcode](../backup_manual_code/API%20rdcode%202020_07_6.yaml))
 with Python3-flask.
 
 Two possibilities:
@@ -122,6 +122,10 @@ Mandatory in request header:
              -H  "apiKey: test"
 
 ## Usage
-Online, the server will call [wsgi.py](./wsgi.py) as an entry point.
+Online, the server will call [wsgi.py](wsgi.py) as an entry point it only
+ reference the main application.
 
+[API_main.py](swagger_server/API_main.py) is the Connexion/Flask objet, 
+you can pass additional options (see Flask documentation).
 
+Then the application 

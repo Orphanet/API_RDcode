@@ -1443,7 +1443,7 @@ paths:
           - PT
       - name: label
         in: path
-        description: Dataset
+        description: Preferred term of the clinical entity
         required: true
         style: simple
         explode: false
