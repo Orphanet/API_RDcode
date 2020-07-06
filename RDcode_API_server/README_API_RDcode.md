@@ -122,10 +122,52 @@ Mandatory in request header:
              -H  "apiKey: test"
 
 ## Usage
-Online, the server will call [wsgi.py](wsgi.py) as an entry point it only
+Online, the server will call [wsgi.py](wsgi.py) as an entry point, it only
  reference the main application.
 
-[API_main.py](swagger_server/API_main.py) is the Connexion/Flask objet, 
+[swagger_server/API_main.py](swagger_server/API_main.py) is the Connexion/Flask object, 
 you can pass additional options (see Flask documentation).
 
-Then the application 
+Then the application loads the API contract processed by the swagger-codegen.
+[swagger_server/swagger/swagger.yaml](swagger_server/swagger/swagger.yaml)
+
+The User Interface (UI) is generated from [swagger_server/template/index.j2](swagger_server/template/index.j2)
+with jinja2 template generator.
+The UI will loads the necessary javascript and CSS property from [swagger_server/static](swagger_server/static).
+With exception of the favicon, the images are served from a file at the root
+of the online server, meaning at the same directory level than swagger_server,
+in a folder named [media](media).
+
+#### API operation controllers
+The API operations are located in the [swagger_server/controllers](swagger_server/controllers)
+directory.
+
+Their name are generated from the swagger-codegen from the operations
+tags defined in the yaml file. They can contain symbols that are poorly
+converted to the pythonic name convention and can be invalid.
+Theses files need to by manually renamed and the 
+[swagger_server/swagger/swagger.yaml](swagger_server/swagger/swagger.yaml)
+need to be renamed accordingly.
+
+* authorization_controller.py
+
+    Will handle the apiKey check.
+* query_controller
+
+    Collection of tools needed to perform the query with elasticsearch.
+    Because of the way elasticsearch return result, you need to slightly adjust
+    the treatment of data.
+    Depending of the amount of data you expect to return,
+    you can choose to use:
+    * single_res for a single result
+    * multiple_res for a reasonable number of results (N << 10000)
+    * uncapped_red for an higher number
+       
+      This method will use the "scroll" function of elastic search and will
+      cost more resources.
+    
+* other controllers
+    
+    Fulfills the corresponding operation.
+    Don't forget to test for an error if you need to process the
+    result of query controller.
