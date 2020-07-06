@@ -71,6 +71,16 @@ host selected built-in:
 
     Python 3.8
     MySQL 8.0
+    
+You only need to deploy RDcode_API_server at the server's root level
+(only the content of RDcode_API_server without the folder):
+
+* RDcode_API_server/swagger_server
+* RDcode_API_server/media
+* RDcode_API_server/*  (rest of files)
+
+For this purpose I create a new branch to trim the unnecessary files.
+
 #### host documentation:
 https://docs.gandi.net/fr/simple_hosting/connexion/git.html
 
@@ -110,3 +120,8 @@ Mandatory in request header:
         curl -X GET "http://api.orphacode.org/.../..."
              -H  "accept: application/json"
              -H  "apiKey: test"
+
+## Usage
+Online, the server will call [wsgi.py](./wsgi.py) as an entry point.
+
+
