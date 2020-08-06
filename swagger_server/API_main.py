@@ -9,21 +9,26 @@ from swagger_server import encoder
 
 def main():
     # swagger_url => path to ui
-    # "swagger_ui_config": {"defaultModelsExpandDepth": -1} => do not display data models
-    options = {'swagger_url': '/', "swagger_ui_config": {"defaultModelsExpandDepth": -1}}
+    options = {'swagger_url': '/'}
     app = connexion.App(__name__, specification_dir='swagger/', options=options)
     app.app.json_encoder = encoder.JSONEncoder
     app.add_api('swagger.yaml', arguments={'title': 'API RDcode'}, pythonic_params=True)
+
+    # manual override of the API_contract url, comment to return to default. cf templates/index.j2
+    app.app.jinja_env.globals['workaround_for_API_contract'] = "./openapi.json"
+
+    # defaultModelsExpandDepth = -1 => do not display data models
+    app.app.jinja_env.globals["defaultModelsExpandDepth"] = "-1"
+
+    @app.route('/rdcode-local/favicon.ico')
+    def favicon_rdcode():
+        return send_from_directory(os.path.join(app.root_path),
+                                   'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
     @app.route('/favicon.ico')
     def favicon():
         return send_from_directory(os.path.join(app.root_path),
                                    'favicon.ico', mimetype='image/vnd.microsoft.icon')
-
-    # @app.route('/')
-    # def ui():
-    #     response = render_template("/new_ui.j2")
-    #     return response
 
     # Force the direct encoding of accents in json
     # app.app.config['JSON_AS_ASCII'] = False
