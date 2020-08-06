@@ -1,6 +1,6 @@
 # API_RDcode
 
-Ver: june 2020
+Ver: august 2020
 
 Author: Cyril Bigot
 
@@ -42,14 +42,14 @@ from this distribution and follow the
 /!\ One copy of OpenAPI definition MUST be kept separated from the one included
  in the RDcode_API_server because the codegen dereference everything /!\
 
-Backup RDcode_API_server.
+Backup [swagger_server](./swagger_server).
 
 One convenient way to deploy a new stub is to create a new branch to do 
 a MANUAL merge with pycharm "VCS/Git/compare with branch"
 
 The required packages can be installed by launching the following command
 in the operating system's console (preferentially virtual environment console)
-from the server's root [RDcode_API_server/swagger_server](swagger_server)
+from the server's root [swagger_server](swagger_server)
     
     pip3 install -r requirements.txt
 
@@ -72,14 +72,13 @@ host selected built-in:
     Python 3.8
     MySQL 8.0
     
-You only need to deploy RDcode_API_server at the server's root level
-(only the content of RDcode_API_server without the folder):
+You only need to deploy at the host server's root level:
 
-* RDcode_API_server/swagger_server
-* RDcode_API_server/media
-* RDcode_API_server/*  (rest of files)
+* swagger_server
+* media
+* (rest of files)
 
-For this purpose I create a new branch to trim the unnecessary files.
+For this purpose I create a new branch "deployment" to trim the unnecessary files.
 
 #### host documentation:
 https://docs.gandi.net/fr/simple_hosting/connexion/git.html
@@ -87,12 +86,9 @@ https://docs.gandi.net/fr/simple_hosting/connexion/git.html
 To upload and deploy from the local build folder:
 
     git remote add gandi git+ssh://3723642@git.sd3.gpaas.net/default.git
-    git push gandi master
+    git push gandi branch_to_push
     
-    # for deploying master branch
-    ssh 3723642@git.sd3.gpaas.net deploy default.git    
-    # OR append local branch name if necessary
-    ssh 3723642@git.sd3.gpaas.net deploy default.git deployment
+    ssh 3723642@git.sd3.gpaas.net deploy default.git branch_to_push
 
 After initialization if you do not need to add new packages,
 you can connect to 3723642@sftp.sd3.gpaas.net to directly overwrite the files.
@@ -119,7 +115,7 @@ Mandatory in request header:
 
         curl -X GET "http://api.orphacode.org/.../..."
              -H  "accept: application/json"
-             -H  "apiKey: test"
+             -H  "apiKey: anything"
 
 ## Usage
 Online, the server will call [wsgi.py](wsgi.py) as an entry point, it only
@@ -151,20 +147,22 @@ need to be renamed accordingly.
 
 * authorization_controller.py
 
-    Will handle the apiKey check.
+    Will handle the apiKey check. (Open for now.)
 * query_controller
 
-    Collection of tools needed to perform the query with elasticsearch.
+    Collection of functions needed to perform the query with elasticsearch.
     Because of the way elasticsearch return result, you need to slightly adjust
     the treatment of data.
     Depending of the amount of data you expect to return,
     you can choose to use:
     * single_res for a single result
     * multiple_res for a reasonable number of results (N << 10000)
-    * uncapped_red for an higher number
+    * uncapped_res for an higher number
        
       This method will use the "scroll" function of elastic search and will
       cost more resources.
+      
+    Also contains a function to convert the API response to YAML.
     
 * other controllers
     

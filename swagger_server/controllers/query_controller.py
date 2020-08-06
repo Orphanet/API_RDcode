@@ -135,15 +135,19 @@ def uncapped_res(es, index, query, size, scroll_timeout):
     :param scroll_timeout: duration of scroll instance between calls
     :return: list of dictionary on success or string error code
     """
+    # Initialize the scroll query
     response = init_scroll_query(es, index, query, size, scroll_timeout)
+
     if isinstance(response, str) or isinstance(response, tuple):
         # ES node related error comes out as tuple or string
         return response
     else:
+        # granted "response" is not itself an error, it may be missing an scroll ID for other unknown reason
         try:
             sid = response["_scroll_id"]
         except KeyError:
-            pass
+            response = ("Unknown error", 500)
+            return response
         try:
             data = [elem["_source"] for elem in response["hits"]["hits"]]
         except KeyError:
@@ -152,13 +156,15 @@ def uncapped_res(es, index, query, size, scroll_timeout):
         except IndexError:
             data = ("Query not found", 404)
             # print(response)
+        # while new_data_size >0 more data can be fetched, initialize with true
         new_data_size = True
         while new_data_size:
             response = next_scroll_query(es, sid, scroll_timeout)
             try:
                 sid = response["_scroll_id"]
             except KeyError:
-                pass
+                response = ("Unknown error", 500)
+                return response
             try:
                 new_data = [elem["_source"] for elem in response["hits"]["hits"]]
                 new_data_size = len(new_data)
@@ -170,6 +176,7 @@ def uncapped_res(es, index, query, size, scroll_timeout):
             except IndexError:
                 data = ("Query not found", 404)
                 # print(response)
+        # remove this scroll from the elasticsearch server without delay
         es.clear_scroll(scroll_id=sid)
     return data
 
