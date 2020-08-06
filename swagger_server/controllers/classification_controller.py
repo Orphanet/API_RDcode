@@ -4,6 +4,8 @@ import connexion
 
 from swagger_server.models.classification import Classification  # noqa: E501
 from swagger_server.models.entities_by_classification import EntitiesByClassification  # noqa: E501
+from swagger_server.models.error_model import ErrorModel  # noqa: E501
+from swagger_server import util
 
 import config
 from controllers.query_controller import *

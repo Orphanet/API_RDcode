@@ -3,6 +3,8 @@ import operator
 import connexion
 
 from swagger_server.models.all_clinical_entity import AllClinicalEntity  # noqa: E501
+from swagger_server.models.error_model import ErrorModel  # noqa: E501
+from swagger_server import util
 
 import config
 from controllers.query_controller import *

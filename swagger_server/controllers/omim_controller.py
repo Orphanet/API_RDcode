@@ -2,8 +2,10 @@ import operator
 
 import connexion
 
+from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.models.findby_omim import FindbyOMIM  # noqa: E501
 from swagger_server.models.omim import Omim  # noqa: E501
+from swagger_server import util
 
 import config
 from controllers.query_controller import *

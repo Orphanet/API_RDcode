@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <title>{{ title | default('API RDcode') }}</title>
     <link rel="stylesheet" type="text/css" href="./swagger-ui.css" >
-    <link rel="icon" type="image/png" href="favicon.ico" sizes="32x32" />
-    <link rel="icon" type="image/png" href="favicon.ico" sizes="16x16" />
+    <link rel="icon" type="image/png" href="favicon.ico"/>
     <style>
       html
       {
@@ -70,7 +69,12 @@
     window.onload = function() {
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
-        url: "{{ openapi_spec_url }}",
+        {% if workaround_for_API_contract is defined %}
+        url: "{{ workaround_for_API_contract }}", // If served by KONG or from base url
+        {% else %}
+        url: "{{ openapi_spec_url }}", // backup
+        {% endif %}
+        defaultModelsExpandDepth: "{{ defaultModelsExpandDepth }}",
         validatorUrl: {{ validatorUrl | default('null') }},
         {% if configUrl is defined %}
         configUrl: "{{ configUrl }}",

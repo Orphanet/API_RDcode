@@ -3,7 +3,9 @@ import operator
 import connexion
 
 from swagger_server.models.entity_by_icd import EntityByIcd  # noqa: E501
+from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.models.icd10 import Icd10  # noqa: E501
+from swagger_server import util
 
 import config
 from controllers.query_controller import *
