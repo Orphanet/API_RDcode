@@ -4,7 +4,7 @@ Ver: august 2020
 
 Author: Cyril Bigot
 
-# Technical documentation
+# Technical and deployment documentation
 
 ## Software Version
 
@@ -29,7 +29,7 @@ python-flask-server.requirements.txt:
 ## Server setup
 
 Create a server stub with the OpenAPI v3 description 
-([swagger_v3_Rdcode](../backup_manual_code/API%20rdcode%202020_07_6.yaml))
+([swagger_v3_Rdcode](./backup_manual_code/API%20rdcode%202020_07_16.yaml))
 with Python3-flask.
 
 Two possibilities:
