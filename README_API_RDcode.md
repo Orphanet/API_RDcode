@@ -129,10 +129,14 @@ Then the application loads the API contract processed by the swagger-codegen.
 
 The User Interface (UI) is generated from [swagger_server/template/index.j2](swagger_server/template/index.j2)
 with jinja2 template generator.
-The UI will loads the necessary javascript and CSS property from [swagger_server/static](swagger_server/static).
-With exception of the favicon, the images are served from a file at the root
-of the online server, meaning at the same directory level than swagger_server,
-in a folder named [media](media).
+The UI will loads the necessary javascript and CSS property from the
+ swagger-ui python module.
+The images are served from a folder at the root of the online server,
+ meaning at the same directory level than swagger_server,
+in a folder named [media](media). It is not possible to change the authorizations path
+ for gandihost server so this folder has to be separated from the flask server.
+The media files path must be referenced by "./media/". Thus it will not work directly in 
+development, you can use the special media route for this, comment for production server.
 
 #### API operation controllers
 The API operations are located in the [swagger_server/controllers](swagger_server/controllers)
