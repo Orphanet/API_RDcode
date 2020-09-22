@@ -13,7 +13,9 @@ info:
     The content of this API represents the views of the author only and is his/her sole responsibility; it cannot be considered to reflect the views of the European Commission and/or the Consumers, Health, Agriculture and Food Executive Agency or any other body of the European Union. The European Commission and the Agency do not accept any responsibility for use that may be made of the information it contains.
 
     We have chosen to apply the Commons Attribution 4.0 International (CC BY 4.0) to all copyrightable parts of our databases. This means that you are free to copy, distribute, display and make commercial use of these databases in all legislations, provided you give us credit.
+
     Users:
+
     In order to connect to this API, please click 'authorise' and enter a user name of your choosing
   contact:
     name: Orphanet team
@@ -23,7 +25,7 @@ servers:
 - url: /
   description: local testing host
 security:
-- api_key: []
+- apiKey: []
 tags:
 - name: All Orphanet clinical entities
 - name: Preferred term
@@ -479,7 +481,7 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-      x-openapi-router-controller: swagger_server.controllers.synonym(s)controller
+      x-openapi-router-controller: swagger_server.controllers.synonym_s_controller
   /{lang}/ClinicalEntity/orphacode/{orphacode}/ClassificationLevel:
     get:
       tags:
@@ -1597,7 +1599,7 @@ components:
       example:
         Status: Active
         ORPHAcode: 10
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     TargetEntity:
       type: object
       properties:
@@ -1631,7 +1633,7 @@ components:
         Relation: Referred to
         ORPHAcode: 70470
         Target ORPHAcode: 444490
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     Name:
       type: object
       properties:
@@ -1648,7 +1650,7 @@ components:
       example:
         Preferred term: 48,XXYY syndrome
         ORPHAcode: 10
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     Definition:
       type: object
       properties:
@@ -1674,7 +1676,7 @@ components:
           by tall stature, dysfunctional testes associated with infertility and insufficient
           testosterone production, cognitive, affective and social functioning impairments,
           global developmental delay, and an increased risk of congenital malformations.
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     Synonym:
       type: object
       properties:
@@ -1703,7 +1705,7 @@ components:
         - Idiopathic massive osteolysis
         - Progressive massive osteolysis
         - Vanishing bone disease
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     ClassificationLevel:
       type: object
       properties:
@@ -1724,7 +1726,7 @@ components:
       example:
         ORPHAcode: 10
         ClassificationLevel: Disorder
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     Typology:
       type: object
       properties:
@@ -1753,7 +1755,7 @@ components:
       example:
         ORPHAcode: 10
         Typology: Malformation syndrome
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     OrphanetURL:
       type: object
       properties:
@@ -1770,7 +1772,7 @@ components:
       example:
         OrphanetURL: http://www.orpha.net/consor/cgi-bin/OC_Exp.php?lng=en&Expert=10
         ORPHAcode: 10
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     ORPHAcodeAggregation:
       type: object
       properties:
@@ -1787,7 +1789,7 @@ components:
       example:
         Preferred term: 48,XXYY syndrome
         ORPHAcodeAggregation: 10
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     icd10:
       type: object
       properties:
@@ -1852,7 +1854,7 @@ components:
           DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
             Term)
         Code ICD10: Q98.8
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     Classification:
       type: object
       properties:
@@ -1876,9 +1878,7 @@ components:
         Classification:
         - Name of the classification: Orphanet classification of rare cardiac diseases
           ID of the classification: 146
-        - Name of the classification: Orphanet classification of rare cardiac diseases
-          ID of the classification: 146
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     Entities_by_classification:
       type: array
       items:
@@ -1889,6 +1889,7 @@ components:
         Date:
           type: string
           format: date-time
+          example: "2020-06-29 11:48:08"
         ORPHAcode:
           type: integer
           format: int32
@@ -1910,6 +1911,7 @@ components:
           items:
             $ref: '#/components/schemas/Parent_Parent'
       example:
+        Date: "2020-06-29 11:48:08"
         Preferred term: Marfan syndrome
         ORPHAcode: 558
         Parent:
@@ -1923,13 +1925,13 @@ components:
           Name of the classification: Orphanet classification of rare developmental
             anomalies during embryogenesis
           ID of the classification: 147
-        Date: 2000-01-23T04:56:07.000+00:00
     Child:
       type: object
       properties:
         Date:
           type: string
           format: date-time
+          example: "2020-06-29 11:48:08"
         ORPHAcode:
           type: integer
           format: int32
@@ -1960,7 +1962,7 @@ components:
           Preferred term: Marfan syndrome type 1
         - ORPHAcode: 294973
           Preferred term: Marfan syndrome type 2
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     omim:
       type: object
       properties:
@@ -1986,11 +1988,7 @@ components:
           Code OMIM: 154700
           DisorderMappingRelation: BTNT (ORPHA code's Broader Term maps to a Narrower
             Term)
-        - DisorderMappingValidationStatus: Validated
-          Code OMIM: 154700
-          DisorderMappingRelation: BTNT (ORPHA code's Broader Term maps to a Narrower
-            Term)
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     FindbyOMIM:
       type: object
       properties:
@@ -2012,13 +2010,8 @@ components:
           DisorderMappingValidationStatus: Validated
           DisorderMappingRelation: BTNT (ORPHA code's Broader Term maps to a Narrower
             Term)
-        - Preferred term: Marfan syndrome
-          ORPHAcode: 558
-          DisorderMappingValidationStatus: Validated
-          DisorderMappingRelation: BTNT (ORPHA code's Broader Term maps to a Narrower
-            Term)
         Code OMIM: 154700
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     ApproxFindbyName:
       type: array
       items:
@@ -2039,7 +2032,7 @@ components:
       example:
         Preferred term: Marfan syndrome
         ORPHAcode: 558
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     AllClinicalEntity_inner:
       type: object
       properties:
@@ -2070,7 +2063,7 @@ components:
             functioning impairments, global developmental delay, and an increased
             risk of congenital malformations.
       example:
-        Date: 2020-06-29 11:48:08
+        Date: "2020-06-29 11:48:08"
         ORPHAcode: 10
         Status: Active
         Preferred term: 48,XXYY syndrome
@@ -2189,7 +2182,7 @@ components:
       example:
         Preferred term: 3C syndrome
         ORPHAcode: 7
-        Date: 2000-01-23T04:56:07.000+00:00
+        Date: "2020-06-29 11:48:08"
     Parent_Classification:
       type: object
       properties:
@@ -2342,9 +2335,9 @@ components:
         type: integer
         format: int64
   securitySchemes:
-    api_key:
+    apiKey:
       type: apiKey
-      name: api_key
+      name: apiKey
       in: header
-      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_api_key
+      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_apiKey
 

@@ -10,8 +10,7 @@ import pathlib
 
 if __name__ == "__main__":
     loader = unittest.TestLoader()
-    # C:\Users\Cyrlynx\PycharmProjects\API_RDcode\RDcode_API_server\swagger_server\test
-    start_dir = str(pathlib.Path("C:\\Users\\Cyrlynx\\PycharmProjects\\API_RDcode\\RDcode_API_server\\swagger_server\\test"))
+    start_dir = str(pathlib.Path(r"C:\Users\cbigot\PycharmProjects\API_RDcode\swagger_server\test"))
     suite = loader.discover(start_dir)
 
     runner = unittest.TextTestRunner()

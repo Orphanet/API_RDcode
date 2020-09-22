@@ -39,7 +39,7 @@ class TestOMIMController(BaseTestCase):
         for lang in ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]:
             # print(lang)
             response = self.client.open(
-                '/{lang}/ClinicalEntity/FindbyOMIM/{codeOMIM}'.format(lang=lang, codeOMIM=558),
+                '/{lang}/ClinicalEntity/FindbyOMIM/{codeOMIM}'.format(lang=lang, codeOMIM=154700),
                 method='GET', headers={"apiKey": "test"})
             if isinstance(response.json, str):
                 response.status = "500"

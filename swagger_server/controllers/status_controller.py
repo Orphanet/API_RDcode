@@ -1,9 +1,11 @@
 import connexion
-import six
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.models.status import Status  # noqa: E501
 from swagger_server import util
+
+import config
+from controllers.query_controller import *
 
 
 def list_status(lang, orphacode):  # noqa: E501
@@ -18,4 +20,16 @@ def list_status(lang, orphacode):  # noqa: E501
 
     :rtype: Status
     """
-    return 'do some magic!'
+    es = config.elastic_server
+
+    index = "rdcode_orphanomenclature"
+    index = "{}_{}".format(index, lang.lower())
+
+    query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
+            "\"_source\":[\"Date\", \"ORPHAcode\", \"Status\"]}"
+
+    response = single_res(es, index, query)
+
+    # return yaml if needed
+    response = if_yaml(connexion.request.accept_mimetypes.best, response)
+    return response
