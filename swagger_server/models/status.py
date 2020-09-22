@@ -110,7 +110,7 @@ class Status(Model):
         :param status: The status of this Status.
         :type status: str
         """
-        allowed_values = ["Active", "Active historical", "Inactive deprecated", "Inactive obsolete", "Inactive Non rare disease in Europe"]  # noqa: E501
+        allowed_values = ["Active", "Inactive: Non rare disease in Europe", "Inactive: Obsolete", "Inactive: Deprecated"]  # noqa: E501
         if status not in allowed_values:
             raise ValueError(
                 "Invalid value for `status` ({0}), must be one of {1}"

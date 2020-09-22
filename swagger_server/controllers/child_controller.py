@@ -1,13 +1,9 @@
-import operator
-
 import connexion
+import six
 
 from swagger_server.models.child import Child  # noqa: E501
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server import util
-
-import config
-from controllers.query_controller import *
 
 
 def list_child(lang, orphacode, hchid):  # noqa: E501
@@ -24,38 +20,4 @@ def list_child(lang, orphacode, hchid):  # noqa: E501
 
     :rtype: Child
     """
-    es = config.elastic_server
-
-    index = "rdcode_orphaclassification_{}_{}".format(hchid, lang.lower())
-
-    query = "{\"query\": {\"match\": {\"ORPHAcode\": \"" + str(orphacode) + "\"}}," \
-            "\"_source\":[\"Date\"," \
-                         "\"Classification.ID of the classification\"," \
-                         "\"Classification.Name of the classification\"," \
-                         "\"ORPHAcode\"," \
-                         "\"Preferred term\"," \
-                         "\"Child\"]}"
-
-    response = single_res(es, index, query)
-
-    # Test to return error
-    if isinstance(response, str) or isinstance(response, tuple):
-        return response
-    else:
-        if not response["Child"]:
-            response_child = []
-        else:
-            code_list = ",".join(["\"" + str(code) + "\"" for code in response["Child"]])
-            query = "{\"query\": {\"terms\": {\"ORPHAcode\": [" + code_list + "]}}," \
-                    "\"_source\":[\"ORPHAcode\", \"Preferred term\"]}"
-
-            response_child = multiple_res(es, index, query, 1000)
-            # Test to return error
-            if isinstance(response_child, str) or isinstance(response_child, tuple):
-                return response_child
-            response_child.sort(key=operator.itemgetter('ORPHAcode'))
-        response["Child"] = response_child
-
-        # return yaml if needed
-        response = if_yaml(connexion.request.accept_mimetypes.best, response)
-    return response
+    return 'do some magic!'

@@ -1,12 +1,26 @@
 import connexion
+import six
 
+from swagger_server.models.approx_findby_name import ApproxFindbyName  # noqa: E501
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.models.findby_name import FindbyName  # noqa: E501
 from swagger_server.models.name import Name  # noqa: E501
 from swagger_server import util
 
-import config
-from controllers.query_controller import *
+
+def list_by_approx_name(lang, label):  # noqa: E501
+    """Search for a clinical entity by approximate preferred term
+
+    The result retrieves the list of clinical entity&#x27;s ORPHAcode and its preferred term based on an approximate label search # noqa: E501
+
+    :param lang: Language
+    :type lang: str
+    :param label: Preferred term of the clinical entity
+    :type label: str
+
+    :rtype: ApproxFindbyName
+    """
+    return 'do some magic!'
 
 
 def list_by_name(lang, label):  # noqa: E501
@@ -16,25 +30,12 @@ def list_by_name(lang, label):  # noqa: E501
 
     :param lang: Language
     :type lang: str
-    :param label: Dataset
+    :param label: Preferred term of the clinical entity
     :type label: str
 
     :rtype: FindbyName
     """
-    es = config.elastic_server
-
-    index = "rdcode_orphanomenclature"
-    index = "{}_{}".format(index, lang.lower())
-
-    # Special EXACT MATCH query with keyword
-    query = "{\"query\": {\"term\": {\"Preferred term.keyword\": " + "\"{}\"".format(label) + "}}," \
-            "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
-
-    response = single_res(es, index, query)
-
-    # return yaml if needed
-    response = if_yaml(connexion.request.accept_mimetypes.best, response)
-    return response
+    return 'do some magic!'
 
 
 def list_name(lang, orphacode):  # noqa: E501
@@ -49,16 +50,4 @@ def list_name(lang, orphacode):  # noqa: E501
 
     :rtype: Name
     """
-    es = config.elastic_server
-
-    index = "rdcode_orphanomenclature"
-    index = "{}_{}".format(index, lang.lower())
-
-    query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
-            "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
-
-    response = single_res(es, index, query)
-
-    # return yaml if needed
-    response = if_yaml(connexion.request.accept_mimetypes.best, response)
-    return response
+    return 'do some magic!'
