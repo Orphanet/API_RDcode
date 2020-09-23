@@ -30,23 +30,20 @@ def list_by_approx_name(lang, label):  # noqa: E501
     # print(label)
 
     # Special FUZZY MATCH query
-    if " " in label.strip():
-        query_term_list = []
-        for term in label.split(" "):
-            query_term = "{{\"fuzzy\": {{\"Preferred term\": {{\"value\" :\"{}\", \"fuzziness\": {}}}}}}}".format(term, len(term))
-            # print(query_term)
-            query_term_list.append(query_term)
-        query_term_list = "[" + ",".join(query_term_list) + "]"
-        # print(query_term_list)
+    query_term_list = []
+    for term in label.strip().split(" "):
+        query_term = "{{\"query_string\": {{\"default_field\": \"Preferred term\", \"query\": \"*{}*\"}}}}".format(term)
+        query_term += ", {{\"fuzzy\": {{\"Preferred term\": {{\"value\" :\"{}\", \"fuzziness\": \"AUTO\"}}}}}}".format(term)
+        # print(query_term)
+        query_term_list.append(query_term)
+        # query_term_list.append(additional_query_term)
+    query_term_list = "[" + ", ".join(query_term_list) + "]"
+    # print(query_term_list)
 
-        query = "{\"query\": {\"bool\": {\"should\": " + query_term_list + \
-                "}},\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
-    else:
-        query = "{\"query\": {\"fuzzy\": {\"Preferred term\": {\"value\" :" + "\"{}\"".format(label) + \
-                ", \"fuzziness\": " + "{}".format(len(label)) + "}}}," + \
-                "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
+    query = "{\"query\": {\"bool\": {\"should\": " + query_term_list + "}}" + \
+            ",\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
 
-    # print(query)
+    print(query)
     response = multiple_res(es, index, query, 10000)
     # print(response)
 
