@@ -17,7 +17,7 @@ def list_by_approx_name(lang, label):  # noqa: E501
 
     :param lang: Language
     :type lang: str
-    :param label: Preferred term of the clinical entity
+    :param label: Approximate preferred term of the clinical entity
     :type label: str
 
     :rtype: ApproxFindbyName
@@ -43,7 +43,7 @@ def list_by_approx_name(lang, label):  # noqa: E501
     query = "{\"query\": {\"bool\": {\"should\": " + query_term_list + "}}" + \
             ",\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
 
-    print(query)
+    # print(query)
     response = multiple_res(es, index, query, 10000)
     # print(response)
 

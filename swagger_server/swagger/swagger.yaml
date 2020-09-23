@@ -482,6 +482,148 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.synonym_s_controller
+  /{lang}/ClinicalEntity/FindbyName/{label}/Synonym:
+    get:
+      tags:
+      - Synonym(s)
+      summary: Search for a clinical entity by synonym
+      description: The result retrieves the clinical entity's ORPHAcode and its preferred
+        term.
+      operationId: list_synonym_by_name
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - CS
+          - DE
+          - EN
+          - ES
+          - FR
+          - IT
+          - NL
+          - PL
+          - PT
+      - name: label
+        in: path
+        description: Synonym of the clinical entity
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindbyName'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/FindbyName'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.synonym_s_controller
+  /{lang}/ClinicalEntity/ApproximateName/{label}/Synonym:
+    get:
+      tags:
+      - Synonym(s)
+      summary: Search for a clinical entity by approximate synonym
+      description: The result retrieves the list of clinical entity's ORPHAcode and
+        its preferred term based on an approximate label search
+      operationId: list_synonym_by_approx_name
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - CS
+          - DE
+          - EN
+          - ES
+          - FR
+          - IT
+          - NL
+          - PL
+          - PT
+      - name: label
+        in: path
+        description: Approximate synonym of the clinical entity
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApproxFindbyName'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ApproxFindbyName'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.synonym_s_controller
   /{lang}/ClinicalEntity/orphacode/{orphacode}/ClassificationLevel:
     get:
       tags:
@@ -1518,7 +1660,7 @@ paths:
           - PT
       - name: label
         in: path
-        description: Preferred term of the clinical entity
+        description: Approximate preferred term of the clinical entity
         required: true
         style: simple
         explode: false
