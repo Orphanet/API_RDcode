@@ -37,15 +37,15 @@ class TestSynonymSController(BaseTestCase):
         Search for a clinical entity by approximate synonym
         """
         # print("list_by_name")
-        for test in [("CS", "MFS"),
-                     ("DE", "MFS"),
-                     ("EN", "MFS"),
-                     ("ES", "MFS"),
-                     ("FR", "MFS"),
-                     ("IT", "MFS"),
-                     ("NL", "MFS"),
-                     ("PL", "MFS"),
-                     ("PT", "MFS")]:
+        for test in [("CS", "Costů"),
+                     ("DE", "Cost"),
+                     ("EN", "Cost"),
+                     ("ES", "Cost"),
+                     ("FR", "Cost"),
+                     ("IT", "Cost"),
+                     ("NL", "Costasyndroo"),
+                     ("PL", "Cost"),
+                     ("PT", "Cost")]:
             # print(test)
             response = self.client.open(
                 '/{lang}/ClinicalEntity/ApproximateName/{label}/Synonym'.format(lang=test[0], label=test[1]),
@@ -61,15 +61,15 @@ class TestSynonymSController(BaseTestCase):
         Search for a clinical entity by synonym
         """
         # print("list_by_name")
-        for test in [("CS", "MFS"),
-                     ("DE", "MFS"),
-                     ("EN", "MFS"),
-                     ("ES", "MFS"),
-                     ("FR", "MFS"),
-                     ("IT", "MFS"),
-                     ("NL", "MFS"),
-                     ("PL", "MFS"),
-                     ("PT", "MFS")]:
+        for test in [("CS", "Costův"),
+                     ("DE", "Costa"),
+                     ("EN", "Costa"),
+                     ("ES", "Costa"),
+                     ("FR", "Costa"),
+                     ("IT", "Costa"),
+                     ("NL", "Costasyndroom"),
+                     ("PL", "Costa"),
+                     ("PT", "Costa")]:
             # print(test)
             response = self.client.open(
                 '/{lang}/ClinicalEntity/ApproximateName/{label}/Synonym'.format(lang=test[0], label=test[1]),
