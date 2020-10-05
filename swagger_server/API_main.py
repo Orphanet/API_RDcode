@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import os
 
+import swagger_server
+
 import connexion
 from flask import send_from_directory
 
