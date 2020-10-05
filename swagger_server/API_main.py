@@ -8,6 +8,9 @@ from flask import send_from_directory
 
 from swagger_server import encoder
 
+# /!\ Comment for production /!\             # /!\ Comment for production /!\             /!\ Comment for production /!\
+from flask_cors import CORS
+
 
 def main():
     # swagger_url => path to ui
@@ -33,6 +36,10 @@ def main():
 
     # Remove A-z sorting in json
     # app.app.config['JSON_SORT_KEYS'] = False
+
+    # Authorize cors from all sites
+    # /!\ Comment for production /!\
+    CORS(app.app)
     return app
 
 
