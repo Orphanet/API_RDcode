@@ -18,3 +18,8 @@ EXPOSE 8080
 ENTRYPOINT ["python3"]
 
 CMD ["./API_main.py"]
+
+# Build with:
+# docker build -t api_rdcode . --label api_rdcode:
+# Run with:
+# docker run -p 8080:8080 --name api_rdcode api_rdcode
