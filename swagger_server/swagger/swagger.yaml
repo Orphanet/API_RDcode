@@ -20,7 +20,7 @@ info:
   contact:
     name: Orphanet team
     email: data.orphanet@inserm.fr
-  version: "2.1"
+  version: "2.2"
 servers:
 - url: /
   description: local testing host
