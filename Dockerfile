@@ -27,7 +27,7 @@ CMD ["./API_main.py"]
 # docker run -p 8080:8080 --name api_rdcode_{ver} api_rdcode:{ver}
 
 # Export with:
-# docker save api_rdcode:{ver} -o ./api_rdcode:{ver}
+# docker save api_rdcode:{ver} -o ./api_rdcode_{ver}
 
 # Load with:
-# docker load -i {path}\api_rdcode:{ver}
+# docker load -i {path}\api_rdcode_{ver}
