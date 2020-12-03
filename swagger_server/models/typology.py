@@ -110,7 +110,7 @@ class Typology(Model):
         :param typology: The typology of this Typology.
         :type typology: str
         """
-        allowed_values = ["biological anomaly", "clinical subtype", "clinical syndrome", "disease", "etiological subtype", "Clinical group", "histopathological subtype", "malformation syndrome", "morphological anomaly", "particular clinical situation in a disease or syndrome", "Category"]  # noqa: E501
+        allowed_values = ["Disease", "Malformation syndrome", "Clinical subtype", "Clinical group", "Category", "Particular clinical situation in a disease or syndrome", "Morphological anomaly", "Etiological subtype", "Biological anomaly", "Clinical syndrome", "Histopathological subtype"]  # noqa: E501
         if typology not in allowed_values:
             raise ValueError(
                 "Invalid value for `typology` ({0}), must be one of {1}"

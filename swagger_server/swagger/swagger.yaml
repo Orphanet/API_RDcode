@@ -20,7 +20,7 @@ info:
   contact:
     name: Orphanet team
     email: data.orphanet@inserm.fr
-  version: 2.1-oas3
+  version: "2.2"
 servers:
 - url: /
   description: local testing host
@@ -457,6 +457,148 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/Synonym'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.synonym_s_controller
+  /{lang}/ClinicalEntity/FindbyName/{label}/Synonym:
+    get:
+      tags:
+      - Synonym(s)
+      summary: Search for a clinical entity by synonym
+      description: The result retrieves the clinical entity's ORPHAcode and its preferred
+        term.
+      operationId: list_synonym_by_name
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - CS
+          - DE
+          - EN
+          - ES
+          - FR
+          - IT
+          - NL
+          - PL
+          - PT
+      - name: label
+        in: path
+        description: Synonym of the clinical entity
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindbyName'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/FindbyName'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.synonym_s_controller
+  /{lang}/ClinicalEntity/ApproximateName/{label}/Synonym:
+    get:
+      tags:
+      - Synonym(s)
+      summary: Search for a clinical entity by approximate synonym
+      description: The result retrieves the list of clinical entity's ORPHAcode and
+        its preferred term based on an approximate label search
+      operationId: list_synonym_by_approx_name
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - CS
+          - DE
+          - EN
+          - ES
+          - FR
+          - IT
+          - NL
+          - PL
+          - PT
+      - name: label
+        in: path
+        description: Approximate synonym of the clinical entity
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApproxFindbyName'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ApproxFindbyName'
         "400":
           description: Bad request
         "401":
@@ -1488,6 +1630,77 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.preferred_term_controller
+  /{lang}/ClinicalEntity/ApproximateName/{label}:
+    get:
+      tags:
+      - Preferred term
+      summary: Search for a clinical entity by approximate preferred term
+      description: The result retrieves the list of clinical entity's ORPHAcode and
+        its preferred term based on an approximate label search
+      operationId: list_by_approx_name
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - CS
+          - DE
+          - EN
+          - ES
+          - FR
+          - IT
+          - NL
+          - PL
+          - PT
+      - name: label
+        in: path
+        description: Approximate preferred term of the clinical entity
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApproxFindbyName'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ApproxFindbyName'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.preferred_term_controller
 components:
   schemas:
     ErrorModel:
@@ -1746,7 +1959,13 @@ components:
           Code ICD10: Q98.8
           DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
             Term)
-        Date: "2020-06-29 11:48:08"
+        - DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by
+            Orphanet)
+          DisorderMappingValidationStatus: Validated
+          Code ICD10: Q98.8
+          DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
+            Term)
+        Date: 2000-01-23T04:56:07.000+00:00
     Entity_by_icd:
       type: object
       properties:
@@ -1762,6 +1981,13 @@ components:
             $ref: '#/components/schemas/Entity_by_icd_References'
       example:
         References:
+        - Preferred term: 48,XXYY syndrome
+          ORPHAcode: 10
+          DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by
+            Orphanet)
+          DisorderMappingValidationStatus: Validated
+          DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
+            Term)
         - Preferred term: 48,XXYY syndrome
           ORPHAcode: 10
           DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by
@@ -1928,6 +2154,10 @@ components:
             Term)
         Code OMIM: 154700
         Date: "2020-06-29 11:48:08"
+    ApproxFindbyName:
+      type: array
+      items:
+        $ref: '#/components/schemas/ApproxFindbyName_inner'
     FindbyName:
       type: object
       properties:
@@ -2180,6 +2410,23 @@ components:
         DisorderMappingValidationStatus: Validated
         DisorderMappingRelation: BTNT (ORPHA code's Broader Term maps to a Narrower
           Term)
+    ApproxFindbyName_inner:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 558
+        Preferred term:
+          type: string
+          example: Marfan syndrome
+      example:
+        Preferred term: Marfan syndrome
+        ORPHAcode: 558
+        Date: 2000-01-23T04:56:07.000+00:00
   parameters:
     hchid:
       name: hchid

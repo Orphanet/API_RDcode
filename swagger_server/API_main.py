@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 import os
 
+import swagger_server
+
 import connexion
 from flask import send_from_directory
 
 from swagger_server import encoder
+
+# /!\ Comment for production /!\             # /!\ Comment for production /!\             /!\ Comment for production /!\
+from flask_cors import CORS
 
 
 def main():
@@ -31,6 +36,10 @@ def main():
 
     # Remove A-z sorting in json
     # app.app.config['JSON_SORT_KEYS'] = False
+
+    # Authorize cors from all sites
+    # /!\ Comment for production /!\
+    CORS(app.app)
     return app
 
 

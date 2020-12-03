@@ -110,7 +110,7 @@ class ClassificationLevel(Model):
         :param classification_level: The classification_level of this ClassificationLevel.
         :type classification_level: str
         """
-        allowed_values = ["Group", "Disorder", "SubType"]  # noqa: E501
+        allowed_values = ["Disorder", "Subtype of disorder", "Group of disorders"]  # noqa: E501
         if classification_level not in allowed_values:
             raise ValueError(
                 "Invalid value for `classification_level` ({0}), must be one of {1}"

@@ -94,7 +94,7 @@ class Icd10References(Model):
         :param disorder_mapping_relation: The disorder_mapping_relation of this Icd10References.
         :type disorder_mapping_relation: str
         """
-        allowed_values = ["E", "NTBT", "BTNT", "NTBT/E", "BTNT/E", "ND"]  # noqa: E501
+        allowed_values = ["E (Exact mapping: the two concepts are equivalent)", "NTBT (ORPHA code's Narrower Term maps to a Broader Term)", "BTNT (ORPHA code's Broader Term maps to a Narrower Term)", "NTBT/E (ORPHA code's Narrower Term maps to a Broader Term because of an Exact mapping with a synonym in the target terminology)", "BTNT/E", "ND (not yet decided/unable to decide)"]  # noqa: E501
         if disorder_mapping_relation not in allowed_values:
             raise ValueError(
                 "Invalid value for `disorder_mapping_relation` ({0}), must be one of {1}"
@@ -121,7 +121,7 @@ class Icd10References(Model):
         :param disorder_mapping_icd_relation: The disorder_mapping_icd_relation of this Icd10References.
         :type disorder_mapping_icd_relation: str
         """
-        allowed_values = ["Specific code", "Inclusion term", "Index term", "Attributed"]  # noqa: E501
+        allowed_values = ["Specific code (The ORPHA code has its own code in the ICD10)", "Inclusion term (The ORPHA code is included under a ICD10 category and has not its own code)", "Index term (The ORPHA code is listed in the ICD10 Index)", "Attributed (The ICD10 code is attributed by Orphanet)"]  # noqa: E501
         if disorder_mapping_icd_relation not in allowed_values:
             raise ValueError(
                 "Invalid value for `disorder_mapping_icd_relation` ({0}), must be one of {1}"

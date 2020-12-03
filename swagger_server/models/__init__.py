@@ -5,6 +5,8 @@ from __future__ import absolute_import
 # import models into model package
 from swagger_server.models.all_clinical_entity import AllClinicalEntity
 from swagger_server.models.all_clinical_entity_inner import AllClinicalEntityInner
+from swagger_server.models.approx_findby_name import ApproxFindbyName
+from swagger_server.models.approx_findby_name_inner import ApproxFindbyNameInner
 from swagger_server.models.child import Child
 from swagger_server.models.classification import Classification
 from swagger_server.models.classification_classification import ClassificationClassification
