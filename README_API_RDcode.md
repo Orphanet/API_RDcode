@@ -25,6 +25,8 @@ python-flask-server.requirements.txt:
     python_dateutil == 2.6.0
     setuptools >= 21.0.0
     Flask-Testing >= 0.8.0
+    PyYAML
+    flask_cors
 
 ## Server setup
 
