@@ -2,13 +2,8 @@ import operator
 
 import connexion
 
-from swagger_server.models.entity_by_icd import EntityByIcd  # noqa: E501
-from swagger_server.models.error_model import ErrorModel  # noqa: E501
-from swagger_server.models.icd10 import Icd10  # noqa: E501
-from swagger_server import util
-
-import config
-from controllers.query_controller import *
+from swagger_server import config
+from swagger_server.controllers.query_controller import *
 
 
 def list_icd10(lang, orphacode):  # noqa: E501
@@ -63,39 +58,58 @@ def list_orpha_by_icd10(lang, icd10):  # noqa: E501
     index = "{}_{}".format(index, lang.lower())
 
     # Find every occurrences of the queried ICD code and return the associated Date, ORPHAcode, Preferred term, Refs ICD
-    query = "{\"query\": {\"match\": {\"Code ICD.Code ICD10\": \"" + str(icd10) + "\"}}," \
-            "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\", \"Code ICD\"]}"
+    # query = "{\"query\": {\"match\": {\"Code ICD.Code ICD10\": \"" + str(icd10) + "\"}}," \
+    #         "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\", \"Code ICD\"]}"
+
+    icd10 = 'a0*'
+    query = {
+        "query": {
+            "query_string": {
+                "default_field": "Code ICD.Code ICD10",
+                "query": str(icd10)
+            }
+        }
+    }
+    
 
     response_icd_to_orpha = multiple_res(es, index, query, 1000)
 
-    # Test to return error
+    [ (x['ORPHAcode'], x['Code ICD'][0]['Code ICD10'])  for x in response_icd_to_orpha]
+
+    # Statement condition to return error
     if isinstance(response_icd_to_orpha, str) or isinstance(response_icd_to_orpha, tuple):
         return response_icd_to_orpha
-    else:
-        response = {}
-        references = []
-        # Source data are organized from the perspective of ORPHA concept
-        # 1 ORPHAcode => X ICD
-        # response_icd_to_orpha is a list of object containing "Code ICD"
-        # "Code ICD" is also a list of object that need to be filtrated by ICD
-        for ref in response_icd_to_orpha:
-            reference = {"ORPHAcode": int(ref["ORPHAcode"]),
-                         "Preferred term": ref["Preferred term"],
-                         "DisorderMappingRelation": "",
-                         "DisorderMappingValidationStatus": ""}
-            for CodeICD in ref["Code ICD"]:
-                if CodeICD["Code ICD10"] == icd10:
-                    reference["DisorderMappingRelation"] = CodeICD["DisorderMappingRelation"]
-                    reference["DisorderMappingICDRelation"] = CodeICD["DisorderMappingICDRelation"]
-                    reference["DisorderMappingValidationStatus"] = CodeICD["DisorderMappingValidationStatus"]
-            references.append(reference)
-        # Sort references by Orphacode
-        references.sort(key=operator.itemgetter("ORPHAcode"))
-        # Compose the final response
-        response["Date"] = response_icd_to_orpha[0]["Date"]
-        response["Code ICD10"] = icd10
-        response["References"] = references
+    
+    # If no response (response_icd_to_orpha) is ok, it needs to be formatted
+    """     
+    Source data are organized from the perspective of ORPHA concept
+    1 ORPHAcode => X ICD
+    response_icd_to_orpha is a list of object containing "Code ICD"
+    "Code ICD" is also a list of object that need to be filtrated by ICD
+    """
+    response = {}
+    response["Date"] = response_icd_to_orpha[0]["Date"]
+    response["Code ICD10"] = icd10
+    response["References"] = []
 
-        # return yaml if needed
-        response = if_yaml(connexion.request.accept_mimetypes.best, response)
+    for hit in response_icd_to_orpha:
+        reference = {
+            "ORPHAcode": int(hit["ORPHAcode"]),
+            "Preferred term": hit["Preferred term"]
+        }
+
+        for CodeICD in hit["Code ICD"]:
+            # if CodeICD["Code ICD10"] == icd10:
+            reference["DisorderMappingRelation"] = CodeICD["DisorderMappingRelation"]
+            reference["DisorderMappingICDRelation"] = CodeICD["DisorderMappingICDRelation"]
+            reference["DisorderMappingValidationStatus"] = CodeICD["DisorderMappingValidationStatus"]
+
+        response["References"].append(reference)
+
+    # Sort references by Orphacode
+    response["References"].sort(key=operator.itemgetter("ORPHAcode"))
+
+    # return yaml if needed
+    response = if_yaml(connexion.request.accept_mimetypes.best, response)
+
     return response
