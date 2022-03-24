@@ -52,6 +52,7 @@ def list_target(lang, orphacode):  # noqa: E501
                         if association["TargetDisorder"]["ORPHAcode"]:
                             response["Relation"] = association["DisorderDisorderAssociationType"]
                             response["Target ORPHAcode"] = association["TargetDisorder"]["ORPHAcode"]
+                            response["Target preferredTerm"] = association["TargetDisorder"]["Preferred term"]
                             break
             else:
                 # DisorderDisorderAssociation is NOT applicable if there is no records
