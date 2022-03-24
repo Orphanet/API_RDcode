@@ -61,7 +61,7 @@ def list_orpha_by_icd10(lang, icd10):  # noqa: E501
     # query = "{\"query\": {\"match\": {\"Code ICD.Code ICD10\": \"" + str(icd10) + "\"}}," \
     #         "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\", \"Code ICD\"]}"
 
-    icd10 = 'a0*'
+    # icd10 = 'a0*'
     query = {
         "query": {
             "query_string": {
@@ -74,7 +74,7 @@ def list_orpha_by_icd10(lang, icd10):  # noqa: E501
 
     response_icd_to_orpha = multiple_res(es, index, query, 1000)
 
-    [ (x['ORPHAcode'], x['Code ICD'][0]['Code ICD10'])  for x in response_icd_to_orpha]
+    # [ (x['ORPHAcode'], x['Code ICD'][0]['Code ICD10'])  for x in response_icd_to_orpha]
 
     # Statement condition to return error
     if isinstance(response_icd_to_orpha, str) or isinstance(response_icd_to_orpha, tuple):
@@ -100,6 +100,7 @@ def list_orpha_by_icd10(lang, icd10):  # noqa: E501
 
         for CodeICD in hit["Code ICD"]:
             # if CodeICD["Code ICD10"] == icd10:
+            reference["ICD"] = CodeICD["Code ICD10"]
             reference["DisorderMappingRelation"] = CodeICD["DisorderMappingRelation"]
             reference["DisorderMappingICDRelation"] = CodeICD["DisorderMappingICDRelation"]
             reference["DisorderMappingValidationStatus"] = CodeICD["DisorderMappingValidationStatus"]
