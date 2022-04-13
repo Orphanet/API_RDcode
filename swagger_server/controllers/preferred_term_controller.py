@@ -10,7 +10,7 @@ import config
 from controllers.query_controller import *
 
 
-def list_by_approx_name(lang, label):  # noqa: E501
+def list_by_approx_name(lang: str, label: str):  # noqa: E501
     """Search for a clinical entity by approximate preferred term
 
     The result retrieves the list of clinical entity&#x27;s ORPHAcode and its preferred term based on an approximate label search # noqa: E501
@@ -31,7 +31,7 @@ def list_by_approx_name(lang, label):  # noqa: E501
 
     # Special FUZZY MATCH query
     query_term_list = []
-    for term in label.strip().split(" "):
+    for term in label.strip().replace("-", " ").split(" "):
         query_term = "{{\"query_string\": {{\"default_field\": \"Preferred term\", \"query\": \"*{}*\"}}}}".format(term)
         query_term += ", {{\"fuzzy\": {{\"Preferred term\": {{\"value\" :\"{}\", \"fuzziness\": \"AUTO\"}}}}}}".format(term)
         # print(query_term)
@@ -43,9 +43,7 @@ def list_by_approx_name(lang, label):  # noqa: E501
     query = "{\"query\": {\"bool\": {\"should\": " + query_term_list + "}}" + \
             ",\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
 
-    # print(query)
     response = multiple_res(es, index, query, 10000)
-    # print(response)
 
     # return yaml if needed
     response = if_yaml(connexion.request.accept_mimetypes.best, response)
