@@ -41,6 +41,7 @@ tags:
 - name: Child
 - name: Parent
 - name: ICD10
+- name: ICD11
 - name: OMIM
 paths:
   /{lang}/ClinicalEntity:
@@ -1074,6 +1075,140 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.icd10_controller
+  /{lang}/ClinicalEntity/orphacode/{orphacode}/ICD11:
+    get:
+      tags:
+      - ICD11
+      summary: Search for a clinical entity's ICD11 code(s) by ORPHAcode
+      description: The result retrieves the clinical entity's ORPHAcode and its preferred
+        term as well as annotated ICD-11 code(s), specifying the characterisation
+        of the alignment between the clinical entity and ICD-11 code, and the status
+        of the mapping (validated/not yet validated).
+      operationId: list_icd11
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - EN
+      - name: orphacode
+        in: path
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the Orphanet database to each clinical entity upon its creation.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 0
+          exclusiveMinimum: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/icd10'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/icd10'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.icd11_controller
+  /{lang}/ClinicalEntity/ICD11/{icd11}:
+    get:
+      tags:
+      - ICD11
+      summary: Search for a clinical entity's ORPHAcode(s) by ICD-11 code
+      description: The result retrieves the ICD-11 code as well as annotated ORPHAcode(s)
+        and preferred term, specifying the characterisation of the alignment between
+        the clinical entity and ICD-11 code, and the status of the mapping (validated/not
+        yet validated).
+      operationId: list_orpha_by_icd11
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - EN
+      - name: icd11
+        in: path
+        description: ICD11 code of entity
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entity_by_icd'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Entity_by_icd'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.icd11_controller
   /{lang}/ClinicalEntity/orphacode/{orphacode}/Classification:
     get:
       tags:
