@@ -1,5 +1,10 @@
 /venv/
 .env/
+.varenv
+**.varenv
 
-**egg-info
+**egg-info**
 **__pycache__**
+
+data_processing/*
+!data_processing/src/

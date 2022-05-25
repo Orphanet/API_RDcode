@@ -1,8 +1,30 @@
-PyYAML
-swagger-ui-bundle == 0.0.6
-connexion == 2.6.0
-elasticsearch == 7.6
-python_dateutil == 2.6.0
-setuptools >= 21.0.0
-Flask-Testing >= 0.8.0
-flask_cors
+attrs==21.4.0
+certifi==2021.10.8
+charset-normalizer==2.0.12
+click==8.0.4
+clickclick==20.10.2
+connexion==2.6.0
+elasticsearch==7.6.0
+Flask==2.0.3
+Flask-Cors==3.0.10
+Flask-Testing==0.8.1
+idna==3.3
+importlib-resources==5.4.0
+inflection==0.5.1
+itsdangerous==2.1.1
+Jinja2==3.0.3
+jsonschema==4.4.0
+MarkupSafe==2.1.1
+openapi-schema-validator==0.2.3
+openapi-spec-validator==0.4.0
+pyrsistent==0.18.1
+python-dateutil==2.6.0
+python-dotenv==0.20.0
+PyYAML==6.0
+requests==2.27.1
+six==1.16.0
+swagger-ui-bundle==0.0.6
+urllib3==1.26.9
+Werkzeug==2.0.3
+xmltodict==0.13.0
+zipp==3.7.0
