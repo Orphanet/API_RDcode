@@ -72,7 +72,7 @@ def list_orpha_by_icd10(lang, icd10):  # noqa: E501
     }
     
 
-    response_icd_to_orpha = multiple_res(es, index, query, 1000)
+    response_icd_to_orpha = multiple_res(es, index, query, 9999)
 
     # [ (x['ORPHAcode'], x['Code ICD'][0]['Code ICD10'])  for x in response_icd_to_orpha]
 

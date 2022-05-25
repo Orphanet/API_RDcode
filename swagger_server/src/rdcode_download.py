@@ -38,6 +38,13 @@ def parse_args():
     return parser.parse_args()
 
 
+def write_response(response: requests.Response, outpath: Union[str, Path]):
+    logger.info('Writing response: {} '.format(outpath))
+    with open(outpath, 'wb') as _f:
+        for chunk in response.iter_content(50*1024*1024):
+            _f.write(chunk)
+
+
 def download_xml(urls: Union[str, Path, list], outdir: Union[str, Path]) -> Union[str, Path, list]:
     """Download orphadata XML product
 
@@ -67,11 +74,7 @@ def download_xml(urls: Union[str, Path, list], outdir: Union[str, Path]) -> Unio
         with requests.get(url=str(url)) as response:
             response.raise_for_status()
             downloaded_filenames.append(filename)
-
-            logger.info('Writing {} into {}'.format(filename, outdir))
-            with open( outdir / filename, 'wb') as _f:
-                for chunk in response.iter_content(50*1024*1024):
-                    _f.write(chunk)
+            write_response(response=response, outpath=outdir/filename)            
 
     if len(downloaded_filenames) == 1:
         return downloaded_filenames[0]
@@ -90,7 +93,7 @@ def run():
     
     start_time = time.time()
     filename = download_xml(urls=URL_PACK_NOMENCLATURE, outdir=outdir)
-    unzip(filename=filename, extract_to=outdir)
+    unzip(filename=outdir / filename, extract_to=outdir)
     end_time = time.time()
 
     logger.info('Download process has finished. Time: {:.2f}'.format(end_time-start_time))
