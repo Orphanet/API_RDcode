@@ -191,7 +191,8 @@ def parse_args():
     return parser.parse_args()
 
 
-if __name__ == '__main__':
+
+def run():
     args = parse_args()
 
     path = args.path
@@ -213,3 +214,7 @@ if __name__ == '__main__':
     end_time = time.time()
     
     logger.info('Injection process has finished. Time: {:.2f}'.format(end_time-start_time))
+
+
+if __name__ == '__main__':
+    run()

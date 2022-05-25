@@ -214,8 +214,12 @@ def main(config: Config):
             output_elasticsearch_file(node_list=node_list, json_filename=json_filename, es_index_name=es_index_name, output_encoding=config.output_encoding)
 
 
-if __name__ == "__main__":
+def run():
     config = parse_args()
     start = time.time()
     main(config)
     logger.info('Total computation time: {}s'.format(time.time() - start))
+
+
+if __name__ == "__main__":
+    run()

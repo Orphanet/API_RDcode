@@ -84,14 +84,17 @@ def unzip(filename: str, extract_to: str) -> None:
         zip_ref.extractall(extract_to)
 
 
-if __name__ == '__main__':
+def run():
     args = parse_args()
     outdir = Path(args.outpath)
     
     start_time = time.time()
     filename = download_xml(urls=URL_PACK_NOMENCLATURE, outdir=outdir)
     unzip(filename=filename, extract_to=outdir)
-
     end_time = time.time()
 
     logger.info('Download process has finished. Time: {:.2f}'.format(end_time-start_time))
+
+
+if __name__ == '__main__':
+    run()
