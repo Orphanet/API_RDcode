@@ -34,7 +34,7 @@ def main():
     # app.app.config['JSON_AS_ASCII'] = False
 
     # Remove A-z sorting in json
-    # app.app.config['JSON_SORT_KEYS'] = False
+    app.app.config['JSON_SORT_KEYS'] = False
 
     # Authorize cors from all sites
     CORS(app.app)
