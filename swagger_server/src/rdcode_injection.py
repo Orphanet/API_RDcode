@@ -83,7 +83,7 @@ def get_jsons(path: Union[str, Path], pattern: str=None) -> Union[Path, List]:
     List
         List of Path instances of ES ready-to-inject JSON files 
     """
-    match = '*{}*.json'.format(pattern) if pattern else '*.json'
+    match = '{}'.format(pattern) if pattern else '*.json'
 
     if isinstance(path, str):
         path = Path(path)

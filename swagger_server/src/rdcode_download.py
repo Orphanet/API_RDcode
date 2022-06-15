@@ -9,11 +9,13 @@ located in http://www.orphadata.org/cgi-bin/...
 import argparse
 import logging
 from pathlib import Path
+import shutil
 from typing import Dict, Union
 import requests
 import os
 import time
 import zipfile
+from shutil import unpack_archive
 
 
 FORMAT = '%(asctime)-26s %(name)-26s %(message)s'
@@ -21,7 +23,10 @@ logging.basicConfig(format=FORMAT, level=logging.INFO)
 name = __name__ if __name__ != '__main__' else 'rdcode_download'
 logger = logging.getLogger(name)
 
-URL_PACK_NOMENCLATURE = "http://www.orphadata.org/data/RD-CODE-FULL/Orphanet_Nomenclature_Pack_EN_FULL.zip"
+ISO_LANG = ["cs", "de", "en", "es", "fr", "it", "nl", "pl", "pt"]
+PACK_BASENAME = "http://www.orphadata.org/data/RD-CODE-FULL/Orphanet_Nomenclature_Pack_{}.tar.gz"
+
+URL_PACK_NOMENCLATURE = [ PACK_BASENAME.format(_) for _ in ISO_LANG ]
 
 
 def parse_args():
@@ -34,7 +39,14 @@ def parse_args():
         type=str,
         help="Path or directory name where the Nomenclature pack will be downloaded."
     )
-    
+    parser.add_argument(
+        "-xml",
+        required=False,
+        nargs="?",
+        type=str,
+        default="xml_data",
+        help="Output directory where all XML files will be moved to after download. Default: 'xml_data'."
+    )
     return parser.parse_args()
 
 
@@ -73,7 +85,7 @@ def download_xml(urls: Union[str, Path, list], outdir: Union[str, Path]) -> Unio
         logger.info('GET request to {}'.format(url))
         with requests.get(url=str(url)) as response:
             response.raise_for_status()
-            downloaded_filenames.append(filename)
+            downloaded_filenames.append(outdir/filename)
             write_response(response=response, outpath=outdir/filename)            
 
     if len(downloaded_filenames) == 1:
@@ -87,13 +99,47 @@ def unzip(filename: str, extract_to: str) -> None:
         zip_ref.extractall(extract_to)
 
 
+def extract_all(filename: Union[str, Path, list], extract_path: str):
+    if not isinstance(filename, list):
+        filename = [filename]
+
+    for _filename in filename:
+        if not isinstance(_filename, Path):
+            _filename = Path(_filename)
+
+        if _filename.exists():
+            unpack_archive(_filename, extract_path)
+
+
+def move_files_to(rootpath, destination):
+    os.makedirs(destination, exist_ok=True)
+    destination = Path(destination)
+
+    for root, dirs, files in os.walk(rootpath, topdown=False):
+        for name in files:
+            filename = Path(root) / name
+            if filename.suffix == ".xml":
+                logger.info("Moving {} to {}".format(filename, destination))
+                shutil.move(src=filename, dst=destination / filename.name)
+
+
 def run():
     args = parse_args()
     outdir = Path(args.outpath)
+    xml_path = outdir / Path(args.xml)
+
     
     start_time = time.time()
-    filename = download_xml(urls=URL_PACK_NOMENCLATURE, outdir=outdir)
-    unzip(filename=outdir / filename, extract_to=outdir)
+
+    # download nomenclature packs from chouette and stores their path
+    # filenames = download_xml(urls=URL_PACK_NOMENCLATURE, outdir=outdir)
+
+    # unarchive all downloaded archives
+    # extract_all(filename=filenames, extract_path=outdir)
+
+    # move all xml files from all nomenclature pack into a single path: xml_data (default)
+    move_files_to(rootpath=outdir, destination=xml_path)
+
     end_time = time.time()
 
     logger.info('Download process has finished. Time: {:.2f}'.format(end_time-start_time))

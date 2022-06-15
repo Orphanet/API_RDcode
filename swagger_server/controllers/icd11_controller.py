@@ -92,7 +92,6 @@ def list_orpha_by_icd11(lang, icd11):  # noqa: E501
         }
 
         for CodeICD in hit["Code ICD"]:
-            # if CodeICD["Code ICD10"] == icd10:
             reference["ICD"] = CodeICD["Code ICD11"]
             reference["DisorderMappingRelation"] = CodeICD["DisorderMappingRelation"]
             reference["DisorderMappingICDRelation"] = CodeICD["DisorderMappingICDRelation"]

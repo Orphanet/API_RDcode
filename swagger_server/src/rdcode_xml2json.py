@@ -20,7 +20,7 @@ import os
 from swagger_server.lib import utils
 
 
-FORMAT = '%(asctime)-26s %(name)-26s %(message)s'
+FORMAT = '%(asctime)-26s %(name)-40ls %(message)s'
 logging.basicConfig(format=FORMAT, level=logging.INFO)
 name = __name__ if __name__ != '__main__' else 'orpha_xml2json'
 logger = logging.getLogger(name)
