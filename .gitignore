@@ -6,5 +6,6 @@
 **egg-info**
 **__pycache__**
 
+**data/**
 data_processing/*
 !data_processing/src/
