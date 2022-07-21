@@ -1,3 +1,4 @@
+import json
 import connexion
 
 from swagger_server.models.approx_findby_name import ApproxFindbyName  # noqa: E501
@@ -38,6 +39,18 @@ def list_by_approx_name(lang: str, label: str):  # noqa: E501
         query_term_list.append(query_term)
         # query_term_list.append(additional_query_term)
     query_term_list = "[" + ", ".join(query_term_list) + "]"
+
+
+    # query_term = {
+    #     "query_string": {
+    #         "default_field" : "Preferred term",
+    #         "query": "{}".format(term)
+    #     }
+    # }
+
+
+
+    # print(json.dumps(query_term_list, indent=2))
     # print(query_term_list)
 
     query = "{\"query\": {\"bool\": {\"should\": " + query_term_list + "}}" + \
