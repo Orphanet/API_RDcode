@@ -162,7 +162,7 @@ def parse_args():
         nargs="?",
         type=str,
         default="",
-        help="String used to filter JSON filenames in given in -path. Only JSON files matching that string will be processed"
+        help="String used to filter JSON filenames given in -path. Only JSON files matching that string will be processed (example: *classif*)"
     )
     parser.add_argument(
         "-i",
@@ -171,7 +171,7 @@ def parse_args():
         nargs="?",
         type=str,
         default=None,
-        help="Prefix to add to the filename stem to create Elasticsearch index name."
+        help="Prefix to add to the filename stem to create Elasticsearch index name (default: None - index are named based on JSON filename)."
     )
     parser.add_argument(
         "-u",
@@ -181,7 +181,7 @@ def parse_args():
         choices=("local", 'remote'),
         type=str,
         default="local",
-        help="ES URL type: either 'local' or 'remote'"
+        help="ES URL type: either 'local' or 'remote' (default: local)."
     )
     parser.add_argument(
         '--print',

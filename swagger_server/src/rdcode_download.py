@@ -132,10 +132,10 @@ def run():
     start_time = time.time()
 
     # download nomenclature packs from chouette and stores their path
-    # filenames = download_xml(urls=URL_PACK_NOMENCLATURE, outdir=outdir)
+    filenames = download_xml(urls=URL_PACK_NOMENCLATURE, outdir=outdir)
 
     # unarchive all downloaded archives
-    # extract_all(filename=filenames, extract_path=outdir)
+    extract_all(filename=filenames, extract_path=outdir)
 
     # move all xml files from all nomenclature pack into a single path: xml_data (default)
     move_files_to(rootpath=outdir, destination=xml_path)
