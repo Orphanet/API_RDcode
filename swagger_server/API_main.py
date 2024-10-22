@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
 import os
-
-import swagger_server
-
 import connexion
 from flask import send_from_directory
-
-from swagger_server import encoder
-
 from flask_cors import CORS
 
+import swagger_server
+from swagger_server import encoder
 
 def main():
     # swagger_url => path to ui
