@@ -9,3 +9,7 @@
 **data/**
 data_processing/*
 !data_processing/src/
+
+/build/
+.swagger-codegen/
+.swagger-codegen-ignore

@@ -25,7 +25,7 @@ class TestOMIMController(BaseTestCase):
             response = self.client.open(
                 '/{lang}/ClinicalEntity/orphacode/{orphacode}/OMIM'.format(lang=lang, orphacode=558),
                 method='GET', headers={"apiKey": "test"})
-            if isinstance(response.json, str):
+            if isinstance(response.json, str): #WrapperTestResponse 404
                 response.status = "500"
             self.assert200(response,
                            'Response body is : ' + response.data.decode('utf-8'))

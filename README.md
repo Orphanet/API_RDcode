@@ -15,7 +15,7 @@ To run the server, please execute the following from the root directory:
 
 ```
 pip3 install -r requirements.txt
-python3 -m swagger_server
+python3 -m swagger_server.API_main
 ```
 
 and open your browser to here:
