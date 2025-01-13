@@ -43,7 +43,7 @@ class TestSynonymSController(BaseTestCase):
                      ("ES", "Cost"),
                      ("FR", "Cost"),
                      ("IT", "Cost"),
-                     ("NL", "Costasyndroo"),
+                     ("NL", "Cost"),
                      ("PL", "Cost"),
                      ("PT", "Cost")]:
             # print(test)
@@ -67,7 +67,7 @@ class TestSynonymSController(BaseTestCase):
                      ("ES", "Costa"),
                      ("FR", "Costa"),
                      ("IT", "Costa"),
-                     ("NL", "Costasyndroom"),
+                     ("NL", "Costa"),
                      ("PL", "Costa"),
                      ("PT", "Costa")]:
             # print(test)

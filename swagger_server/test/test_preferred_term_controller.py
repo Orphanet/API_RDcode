@@ -53,7 +53,7 @@ class TestPreferredTermController(BaseTestCase):
                      ("IT", "Sindrome di Marfan"),
                      ("NL", "Syndroom van Marfan"),
                      ("PL", "Zespół Marfana"),
-                     ("PT", "Síndrome de Marfan")]:
+                     ("PT", "Síndrome Marfan")]:
             # print(test)
             response = self.client.open(
                 '/{lang}/ClinicalEntity/FindbyName/{label}'.format(lang=test[0], label=test[1]),
