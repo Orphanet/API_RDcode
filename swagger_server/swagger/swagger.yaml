@@ -43,15 +43,16 @@ tags:
 - name: ICD10
 - name: ICD11
 - name: OMIM
+- name: SNOMED CT
 paths:
   /{lang}/ClinicalEntity:
     get:
       tags:
       - All Orphanet clinical entities
       summary: Search for all Orphanet clinical entities
-      description: The result is a collection of clinical entities (active/inactive)
-        specifying the ORPHAcode, the preferred term, the status and the definition
-        (when one exists) for each entity.
+      description: "The result is a collection of clinical entities (active/inactive)\
+        \ specifying the ORPHAcode, the preferred term, the status and the definition\
+        \ (when one exists) for each entity."
       operationId: list_entities
       parameters:
       - name: lang
@@ -188,9 +189,9 @@ paths:
       tags:
       - Target for inactive ORPHAcode
       summary: Search for the target of an inactive clinical entity by ORPHAcode
-      description: The result retrieves the clinical entity's ORPHAcode, its status
-        (inactive), the related target ORPHAcode as well as the relationship between
-        the clinical entity and its target ORPHAcode.
+      description: "The result retrieves the clinical entity's ORPHAcode, its status\
+        \ (inactive), the related target ORPHAcode as well as the relationship between\
+        \ the clinical entity and its target ORPHAcode."
       operationId: list_target
       parameters:
       - name: lang
@@ -855,8 +856,9 @@ paths:
       tags:
       - ORPHAcode aggregation
       summary: Search for a clinical entity's aggregation code by ORPHAcode
-      description: The result retrieves the clinical entity's ORPHAcode, its preferred
-        term as well as the ORPHAcode and the preferred term of the aggregation code.
+      description: "The result retrieves the clinical entity's ORPHAcode, its preferred\
+        \ term as well as the ORPHAcode and the preferred term of the aggregation\
+        \ code."
       operationId: list_aggregation
       parameters:
       - name: lang
@@ -930,10 +932,10 @@ paths:
       tags:
       - ICD10
       summary: Search for a clinical entity's ICD10 code(s) by ORPHAcode
-      description: The result retrieves the clinical entity's ORPHAcode and its preferred
-        term as well as annotated ICD-10 code(s), specifying the characterisation
-        of the alignment between the clinical entity and ICD-10 code, and the status
-        of the mapping (validated/not yet validated).
+      description: "The result retrieves the clinical entity's ORPHAcode and its preferred\
+        \ term as well as annotated ICD-10 code(s), specifying the characterisation\
+        \ of the alignment between the clinical entity and ICD-10 code, and the status\
+        \ of the mapping (validated/not yet validated)."
       operationId: list_icd10
       parameters:
       - name: lang
@@ -1007,10 +1009,10 @@ paths:
       tags:
       - ICD10
       summary: Search for a clinical entity's ORPHAcode(s) by ICD-10 code
-      description: The result retrieves the ICD-10 code as well as annotated ORPHAcode(s)
-        and preferred term, specifying the characterisation of the alignment between
-        the clinical entity and ICD-10 code, and the status of the mapping (validated/not
-        yet validated).
+      description: "The result retrieves the ICD-10 code as well as annotated ORPHAcode(s)\
+        \ and preferred term, specifying the characterisation of the alignment between\
+        \ the clinical entity and ICD-10 code, and the status of the mapping (validated/not\
+        \ yet validated)."
       operationId: list_orpha_by_icd10
       parameters:
       - name: lang
@@ -1080,10 +1082,10 @@ paths:
       tags:
       - ICD11
       summary: Search for a clinical entity's ICD11 code(s) by ORPHAcode
-      description: The result retrieves the clinical entity's ORPHAcode and its preferred
-        term as well as annotated ICD-11 code(s), specifying the characterisation
-        of the alignment between the clinical entity and ICD-11 code, and the status
-        of the mapping (validated/not yet validated).
+      description: "The result retrieves the clinical entity's ORPHAcode and its preferred\
+        \ term as well as annotated ICD-11 code(s), specifying the characterisation\
+        \ of the alignment between the clinical entity and ICD-11 code, and the status\
+        \ of the mapping (validated/not yet validated)."
       operationId: list_icd11
       parameters:
       - name: lang
@@ -1157,10 +1159,10 @@ paths:
       tags:
       - ICD11
       summary: Search for a clinical entity's ORPHAcode(s) by ICD-11 code
-      description: The result retrieves the ICD-11 code as well as annotated ORPHAcode(s)
-        and preferred term, specifying the characterisation of the alignment between
-        the clinical entity and ICD-11 code, and the status of the mapping (validated/not
-        yet validated).
+      description: "The result retrieves the ICD-11 code as well as annotated ORPHAcode(s)\
+        \ and preferred term, specifying the characterisation of the alignment between\
+        \ the clinical entity and ICD-11 code, and the status of the mapping (validated/not\
+        \ yet validated)."
       operationId: list_orpha_by_icd11
       parameters:
       - name: lang
@@ -1384,9 +1386,10 @@ paths:
       - Parent
       summary: Search for clinical entity's parent(s) by ORPHAcode and the unique
         identifier of the classification
-      description: The result retrieves the clinical entity's ORPHAcode and preferred
-        term as well as the unique identifier and the name of the queried classification,
-        and the clinical entity's parent(s), specifying ORPHAcode and preferred term.
+      description: "The result retrieves the clinical entity's ORPHAcode and preferred\
+        \ term as well as the unique identifier and the name of the queried classification,\
+        \ and the clinical entity's parent(s), specifying ORPHAcode and preferred\
+        \ term."
       operationId: list_parent
       parameters:
       - name: lang
@@ -1473,9 +1476,10 @@ paths:
       - Child
       summary: Search for a clinical entity's child(ren) by ORPHAcode and the unique
         identifier of a classification
-      description: The result retrieves the clinical entity's ORPHAcode and preferred
-        term as well as the unique identifier and the name of the queried classification,
-        and the clinical entity's child(ren), specifying ORPHAcode and preferred term.
+      description: "The result retrieves the clinical entity's ORPHAcode and preferred\
+        \ term as well as the unique identifier and the name of the queried classification,\
+        \ and the clinical entity's child(ren), specifying ORPHAcode and preferred\
+        \ term."
       operationId: list_child
       parameters:
       - name: lang
@@ -1561,10 +1565,10 @@ paths:
       tags:
       - OMIM
       summary: Search for a clinical entity's OMIM code(s) by ORPHAcode
-      description: The result retrieves the clinical entity's ORPHAcode and its preferred
-        term as well as annotated OMIM code(s), specifying the characterisation of
-        the alignment between the clinical entity and OMIM code, and the status of
-        the mapping (validated/not yet validated)
+      description: "The result retrieves the clinical entity's ORPHAcode and its preferred\
+        \ term as well as annotated OMIM code(s), specifying the characterisation\
+        \ of the alignment between the clinical entity and OMIM code, and the status\
+        \ of the mapping (validated/not yet validated)"
       operationId: list_omim
       parameters:
       - name: lang
@@ -1638,10 +1642,10 @@ paths:
       tags:
       - OMIM
       summary: Search for a clinical entity's ORPHAcode by OMIM code
-      description: The result retrieves the OMIM code as well as annotated ORPHAcode(s)
-        and preferred term, specifying the characterisation of the alignment between
-        the clinical entity and OMIM code, and the status of the mapping (validated/not
-        yet validated).
+      description: "The result retrieves the OMIM code as well as annotated ORPHAcode(s)\
+        \ and preferred term, specifying the characterisation of the alignment between\
+        \ the clinical entity and OMIM code, and the status of the mapping (validated/not\
+        \ yet validated)."
       operationId: list_orpha_by_omim
       parameters:
       - name: lang
@@ -1710,6 +1714,159 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.omim_controller
+  /{lang}/ClinicalEntity/orphacode/{orphacode}/SNOMED:
+    get:
+      tags:
+      - SNOMED CT
+      summary: Search for a clinical entity's SNOMED CT code(s) by ORPHAcode
+      description: "The result retrieves the clinical entity's ORPHAcode and its preferred\
+        \ term as well as annotated SNOMED CT code(s), specifying the characterisation\
+        \ of the alignment between the clinical entity and SNOMED CT code, and the\
+        \ status of the mapping (validated/not yet validated)"
+      operationId: list_snomed
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - CS
+          - DE
+          - EN
+          - ES
+          - FR
+          - IT
+          - NL
+          - PL
+          - PT
+      - name: orphacode
+        in: path
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the Orphanet database to each clinical entity upon its creation.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 0
+          exclusiveMinimum: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/omim'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/omim'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.snomedct_controller
+  /{lang}/ClinicalEntity/FindbySNOMED/{snomedcode}:
+    get:
+      tags:
+      - SNOMED CT
+      summary: Search for a clinical entity's ORPHAcode by SNOMED CT code
+      description: "The result retrieves the SNOMED CT code as well as annotated ORPHAcode(s)\
+        \ and preferred term, specifying the characterisation of the alignment between\
+        \ the clinical entity and SNOMED CT code, and the status of the mapping (validated/not\
+        \ yet validated)."
+      operationId: list_orpha_by_snomed
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - CS
+          - DE
+          - EN
+          - ES
+          - FR
+          - IT
+          - NL
+          - PL
+          - PT
+      - name: snomedcode
+        in: path
+        description: SNOMED attributed code
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 0
+          exclusiveMinimum: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindbyOMIM'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/FindbyOMIM'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.snomedct_controller
   /{lang}/ClinicalEntity/FindbyName/{label}:
     get:
       tags:
@@ -1886,13 +2043,13 @@ components:
           example: Active
           enum:
           - Active
-          - 'Inactive: Non rare disease in Europe'
-          - 'Inactive: Obsolete'
-          - 'Inactive: Deprecated'
+          - "Inactive: Non rare disease in Europe"
+          - "Inactive: Obsolete"
+          - "Inactive: Deprecated"
       example:
         Status: Active
         ORPHAcode: 10
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     TargetEntity:
       type: object
       properties:
@@ -1905,12 +2062,12 @@ components:
           example: 70470
         Status:
           type: string
-          example: 'Inactive: Obsolete'
+          example: "Inactive: Obsolete"
           enum:
           - Active
-          - 'Inactive: Non rare disease in Europe'
-          - 'Inactive: Obsolete'
-          - 'Inactive: Deprecated'
+          - "Inactive: Non rare disease in Europe"
+          - "Inactive: Obsolete"
+          - "Inactive: Deprecated"
         Relation:
           type: string
           example: Referred to
@@ -1922,11 +2079,11 @@ components:
           format: int32
           example: 444490
       example:
-        Status: 'Inactive: Obsolete'
+        Status: "Inactive: Obsolete"
         Relation: Referred to
         ORPHAcode: 70470
         Target ORPHAcode: 444490
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     Name:
       type: object
       properties:
@@ -1939,11 +2096,11 @@ components:
           example: 10
         Preferred term:
           type: string
-          example: 48,XXYY syndrome
+          example: "48,XXYY syndrome"
       example:
-        Preferred term: 48,XXYY syndrome
+        Preferred term: "48,XXYY syndrome"
         ORPHAcode: 10
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     Definition:
       type: object
       properties:
@@ -1956,20 +2113,21 @@ components:
           example: 10
         Definition:
           type: string
-          example: A rare sex chromosome number anomaly disorder characterized, genetically,
-            by the presence of an extra X and Y chromosome in males and, clinically,
-            by tall stature, dysfunctional testes associated with infertility and
-            insufficient testosterone production, cognitive, affective and social
-            functioning impairments, global developmental delay, and an increased
-            risk of congenital malformations.
+          example: "A rare sex chromosome number anomaly disorder characterized, genetically,\
+            \ by the presence of an extra X and Y chromosome in males and, clinically,\
+            \ by tall stature, dysfunctional testes associated with infertility and\
+            \ insufficient testosterone production, cognitive, affective and social\
+            \ functioning impairments, global developmental delay, and an increased\
+            \ risk of congenital malformations."
       example:
         ORPHAcode: 10
-        Definition: A rare sex chromosome number anomaly disorder characterized, genetically,
-          by the presence of an extra X and Y chromosome in males and, clinically,
-          by tall stature, dysfunctional testes associated with infertility and insufficient
-          testosterone production, cognitive, affective and social functioning impairments,
-          global developmental delay, and an increased risk of congenital malformations.
-        Date: "2020-06-29 11:48:08"
+        Definition: "A rare sex chromosome number anomaly disorder characterized,\
+          \ genetically, by the presence of an extra X and Y chromosome in males and,\
+          \ clinically, by tall stature, dysfunctional testes associated with infertility\
+          \ and insufficient testosterone production, cognitive, affective and social\
+          \ functioning impairments, global developmental delay, and an increased\
+          \ risk of congenital malformations."
+        Date: 2020-06-29 11:48:08
     Synonym:
       type: object
       properties:
@@ -1998,7 +2156,7 @@ components:
         - Idiopathic massive osteolysis
         - Progressive massive osteolysis
         - Vanishing bone disease
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     ClassificationLevel:
       type: object
       properties:
@@ -2019,7 +2177,7 @@ components:
       example:
         ORPHAcode: 10
         ClassificationLevel: Disorder
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     Typology:
       type: object
       properties:
@@ -2048,7 +2206,7 @@ components:
       example:
         ORPHAcode: 10
         Typology: Malformation syndrome
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     OrphanetURL:
       type: object
       properties:
@@ -2065,7 +2223,7 @@ components:
       example:
         OrphanetURL: http://www.orpha.net/consor/cgi-bin/OC_Exp.php?lng=en&Expert=10
         ORPHAcode: 10
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     ORPHAcodeAggregation:
       type: object
       properties:
@@ -2078,11 +2236,11 @@ components:
           example: 10
         Preferred term:
           type: string
-          example: 48,XXYY syndrome
+          example: "48,XXYY syndrome"
       example:
-        Preferred term: 48,XXYY syndrome
+        Preferred term: "48,XXYY syndrome"
         ORPHAcodeAggregation: 10
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     icd10:
       type: object
       properties:
@@ -2095,13 +2253,13 @@ components:
           example: 10
         Preferred term:
           type: string
-          example: 48,XXYY syndrome
+          example: "48,XXYY syndrome"
         References:
           type: array
           items:
             $ref: '#/components/schemas/icd10_References'
       example:
-        Preferred term: 48,XXYY syndrome
+        Preferred term: "48,XXYY syndrome"
         ORPHAcode: 10
         References:
         - DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by
@@ -2132,14 +2290,14 @@ components:
             $ref: '#/components/schemas/Entity_by_icd_References'
       example:
         References:
-        - Preferred term: 48,XXYY syndrome
+        - Preferred term: "48,XXYY syndrome"
           ORPHAcode: 10
           DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by
             Orphanet)
           DisorderMappingValidationStatus: Validated
           DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
             Term)
-        - Preferred term: 48,XXYY syndrome
+        - Preferred term: "48,XXYY syndrome"
           ORPHAcode: 10
           DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by
             Orphanet)
@@ -2147,7 +2305,7 @@ components:
           DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
             Term)
         Code ICD10: Q98.8
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     Classification:
       type: object
       properties:
@@ -2171,7 +2329,7 @@ components:
         Classification:
         - Name of the classification: Orphanet classification of rare cardiac diseases
           ID of the classification: 146
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     Entities_by_classification:
       type: array
       items:
@@ -2182,7 +2340,6 @@ components:
         Date:
           type: string
           format: date-time
-          example: "2020-06-29 11:48:08"
         ORPHAcode:
           type: integer
           format: int32
@@ -2204,7 +2361,7 @@ components:
           items:
             $ref: '#/components/schemas/Parent_Parent'
       example:
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
         Preferred term: Marfan syndrome
         ORPHAcode: 558
         Parent:
@@ -2224,7 +2381,6 @@ components:
         Date:
           type: string
           format: date-time
-          example: "2020-06-29 11:48:08"
         ORPHAcode:
           type: integer
           format: int32
@@ -2255,7 +2411,7 @@ components:
           Preferred term: Marfan syndrome type 1
         - ORPHAcode: 294973
           Preferred term: Marfan syndrome type 2
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     omim:
       type: object
       properties:
@@ -2281,7 +2437,7 @@ components:
           Code OMIM: 154700
           DisorderMappingRelation: BTNT (ORPHA code's Broader Term maps to a Narrower
             Term)
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     FindbyOMIM:
       type: object
       properties:
@@ -2304,7 +2460,7 @@ components:
           DisorderMappingRelation: BTNT (ORPHA code's Broader Term maps to a Narrower
             Term)
         Code OMIM: 154700
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     ApproxFindbyName:
       type: array
       items:
@@ -2325,7 +2481,7 @@ components:
       example:
         Preferred term: Marfan syndrome
         ORPHAcode: 558
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     AllClinicalEntity_inner:
       type: object
       properties:
@@ -2341,30 +2497,31 @@ components:
           example: Active
           enum:
           - Active
-          - 'Inactive: Non rare disease in Europe'
-          - 'Inactive: Obsolete'
-          - 'Inactive: Deprecated'
+          - "Inactive: Non rare disease in Europe"
+          - "Inactive: Obsolete"
+          - "Inactive: Deprecated"
         Preferred term:
           type: string
-          example: 48,XXYY syndrome
+          example: "48,XXYY syndrome"
         Definition:
           type: string
-          example: A rare sex chromosome number anomaly disorder characterized, genetically,
-            by the presence of an extra X and Y chromosome in males and, clinically,
-            by tall stature, dysfunctional testes associated with infertility and
-            insufficient testosterone production, cognitive, affective and social
-            functioning impairments, global developmental delay, and an increased
-            risk of congenital malformations.
+          example: "A rare sex chromosome number anomaly disorder characterized, genetically,\
+            \ by the presence of an extra X and Y chromosome in males and, clinically,\
+            \ by tall stature, dysfunctional testes associated with infertility and\
+            \ insufficient testosterone production, cognitive, affective and social\
+            \ functioning impairments, global developmental delay, and an increased\
+            \ risk of congenital malformations."
       example:
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
         ORPHAcode: 10
         Status: Active
-        Preferred term: 48,XXYY syndrome
-        Definition: A rare sex chromosome number anomaly disorder characterized, genetically,
-          by the presence of an extra X and Y chromosome in males and, clinically,
-          by tall stature, dysfunctional testes associated with infertility and insufficient
-          testosterone production, cognitive, affective and social functioning impairments,
-          global developmental delay, and an increased risk of congenital malformations.
+        Preferred term: "48,XXYY syndrome"
+        Definition: "A rare sex chromosome number anomaly disorder characterized,\
+          \ genetically, by the presence of an extra X and Y chromosome in males and,\
+          \ clinically, by tall stature, dysfunctional testes associated with infertility\
+          \ and insufficient testosterone production, cognitive, affective and social\
+          \ functioning impairments, global developmental delay, and an increased\
+          \ risk of congenital malformations."
     icd10_References:
       type: object
       properties:
@@ -2375,7 +2532,7 @@ components:
           type: string
           example: NTBT (ORPHA code's Narrower Term maps to a Broader Term)
           enum:
-          - 'E (Exact mapping: the two concepts are equivalent)'
+          - "E (Exact mapping: the two concepts are equivalent)"
           - NTBT (ORPHA code's Narrower Term maps to a Broader Term)
           - BTNT (ORPHA code's Broader Term maps to a Narrower Term)
           - NTBT/E (ORPHA code's Narrower Term maps to a Broader Term because of an
@@ -2412,12 +2569,12 @@ components:
           example: 10
         Preferred term:
           type: string
-          example: 48,XXYY syndrome
+          example: "48,XXYY syndrome"
         DisorderMappingRelation:
           type: string
           example: NTBT (ORPHA code's Narrower Term maps to a Broader Term)
           enum:
-          - 'E (Exact mapping: the two concepts are equivalent)'
+          - "E (Exact mapping: the two concepts are equivalent)"
           - NTBT (ORPHA code's Narrower Term maps to a Broader Term)
           - BTNT (ORPHA code's Broader Term maps to a Narrower Term)
           - NTBT/E (ORPHA code's Narrower Term maps to a Broader Term because of an
@@ -2440,7 +2597,7 @@ components:
           - Validated
           - Not yet validated
       example:
-        Preferred term: 48,XXYY syndrome
+        Preferred term: "48,XXYY syndrome"
         ORPHAcode: 10
         DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by Orphanet)
         DisorderMappingValidationStatus: Validated
@@ -2475,7 +2632,7 @@ components:
       example:
         Preferred term: 3C syndrome
         ORPHAcode: 7
-        Date: "2020-06-29 11:48:08"
+        Date: 2020-06-29 11:48:08
     Parent_Classification:
       type: object
       properties:
@@ -2510,7 +2667,7 @@ components:
           type: string
           example: BTNT (ORPHA code's Broader Term maps to a Narrower Term)
           enum:
-          - 'E (Exact mapping: the two concepts are equivalent)'
+          - "E (Exact mapping: the two concepts are equivalent)"
           - NTBT (ORPHA code's Narrower Term maps to a Broader Term)
           - BTNT (ORPHA code's Broader Term maps to a Narrower Term)
           - NTBT/E (ORPHA code's Narrower Term maps to a Broader Term because of an
@@ -2542,7 +2699,7 @@ components:
           type: string
           example: BTNT (ORPHA code's Broader Term maps to a Narrower Term)
           enum:
-          - 'E (Exact mapping: the two concepts are equivalent)'
+          - "E (Exact mapping: the two concepts are equivalent)"
           - NTBT (ORPHA code's Narrower Term maps to a Broader Term)
           - BTNT (ORPHA code's Broader Term maps to a Narrower Term)
           - NTBT/E (ORPHA code's Narrower Term maps to a Broader Term because of an
