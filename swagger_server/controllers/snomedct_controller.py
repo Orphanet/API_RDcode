@@ -6,6 +6,12 @@ from swagger_server.models.findby_omim import FindbyOMIM  # noqa: E501
 from swagger_server.models.omim import Omim  # noqa: E501
 from swagger_server import util
 
+import config
+import operator
+import connexion
+from controllers.query_controller import *
+
+
 
 def list_orpha_by_snomed(lang, snomedcode):  # noqa: E501
     """Search for a clinical entity&#x27;s ORPHAcode by SNOMED CT code
@@ -19,8 +25,15 @@ def list_orpha_by_snomed(lang, snomedcode):  # noqa: E501
 
     :rtype: FindbyOMIM
     """
-    return 'do some magic!'
 
+    es = config.elastic_server
+
+    index = "rdcode_orpha_snomed_mapping_en"
+    query = "{\"query\": {\"match\": {\"Code SNOMED\": " + str(snomedcode) + "}}," \
+            "\"_source\":[\"Date\", \"Code SNOMED\",\"Preferred term\", \"ORPHAcode\"]}"
+
+    response = single_res(es, index, query)
+    return response
 
 def list_snomed(lang, orphacode):  # noqa: E501
     """Search for a clinical entity&#x27;s SNOMED CT code(s) by ORPHAcode
@@ -34,4 +47,25 @@ def list_snomed(lang, orphacode):  # noqa: E501
 
     :rtype: Omim
     """
-    return 'do some magic!'
+
+    es = config.elastic_server
+
+    index = "rdcode_orpha_snomed_mapping_en"
+    query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
+            "\"_source\":[\"Date\", \"ORPHAcode\",\"Preferred term\", \"Code SNOMED\"]}"
+
+    response = single_res(es, index, query)
+    # Test to return error
+    """
+    if isinstance(response, str) or isinstance(response, tuple):
+        return response
+    else:
+        references = response.pop("Code SNOMED")
+        references.sort(key=operator.itemgetter("Code SNOMED"))
+        response["References"] = references
+
+        # return yaml if needed
+        response = if_yaml(connexion.request.accept_mimetypes.best, response)
+    """
+    return response
+    
