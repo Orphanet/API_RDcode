@@ -1048,10 +1048,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Entity_by_icd'
+                $ref: '#/components/schemas/Entity_by_icd10'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Entity_by_icd'
+                $ref: '#/components/schemas/Entity_by_icd10'
         "400":
           description: Bad request
         "401":
@@ -1125,10 +1125,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/icd10'
+                $ref: '#/components/schemas/icd11'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/icd10'
+                $ref: '#/components/schemas/icd11'
         "400":
           description: Bad request
         "401":
@@ -1198,10 +1198,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Entity_by_icd'
+                $ref: '#/components/schemas/Entity_by_icd11'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/Entity_by_icd'
+                $ref: '#/components/schemas/Entity_by_icd11'
         "400":
           description: Bad request
         "401":
@@ -1762,10 +1762,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/omim'
+                $ref: '#/components/schemas/snomed'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/omim'
+                $ref: '#/components/schemas/snomed'
         "400":
           description: Bad request
         "401":
@@ -1791,7 +1791,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.snomedct_controller
-  /{lang}/ClinicalEntity/FindbySNOMED/{snomedcode}:
+  /{lang}/ClinicalEntity/SNOMED/{snomedcode}:
     get:
       tags:
       - SNOMED CT
@@ -1838,10 +1838,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FindbyOMIM'
+                $ref: '#/components/schemas/Entity_by_snomed'
             application/yaml:
               schema:
-                $ref: '#/components/schemas/FindbyOMIM'
+                $ref: '#/components/schemas/Entity_by_snomed'
         "400":
           description: Bad request
         "401":
@@ -2254,10 +2254,6 @@ components:
         Preferred term:
           type: string
           example: "48,XXYY syndrome"
-        References:
-          type: array
-          items:
-            $ref: '#/components/schemas/icd10_References'
       example:
         Preferred term: "48,XXYY syndrome"
         ORPHAcode: 10
@@ -2268,14 +2264,51 @@ components:
           Code ICD10: Q98.8
           DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
             Term)
-        - DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by
+        Date: 2000-01-23T04:56:07.000+00:00
+    Entity_by_icd10:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+        Code ICD10:
+          type: string
+          example: Q98.8
+      example:
+        References:
+        - Preferred term: "48,XXYY syndrome"
+          ORPHAcode: 10
+          DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by
             Orphanet)
           DisorderMappingValidationStatus: Validated
-          Code ICD10: Q98.8
+          DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
+            Term)
+        Code ICD10: Q98.8
+        Date: 2020-06-29 11:48:08
+    icd11:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 10
+        Preferred term:
+          type: string
+          example: "48,XXYY syndrome"
+      example:
+        Preferred term: "48,XXYY syndrome"
+        ORPHAcode: 10
+        References:
+        - DisorderMappingICDRelation: Index Term
+          DisorderMappingValidationStatus: Validated
+          Code ICD11: LD50.3Y
           DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
             Term)
         Date: 2000-01-23T04:56:07.000+00:00
-    Entity_by_icd:
+    Entity_by_icd11:
       type: object
       properties:
         Date:
@@ -2286,25 +2319,15 @@ components:
           example: Q98.8
         References:
           type: array
-          items:
-            $ref: '#/components/schemas/Entity_by_icd_References'
       example:
         References:
         - Preferred term: "48,XXYY syndrome"
           ORPHAcode: 10
-          DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by
-            Orphanet)
+          DisorderMappingICDRelation: Index Term
           DisorderMappingValidationStatus: Validated
           DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
             Term)
-        - Preferred term: "48,XXYY syndrome"
-          ORPHAcode: 10
-          DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by
-            Orphanet)
-          DisorderMappingValidationStatus: Validated
-          DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
-            Term)
-        Code ICD10: Q98.8
+        Code ICD10: LD50.3Y
         Date: 2020-06-29 11:48:08
     Classification:
       type: object
@@ -2461,6 +2484,39 @@ components:
             Term)
         Code OMIM: 154700
         Date: 2020-06-29 11:48:08
+    snomed:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: "558"
+        Preferred term:
+          type: string
+          example: Marfan syndrome
+      example:
+        Preferred term: Marfan syndrome
+        ORPHAcode: "558"
+        Code SNOMED: "19346006"
+        Date: 2020-06-29 11:48:08
+    Entity_by_snomed:
+      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+        Code OMIM:
+          type: integer
+          format: int64
+          example: 154700
+      example:
+        Preferred term: Marfan syndrome
+        ORPHAcode: "558"
+        Code SNOMED: "19346006"
+        Date: 2020-06-29 11:48:08
     ApproxFindbyName:
       type: array
       items:
@@ -2522,87 +2578,7 @@ components:
           \ and insufficient testosterone production, cognitive, affective and social\
           \ functioning impairments, global developmental delay, and an increased\
           \ risk of congenital malformations."
-    icd10_References:
-      type: object
-      properties:
-        Code ICD10:
-          type: string
-          example: Q98.8
-        DisorderMappingRelation:
-          type: string
-          example: NTBT (ORPHA code's Narrower Term maps to a Broader Term)
-          enum:
-          - "E (Exact mapping: the two concepts are equivalent)"
-          - NTBT (ORPHA code's Narrower Term maps to a Broader Term)
-          - BTNT (ORPHA code's Broader Term maps to a Narrower Term)
-          - NTBT/E (ORPHA code's Narrower Term maps to a Broader Term because of an
-            Exact mapping with a synonym in the target terminology)
-          - BTNT/E
-          - ND (not yet decided/unable to decide)
-        DisorderMappingICDRelation:
-          type: string
-          example: Attributed (The ICD10 code is attributed by Orphanet)
-          enum:
-          - Specific code (The ORPHA code has its own code in the ICD10)
-          - Inclusion term (The ORPHA code is included under a ICD10 category and
-            has not its own code)
-          - Index term (The ORPHA code is listed in the ICD10 Index)
-          - Attributed (The ICD10 code is attributed by Orphanet)
-        DisorderMappingValidationStatus:
-          type: string
-          example: Validated
-          enum:
-          - Validated
-          - Not yet validated
-      example:
-        DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by Orphanet)
-        DisorderMappingValidationStatus: Validated
-        Code ICD10: Q98.8
-        DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
-          Term)
-    Entity_by_icd_References:
-      type: object
-      properties:
-        ORPHAcode:
-          type: integer
-          format: int32
-          example: 10
-        Preferred term:
-          type: string
-          example: "48,XXYY syndrome"
-        DisorderMappingRelation:
-          type: string
-          example: NTBT (ORPHA code's Narrower Term maps to a Broader Term)
-          enum:
-          - "E (Exact mapping: the two concepts are equivalent)"
-          - NTBT (ORPHA code's Narrower Term maps to a Broader Term)
-          - BTNT (ORPHA code's Broader Term maps to a Narrower Term)
-          - NTBT/E (ORPHA code's Narrower Term maps to a Broader Term because of an
-            Exact mapping with a synonym in the target terminology)
-          - BTNT/E
-          - ND (not yet decided/unable to decide)
-        DisorderMappingICDRelation:
-          type: string
-          example: Attributed (The ICD10 code is attributed by Orphanet)
-          enum:
-          - Specific code (The ORPHA code has its own code in the ICD10)
-          - Inclusion term (The ORPHA code is included under a ICD10 category and
-            has not its own code)
-          - Index term (The ORPHA code is listed in the ICD10 Index)
-          - Attributed (The ICD10 code is attributed by Orphanet)
-        DisorderMappingValidationStatus:
-          type: string
-          example: Validated
-          enum:
-          - Validated
-          - Not yet validated
-      example:
-        Preferred term: "48,XXYY syndrome"
-        ORPHAcode: 10
-        DisorderMappingICDRelation: Attributed (The ICD10 code is attributed by Orphanet)
-        DisorderMappingValidationStatus: Validated
-        DisorderMappingRelation: NTBT (ORPHA code's Narrower Term maps to a Broader
-          Term)
+
     Classification_Classification:
       type: object
       properties:
