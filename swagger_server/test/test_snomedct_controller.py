@@ -20,8 +20,8 @@ class TestSNOMEDCTController(BaseTestCase):
         Search for a clinical entity's ORPHAcode by SNOMED CT code
         """
         response = self.client.open(
-            '/{lang}/ClinicalEntity/FindbySNOMED/{snomedcode}'.format(lang='lang_example', snomedcode=1),
-            method='GET')
+            '/{lang}/ClinicalEntity/FindbySNOMED/{snomedcode}'.format(lang='CS', snomedcode=19346006),
+            method='GET', headers={"apiKey": "test"})
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
@@ -31,8 +31,8 @@ class TestSNOMEDCTController(BaseTestCase):
         Search for a clinical entity's SNOMED CT code(s) by ORPHAcode
         """
         response = self.client.open(
-            '/{lang}/ClinicalEntity/orphacode/{orphacode}/SNOMED'.format(lang='lang_example', orphacode=1),
-            method='GET')
+            '/{lang}/ClinicalEntity/orphacode/{orphacode}/SNOMED'.format(lang='PT', orphacode=558),
+            method='GET', headers={"apiKey": "test"})
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
