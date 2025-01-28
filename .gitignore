@@ -6,10 +6,8 @@
 **egg-info**
 **__pycache__**
 
-**data/**
-data_processing/*
-!data_processing/src/
-
 /build/
 .swagger-codegen/
-.swagger-codegen-ignore
+
+/processing_files/*.txt
+

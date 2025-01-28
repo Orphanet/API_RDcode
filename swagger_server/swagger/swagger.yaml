@@ -43,7 +43,7 @@ tags:
 - name: ICD10
 - name: ICD11
 - name: OMIM
-- name: SNOMED CT
+- name: SNOMED-CT
 paths:
   /{lang}/ClinicalEntity:
     get:
@@ -1714,14 +1714,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.omim_controller
-  /{lang}/ClinicalEntity/orphacode/{orphacode}/SNOMED:
+  /{lang}/ClinicalEntity/orphacode/{orphacode}/SNOMED-CT:
     get:
       tags:
-      - SNOMED CT
-      summary: Search for a clinical entity's SNOMED CT code(s) by ORPHAcode
+      - SNOMED-CT
+      summary: Search for a clinical entity's SNOMED-CT code(s) by ORPHAcode
       description: "The result retrieves the clinical entity's ORPHAcode and its preferred\
-        \ term as well as annotated SNOMED CT code(s), specifying the characterisation\
-        \ of the alignment between the clinical entity and SNOMED CT code, and the\
+        \ term as well as annotated SNOMED-CT code(s), specifying the characterisation\
+        \ of the alignment between the clinical entity and SNOMED-CT code, and the\
         \ status of the mapping (validated/not yet validated)"
       operationId: list_snomed
       parameters:
@@ -1791,14 +1791,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.snomedct_controller
-  /{lang}/ClinicalEntity/SNOMED/{snomedcode}:
+  /{lang}/ClinicalEntity/SNOMED-CT/{snomedcode}:
     get:
       tags:
-      - SNOMED CT
-      summary: Search for a clinical entity's ORPHAcode by SNOMED CT code
-      description: "The result retrieves the SNOMED CT code as well as annotated ORPHAcode(s)\
+      - SNOMED-CT
+      summary: Search for a clinical entity's ORPHAcode by SNOMED-CT code
+      description: "The result retrieves the SNOMED-CT code as well as annotated ORPHAcode(s)\
         \ and preferred term, specifying the characterisation of the alignment between\
-        \ the clinical entity and SNOMED CT code, and the status of the mapping (validated/not\
+        \ the clinical entity and SNOMED-CT code, and the status of the mapping (validated/not\
         \ yet validated)."
       operationId: list_orpha_by_snomed
       parameters:
@@ -1823,7 +1823,7 @@ paths:
           - PT
       - name: snomedcode
         in: path
-        description: SNOMED attributed code
+        description: SNOMED-CT attributed code
         required: true
         style: simple
         explode: false
@@ -2500,7 +2500,7 @@ components:
       example:
         Preferred term: Marfan syndrome
         ORPHAcode: "558"
-        Code SNOMED: "19346006"
+        Code SNOMED-CT: "19346006"
         Date: 2020-06-29 11:48:08
     Entity_by_snomed:
       type: object
@@ -2515,7 +2515,7 @@ components:
       example:
         Preferred term: Marfan syndrome
         ORPHAcode: "558"
-        Code SNOMED: "19346006"
+        Code SNOMED-CT: "19346006"
         Date: 2020-06-29 11:48:08
     ApproxFindbyName:
       type: array

@@ -29,8 +29,8 @@ def list_orpha_by_snomed(lang, snomedcode):  # noqa: E501
     es = config.elastic_server
 
     index = "rdcode_orpha_snomed_mapping_" + lang.lower()
-    query = "{\"query\": {\"match\": {\"Code SNOMED\": " + str(snomedcode) + "}}," \
-            "\"_source\":[\"Date\", \"Code SNOMED\",\"Preferred term\", \"ORPHAcode\"]}"
+    query = "{\"query\": {\"match\": {\"Code SNOMED-CT\": " + str(snomedcode) + "}}," \
+            "\"_source\":[\"Date\", \"Code SNOMED-CT\",\"Preferred term\", \"ORPHAcode\"]}"
 
     response = single_res(es, index, query)
     return response
@@ -52,7 +52,7 @@ def list_snomed(lang, orphacode):  # noqa: E501
 
     index = "rdcode_orpha_snomed_mapping_" + lang.lower()
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
-            "\"_source\":[\"Date\", \"ORPHAcode\",\"Preferred term\", \"Code SNOMED\"]}"
+            "\"_source\":[\"Date\", \"ORPHAcode\",\"Preferred term\", \"Code SNOMED-CT\"]}"
 
     response = single_res(es, index, query)
     # Test to return error
