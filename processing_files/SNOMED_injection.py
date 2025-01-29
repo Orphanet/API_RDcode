@@ -5,6 +5,7 @@ import requests
 import json
 import datetime
 import os
+import glob
 
 langs = ["CS", "DE", "EN", "ES", "FR", "IT", "NL", "PL", "PT"]
 
@@ -128,3 +129,8 @@ for lang in langs:
             print(res)
         else:
             print("No error for {}".format(lang.lower()))
+
+# Deletes used files
+
+for file in glob.glob("*.txt"):
+    os.remove(file)
