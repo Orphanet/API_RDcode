@@ -99,10 +99,15 @@ for lang in langs:
     for (orphacode, snomedcode) in snomed.items():
         current = entity_search(entities[lang], orphacode)
         url = "http://www.orpha.net/consor/cgi-bin/OC_Exp.php?lng=fr&Expert=" + orphacode
+        references = [{
+            "Code SNOMED-CT": snomedcode,
+            "DisorderMappingValidationStatus": "Validated",
+            "DisorderMappingRelationship": "E (Exact Mapping)" 
+        }]
         current.update({
             "ORPHAcode" : orphacode,
             "OrphanetURL" : url,
-            "Code SNOMED-CT" : snomedcode,
+            "References" : references,
             "Date" : datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
         })
         final_array.append(current)

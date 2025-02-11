@@ -2500,7 +2500,10 @@ components:
       example:
         Preferred term: Marfan syndrome
         ORPHAcode: "558"
-        Code SNOMED-CT: "19346006"
+        References:
+          - Code SNOMED-CT: "19346006"
+            DisorderMappingValidationStatus: "Validated"
+            DisorderMappingRelationship: "E (Exact Mapping)"
         Date: 2020-06-29 11:48:08
     Entity_by_snomed:
       type: object
@@ -2515,7 +2518,10 @@ components:
       example:
         Preferred term: Marfan syndrome
         ORPHAcode: "558"
-        Code SNOMED-CT: "19346006"
+        References:
+          - Code SNOMED-CT: "19346006"
+            DisorderMappingValidationStatus: "Validated"
+            DisorderMappingRelationship: "E (Exact Mapping)"
         Date: 2020-06-29 11:48:08
     ApproxFindbyName:
       type: array
