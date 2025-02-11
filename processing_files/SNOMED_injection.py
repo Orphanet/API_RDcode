@@ -102,7 +102,7 @@ for lang in langs:
         references = [{
             "Code SNOMED-CT": snomedcode,
             "DisorderMappingValidationStatus": "Validated",
-            "DisorderMappingRelationship": "E (Exact Mapping)" 
+            "DisorderMappingRelation": "E (Exact Mapping)" 
         }]
         current.update({
             "ORPHAcode" : orphacode,
