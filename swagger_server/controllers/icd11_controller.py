@@ -23,15 +23,21 @@ def list_icd11(lang, orphacode):  # noqa: E501
     index = "rdcode_orpha_icd11_mapping"
     index = "{}_{}".format(index, lang.lower())
 
-    query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
-            "\"_source\":[\"Date\", \"ORPHAcode\",\"Preferred term\", \"Code ICD\"]}"
+    query = '{\"query\": {\"match\": {\"ORPHAcode\": ' + str(orphacode) + '}},' \
+            '\"_source\":[\"ORPHAcode\", \"Preferred term\", \"References.Code ICD11\",' \
+                            '\"References.DisorderMappingICDRefUri\",' \
+                            '\"References.DisorderMappingICDRefUrl\",' \
+                            '\"References.DisorderMappingRelation\",' \
+                            '\"References.DisorderMappingValidationStatus\",' \
+                            '\"References.DisorderMappingICDRelation\",' \
+                            '\"Date\"]}'
 
     response = single_res(es, index, query)
     # Test to return error
     if isinstance(response, str) or isinstance(response, tuple):
         return response
     else:
-        references = response.pop("Code ICD")
+        references = response.pop("References")
         references.sort(key=operator.itemgetter("Code ICD11"))
         response["References"] = references
 
@@ -60,7 +66,7 @@ def list_orpha_by_icd11(lang, icd11):  # noqa: E501
     query = {
         "query": {
             "query_string": {
-                "default_field": "Code ICD.Code ICD11",
+                "default_field": "References.Code ICD11",
                 "query": str(icd11)
             }
         }
@@ -91,12 +97,13 @@ def list_orpha_by_icd11(lang, icd11):  # noqa: E501
             "Preferred term": hit["Preferred term"]
         }
 
-        for CodeICD in hit["Code ICD"]:
-            reference["ICD"] = CodeICD["Code ICD11"]
+        for CodeICD in hit["References"]:
+            reference["Code ICD11"] = CodeICD["Code ICD11"]
             reference["DisorderMappingRelation"] = CodeICD["DisorderMappingRelation"]
             reference["DisorderMappingICDRelation"] = CodeICD["DisorderMappingICDRelation"]
             reference["DisorderMappingValidationStatus"] = CodeICD["DisorderMappingValidationStatus"]
-
+            reference["DisorderMappingICDRefUrl"] = CodeICD["DisorderMappingICDRefUrl"]
+            reference["DisorderMappingICDRefUri"] = CodeICD["DisorderMappingICDRefUri"]
         response["References"].append(reference)
 
     # Sort references by Orphacode
