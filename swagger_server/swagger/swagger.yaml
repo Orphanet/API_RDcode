@@ -28,12 +28,14 @@ security:
 - apiKey: []
 tags:
 - name: All Orphanet clinical entities
+- name: Summary
 - name: Preferred term
 - name: Synonym(s)
 - name: Definition
 - name: Typology
 - name: Orphanet URL
 - name: Status
+- name: Preferential Parent
 - name: ORPHAcode aggregation
 - name: Target for inactive ORPHAcode
 - name: Classification level
@@ -109,6 +111,80 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.all_orphanet_clinical_entities_controller
+  /{lang}/ClinicalEntity/orphacode/{orphacode}/Summary:
+    get:
+      tags:
+      - Summary
+      summary: Search for a clinical entity general informations.
+      description: The result retrieves the ORPHAcode, preferred term, synonyms, definition, typology, Orphanet URL, status, preferential parent and classification level of the clinical entity.
+      operationId: orpha_summary
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - CS
+          - DE
+          - EN
+          - ES
+          - FR
+          - IT
+          - NL
+          - PL
+          - PT
+      - name: orphacode
+        in: path
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the Orphanet database to each clinical entity upon its creation.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 0
+          exclusiveMinimum: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrphaSummary'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/OrphaSummary'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.summary_controller         
   /{lang}/ClinicalEntity/orphacode/{orphacode}/Status:
     get:
       tags:
@@ -851,6 +927,216 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.orphanet_url_controller
+  /{lang}/ClinicalEntity/PreferentialParent:
+    get:
+      tags:
+      - Preferential Parent
+      summary: Search for all preferential parents
+      description: The result retrieves all clinical entities being preferential parents.
+      operationId: parents_list
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - CS
+          - DE
+          - EN
+          - ES
+          - FR
+          - IT
+          - NL
+          - PL
+          - PT
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParentList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ParentList'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.preferential_parent_controller
+  /{lang}/ClinicalEntity/orphacode/{orphacode}/PreferentialParent:
+    get:
+      tags:
+      - Preferential Parent
+      summary: Search for a clinical entity's preferential parent by ORPHAcode
+      description: The result retrieves the clinical entity's ORPHAcode and its preferential parent.
+      operationId: orpha_parent
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - CS
+          - DE
+          - EN
+          - ES
+          - FR
+          - IT
+          - NL
+          - PL
+          - PT
+      - name: orphacode
+        in: path
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the Orphanet database to each clinical entity upon its creation.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 0
+          exclusiveMinimum: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrphaToParent'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/OrphaToParent'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.preferential_parent_controller
+  /{lang}/ClinicalEntity/orphacode/{orphacode}/IsPreferentialParentOf:
+    get:
+      tags:
+      - Preferential Parent
+      summary: Search for a preferential parent by ORPHAcode
+      description: The result retrieves all clinical entities having this preferential parent.
+      operationId: orpha_children
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - CS
+          - DE
+          - EN
+          - ES
+          - FR
+          - IT
+          - NL
+          - PL
+          - PT
+      - name: orphacode
+        in: path
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the Orphanet database to each clinical entity upon its creation.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 0
+          exclusiveMinimum: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrphaToChildren'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/OrphaToChildren'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.preferential_parent_controller
   /{lang}/ClinicalEntity/orphacode/{orphacode}/ORPHAcodeAggregation:
     get:
       tags:
@@ -1227,6 +1513,68 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.icd11_controller
+  /{lang}/ClinicalEntity/Classification:
+    get:
+      tags:
+      - Classification
+      summary: Search for all classifications hcid.
+      description: The result retrieves all classifications hcid and their names.
+      operationId: classifications_list
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - CS
+          - DE
+          - EN
+          - ES
+          - FR
+          - IT
+          - NL
+          - PL
+          - PT
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassificationsList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ClassificationsList'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.classification_controller 
   /{lang}/ClinicalEntity/orphacode/{orphacode}/Classification:
     get:
       tags:
@@ -2721,6 +3069,16 @@ components:
         Preferred term: Marfan syndrome
         ORPHAcode: 558
         Date: 2000-01-23T04:56:07.000+00:00
+    OrphaToParent:
+      type: object
+    OrphaToChildren:
+      type: object
+    ParentList:
+      type: object
+    ClassificationsList:
+      type: object
+    OrphaSummary:
+      type: object
   securitySchemes:
     apiKey:
       type: apiKey
