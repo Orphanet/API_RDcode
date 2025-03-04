@@ -24,22 +24,17 @@ def list_icd11(lang, orphacode):  # noqa: E501
     index = "{}_{}".format(index, lang.lower())
 
     query = '{\"query\": {\"match\": {\"ORPHAcode\": ' + str(orphacode) + '}},' \
-            '\"_source\":[\"ORPHAcode\", \"Preferred term\", \"References.Code ICD11\",' \
-                            '\"References.DisorderMappingICDRefUri\",' \
-                            '\"References.DisorderMappingICDRefUrl\",' \
-                            '\"References.DisorderMappingRelation\",' \
-                            '\"References.DisorderMappingValidationStatus\",' \
-                            '\"References.DisorderMappingICDRelation\",' \
-                            '\"Date\"]}'
+            '\"_source\":[\"ORPHAcode\", \"Preferred term\", \"OrphanetURL\", \"Code ICD\",\"Date\"]}'
 
     response = single_res(es, index, query)
+    print(response, flush=True)
     # Test to return error
     if isinstance(response, str) or isinstance(response, tuple):
         return response
     else:
-        references = response.pop("References")
+        references = response.pop("Code ICD")
         references.sort(key=operator.itemgetter("Code ICD11"))
-        response["References"] = references
+        response["Code ICD11"] = references
 
         # return yaml if needed
         response = if_yaml(connexion.request.accept_mimetypes.best, response)
