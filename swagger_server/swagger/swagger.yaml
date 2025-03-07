@@ -111,11 +111,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.all_orphanet_clinical_entities_controller
-  /{lang}/ClinicalEntity/orphacode/{orphacode}/Summary:
+  /{lang}/ClinicalEntity/orphacode/{orphacode}:
     get:
       tags:
       - Summary
-      summary: Search for a clinical entity general informations.
+      summary: Search for a clinical entity general informations
       description: The result retrieves the ORPHAcode, preferred term, synonyms, definition, typology, Orphanet URL, status, preferential parent and classification level of the clinical entity.
       operationId: orpha_summary
       parameters:
@@ -781,8 +781,8 @@ paths:
     get:
       tags:
       - Typology
-      summary: Search for a clinical entity's typology by ORPHAcode.
-      description: The result retrieves the clinical entity's ORPHAcode and its typology
+      summary: Search for a clinical entity's typology by ORPHAcode
+      description: The result retrieves the clinical entity's ORPHAcode and its typology.
       operationId: list_typology
       parameters:
       - name: lang
@@ -932,7 +932,7 @@ paths:
       tags:
       - Preferential Parent
       summary: Search for all preferential parents
-      description: The result retrieves all clinical entities being preferential parents.
+      description: The result retrieves all entities being preferential parents' ORPHAcode and preferred term.
       operationId: parents_list
       parameters:
       - name: lang
@@ -993,8 +993,8 @@ paths:
     get:
       tags:
       - Preferential Parent
-      summary: Search for a clinical entity's preferential parent by ORPHAcode
-      description: The result retrieves the clinical entity's ORPHAcode and its preferential parent.
+      summary: Search for a clinical entity's preferential parent by ORPHAcode.
+      description: The result retrieves the clinical entity's ORPHAcode, preferred term and its preferential parent ORPHAcode and preferred term.
       operationId: orpha_parent
       parameters:
       - name: lang
@@ -1038,80 +1038,6 @@ paths:
             application/yaml:
               schema:
                 $ref: '#/components/schemas/OrphaToParent'
-        "400":
-          description: Bad request
-        "401":
-          description: Authorization information is missing or invalid
-        "403":
-          description: Bad server request
-        "404":
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-      x-openapi-router-controller: swagger_server.controllers.preferential_parent_controller
-  /{lang}/ClinicalEntity/orphacode/{orphacode}/IsPreferentialParentOf:
-    get:
-      tags:
-      - Preferential Parent
-      summary: Search for a preferential parent by ORPHAcode
-      description: The result retrieves all clinical entities having this preferential parent.
-      operationId: orpha_children
-      parameters:
-      - name: lang
-        in: path
-        description: Language
-        required: true
-        style: simple
-        explode: false
-        schema:
-          type: string
-          default: EN
-          enum:
-          - CS
-          - DE
-          - EN
-          - ES
-          - FR
-          - IT
-          - NL
-          - PL
-          - PT
-      - name: orphacode
-        in: path
-        description: A unique and time-stable numerical identifier attributed randomly
-          by the Orphanet database to each clinical entity upon its creation.
-        required: true
-        style: simple
-        explode: false
-        schema:
-          minimum: 0
-          exclusiveMinimum: true
-          type: integer
-          format: int64
-      responses:
-        "200":
-          description: Dataset
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OrphaToChildren'
-            application/yaml:
-              schema:
-                $ref: '#/components/schemas/OrphaToChildren'
         "400":
           description: Bad request
         "401":
@@ -1517,8 +1443,8 @@ paths:
     get:
       tags:
       - Classification
-      summary: Search for all classifications hcid.
-      description: The result retrieves all classifications hcid and their names.
+      summary: Search for all classifications .
+      description: The result retrieves all classifications hcid as well as their names and ORPHAcodes.
       operationId: classifications_list
       parameters:
       - name: lang
@@ -2292,7 +2218,7 @@ paths:
       - Preferred term
       summary: Search for a clinical entity by approximate preferred term
       description: The result retrieves the list of clinical entity's ORPHAcode and
-        its preferred term based on an approximate label search
+        their preferred term based on an approximate label search
       operationId: list_by_approx_name
       parameters:
       - name: lang
@@ -3071,14 +2997,54 @@ components:
         Date: 2000-01-23T04:56:07.000+00:00
     OrphaToParent:
       type: object
-    OrphaToChildren:
-      type: object
-    ParentList:
-      type: object
+      properties:
+        Date:
+          type: string
+          format: date-time
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 558
+        Preferred term:
+          type: string
+          example: Marfan syndrome
+        Parent:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parent_Parent'
+      example:
+        Preferred term: Marfan syndrome
+        ORPHAcode: 558
+        Preferential Parent:
+          ORPHAcode: 98023
+          Preferred term: Rare systemic or rheumatologic disease
+        Date: 2020-06-29 11:48:08
     ClassificationsList:
       type: object
+      example:
+        - {ID of the classification: 146, Name of the classification: Orphanet classification of rare caridac diseases, ORPHAcode: 156265}
+        - {ID of the classification: 147, Name of the classification: Orphanet classification of rare developmental anomalies during embryogenesis, ORPHAcode: 156268}
+        - ...
+    ParentList:
+      type: object
+      example:
+        - {"Preferred term": "Rare cardiac disease", ORPHAcode: 97929}
+        - {"Preferred term": "Rare developmental defect during embryogenesis", ORPHAcode: 93890}
+        - ...
     OrphaSummary:
       type: object
+      example:
+        ORPHAcode: 558
+        Preferred term: Marfan Syndrom
+        Synonym:
+          - MFS
+        Definition: Marfan syndrome is a systemic disease of connective tissue characterized by a variable combination of cardiovascular, musculo-skeletal, ophthalmic and pulmonary manifestations.
+        Typology: Disease
+        Status: Active
+        ClassificationLevel: Disorder
+        OrphanetUrl: http://www.orpha.net/consor/cgi-bin/OC_Exp.php?lng=en&Expert=558
+        Preferential parent: { ORPHAcode: 98023, Preferred term: Rare systemic or rheumatologic disease }
+        Data: 2020-06-29 11:48:08
   securitySchemes:
     apiKey:
       type: apiKey
