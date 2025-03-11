@@ -61,7 +61,7 @@ def list_orpha_by_icd11(lang, icd11):  # noqa: E501
     query = {
         "query": {
             "query_string": {
-                "default_field": "References.Code ICD11",
+                "default_field": "Code ICD.Code ICD11",
                 "query": str(icd11)
             }
         }
@@ -92,7 +92,7 @@ def list_orpha_by_icd11(lang, icd11):  # noqa: E501
             "Preferred term": hit["Preferred term"]
         }
 
-        for CodeICD in hit["References"]:
+        for CodeICD in hit["Code ICD"]:
             reference["Code ICD11"] = CodeICD["Code ICD11"]
             reference["DisorderMappingRelation"] = CodeICD["DisorderMappingRelation"]
             reference["DisorderMappingICDRelation"] = CodeICD["DisorderMappingICDRelation"]

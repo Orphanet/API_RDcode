@@ -33,13 +33,14 @@ def orpha_summary(lang, orphacode):  # noqa: E501
 
     response = single_res(es, index, query)
 
-    pref_parent = orpha_parent(lang, orphacode)
     url = "http://www.orpha.net/consor/cgi-bin/OC_Exp.php?lng=fr&Expert=" + str(orphacode)
 
-    response.update({
-        "Orphanet URL": url,
-        "Preferential parent": pref_parent["Preferential parent"]
-        })
+    pref_parent = orpha_parent(lang, orphacode)
+    if not isinstance(pref_parent, tuple):
+        response.update({
+            "Orphanet URL": url,
+            "Preferential parent": pref_parent["Preferential parent"]
+            })
 
     # return yaml if needed
     response = if_yaml(connexion.request.accept_mimetypes.best, response)
