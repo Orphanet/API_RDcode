@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to My Website</title>
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
+</head>
+<body>
+    <header>
+
+    </header>
+    <main>
+        <div id="titleBlock">
+            <div id="logosLine" style="display: inline-flex; margin-bottom: -3%; height: 5em;">
+                <div style="width: 33%;">
+                    &nbsp;
+                </div>
+                <div style="width: 33%; justify-self: right;">
+                    <a href="https://www.orpha.net/">
+                        <img src="/media/logo_orphanet_transp.png" alt="coFundedEn" style="width: 35%; margin-left: 30%;">
+                    </a>
+                </div>
+                <div style="width: 33%; margin-top: -1.8%; margin-right: -2%;">
+                    <a href="">
+                        <img src="/media/ORPHAcodesLogo.png" alt="Orphacode_logo" style="width: 60%; float: right;"/>
+                    </a>
+                </div>
+            </div>
+            <div id="titleLine" style="width: 102%; margin-left: -1%; background-color: #162365; height: 11em;">
+                <div style="width: 23%; margin-top: -1.18%; float: left;">
+                    <img src="/media/orphaDesign.png" style="width: 58%;"/>
+                </div>
+                <div id="title" style="width: 40%; float: left; margin-top: 1.5%; margin-left: 8%;">
+                    <h1><strong style="font-size: xxx-large; color: white;">ORPHAcodes Classifications Browser</strong></h1>
+                    <h2 style="justify-self: center;"><strong style="font-size: xx-large; color: white;">ORPHA Nomenclature Pack (JULY 2024)</strong></h2>
+                </div>
+            </div>
+            <div id="descPhare" style="display: inline-block;">    
+    
+                <div id="desc" style="width: 65%; float: left;">
+                    <p>The Orphanet nomenclature is a multilingual, standardised, controlled medical terminology specific to rare diseases, 
+                        that includes all clinical entities registered in the <a href="https://www.orpha.net/">Orphanet database</a>.
+                        <br>
+                        Each clinical entity (disorder, group of disorders, or subtype of a disorder) is associated with a unique numerical identifier named ORPHAcode, 
+                        as well as a preferred term, synonyms, and a definition. 
+                        <br><br>
+                        The Orphanet nomenclature is organised in a multi-hierarchical and polyparental classification system, structured around the major medical 
+                        specialties and based on clinical criteria according to diagnostic and therapeutic relevance.
+                        <br> 
+                        The Orphanet classification is organised according to three hierarchical levels: 
+                        <br>
+                        <b>Group of disorders</b>, <b>Disorder</b>, and <b>Subtype of a disorder</b>, that determine the level of precision of each diagnosis included in the nomenclature.
+                        <br><br> 
+                        <b>This tool is dedicated to browse the Orphanet classifications and allows to search for clinical entities by ORPHAcode.</b>
+                        <br>
+                        <br> The browsing tool is updated yearly in July according to the content of the most recent Orhanet Nomenclature Pack. <br> <br>
+                        <!-- For further information please refer to the <a href="">user guide</a>. --> 
+                        <b>Due to legal restrictions please remember the SNOMED-CT codes will NOT show in your exports.<br> 
+                            They will however be displayed correctly on the present website.</b> 
+                    </p>
+                </div>
+                    <div id="orphaPhare" style="width: 20%; float: right;">
+                    <a href="">
+                        <img src="/media/21_019_Orphanet_visuel_seul.png" alt="KnowtheRarePhare" style="float: right; width: 110%; margin-right: 20%; margin-top: 8%;">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="swagger-ui"></div>
+        <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js" crossorigin></script>
+        <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-standalone-preset.js" crossorigin></script>
+            <script>
+                window.onload = function() {
+                    console.log("window.onload")
+                    const ui = SwaggerUIBundle({
+                        url: 'http://localhost:8080/swagger.yaml',
+                        dom_id: '#swagger-ui',
+                        presets: [
+                        SwaggerUIBundle.presets.apis,
+                        SwaggerUIStandalonePreset
+                        ],
+                    })
+                    window.ui = ui
+                }   
+        </script>
+    </main>
+</body>
