@@ -1,6 +1,7 @@
 import connexion
 import six
 
+from swagger_server.models.children_list import ChildrenList  # noqa: E501
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server.models.orpha_to_children import OrphaToChildren  # noqa: E501
 from swagger_server.models.orpha_to_parent import OrphaToParent  # noqa: E501
@@ -9,8 +10,19 @@ from swagger_server import util
 
 from swagger_server import config
 from swagger_server.controllers.query_controller import *
-
 from swagger_server.controllers.classification_controller import classifications_list
+
+def children_list(lang):  # noqa: E501
+    """Search for a preferential parent children by ORPHAcode
+
+    The result retrieves all entities having corresponding preferential parent with their preferred term. # noqa: E501
+
+    :param lang: Language
+    :type lang: str
+
+    :rtype: ChildrenList
+    """
+    return 'do some magic!'
 
 def orpha_parent(lang, orphacode):  # noqa: E501
     """Search for a clinical entity&#x27;s preferential parent by ORPHAcode

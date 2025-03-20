@@ -2,16 +2,14 @@ import connexion
 import six
 
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
-from swagger_server.models.findby_omim import FindbyOMIM  # noqa: E501
-from swagger_server.models.omim import Omim  # noqa: E501
+from swagger_server.models.entity_by_snomed import EntityBySnomed  # noqa: E501
+from swagger_server.models.snomed import Snomed  # noqa: E501
 from swagger_server import util
 
 import config
 import operator
 import connexion
 from controllers.query_controller import *
-
-
 
 def list_orpha_by_snomed(lang, snomedcode):  # noqa: E501
     """Search for a clinical entity&#x27;s ORPHAcode by SNOMED CT code
