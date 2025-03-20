@@ -14,14 +14,14 @@ VERSION = "1.0.0"
 
 REQUIRES = [
     "attrs==21.4.0",
-    "certifi==2021.10.8",
+    "certifi>=2024.7.4",
     "charset-normalizer==2.0.12",
     "click==8.0.4",
     "clickclick==20.10.2",
     "connexion==2.6.0",
     "elasticsearch==7.6.0",
-    "Flask==2.0.3",
-    "Flask-Cors==3.0.10",
+    "Flask>=2.2.5",
+    "Flask-Cors>=4.0.2",
     "Flask-Testing==0.8.1",
     "idna==3.3",
     "importlib-resources==5.4.0",
@@ -39,8 +39,8 @@ REQUIRES = [
     "requests==2.27.1",
     "six==1.16.0",
     "swagger-ui-bundle==0.0.6",
-    "urllib3==1.26.9",
-    "Werkzeug==2.0.3",
+    "urllib3>=1.26.19",
+    "Werkzeug>=3.0.6",
     "xmltodict==0.13.0",
     "zipp==3.7.0"
     ]
