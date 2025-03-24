@@ -1,8 +1,10 @@
 from swagger_server.API_main import main
 from flask import Flask, send_from_directory, send_file
 import os
+import connexion
 
-application = Flask(__name__, root_path="./")
+application = connexion.App(__name__)
+application.add_api('./swagger_server/swagger/swagger.yaml', arguments={'title': 'API RDcode'}, pythonic_params=True)
 
 @application.route("/")
 def API():

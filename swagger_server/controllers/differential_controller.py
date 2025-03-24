@@ -4,7 +4,9 @@ import six
 from swagger_server.models.diff import Diff  # noqa: E501
 from swagger_server.models.error_model import ErrorModel  # noqa: E501
 from swagger_server import util
-
+from swagger_server.controllers.query_controller import *
+from swagger_server import config
+from swagger_server.controllers.summary_controller import *
 
 def diff(orphacode):  # noqa: E501
     """Search for differences on a clinical entity since previous release
@@ -16,4 +18,20 @@ def diff(orphacode):  # noqa: E501
 
     :rtype: Diff
     """
-    return 'do some magic!'
+
+    es = config.elastic_server
+
+    index = "rdcode_orpha_diff"
+    
+    query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
+            "\"_source\":[\"Date\", \"ORPHAcode\",\"Preferred term\", \"ClassificationLevel\", \"TotalStatus\"]}"
+    
+    response = single_res(es, index, query)
+    
+    if isinstance(response, str) or isinstance(response, tuple):
+        summary = {key: orpha_summary("en", orphacode)[key] for key in ["ORPHAcode", "Preferred term", "ClassificationLevel", "Status"]}
+        summary.update({"Updated": "false"})
+        return summary
+        
+    response["Updated"] = "true"
+    return response
