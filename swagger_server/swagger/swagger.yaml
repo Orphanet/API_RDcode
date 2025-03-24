@@ -1916,7 +1916,7 @@ paths:
       tags:
         - Differential
       summary: Search for differences on a clinical entity since previous release
-      description: The result retrieves the ORPHAcode's corresponding clinical entity with their preferred term, classification level, activity status and a flag indicating if said clinicalm entity has been updated since previous Nomenclature pack release. 
+      description: The result retrieves the ORPHAcode's corresponding clinical entity with their preferred term, classification level, activity status and a flag indicating if said  entity has been updated since previous Nomenclature pack release. 
       operationId: diff
       parameters:
       - name: orphacode

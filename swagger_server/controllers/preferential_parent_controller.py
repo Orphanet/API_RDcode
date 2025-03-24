@@ -12,7 +12,7 @@ from swagger_server import config
 from swagger_server.controllers.query_controller import *
 from swagger_server.controllers.classification_controller import classifications_list
 
-def children_list(lang):  # noqa: E501
+def children_list(lang, orphacode):  # noqa: E501
     """Search for a preferential parent children by ORPHAcode
 
     The result retrieves all entities having corresponding preferential parent with their preferred term. # noqa: E501
@@ -22,7 +22,60 @@ def children_list(lang):  # noqa: E501
 
     :rtype: ChildrenList
     """
-    return 'do some magic!'
+
+    es = config.elastic_server
+
+    index = "rdcode_orphalinearisation"
+    index = "{}_{}".format(index, lang.lower())
+
+    variants = {
+        "en" : "Preferential parent",
+        "fr" : "Parent préférentiel",
+        "es" : "Cabeza de clasificación preferencial",
+        "de" : "Bevorzugte Zuordnung",
+        "it" : "Termine madre preferenziale",
+        "pt" : "Progenitor preferencial",
+        "pl" : "Uprzywilejowany rodzic",
+        "nl" : "Preferentiële ouder"
+    }
+
+    query = {
+        "query" : {
+        "match_all": {}
+        },
+        "_source": ["Date", "ORPHAcode", "Preferred term", "DisorderDisorderAssociation"]
+    }
+
+    response = multiple_res(es, index, query, size=10000)
+
+    if isinstance(response, str) or isinstance(response, tuple):
+        return response
+
+    parentsDict = { }
+ 
+    for disorder in response:
+        associations = disorder["DisorderDisorderAssociation"]
+        if associations is None:
+            continue
+        for association in associations:
+            if association["DisorderDisorderAssociationType"] == variants[lang.lower()]:
+                parent = association["TargetDisorder"]["ORPHAcode"]
+                parent_name = association["TargetDisorder"]["Preferred term"]
+                if parent not in parentsDict:
+                    parentsDict.update({parent : []})
+                parentsDict[parent].append({
+                    "ORPHAcode" : disorder["ORPHAcode"], 
+                    "Preferred term": disorder["Preferred term"],
+                    "Preferential parent" : {
+                        "ORPHAcode" : parent,
+                        "Preferred term" : parent_name
+                    }})
+
+    try:
+        return parentsDict[orphacode]
+    except Exception:
+        return "Clinical entity does not exist or is not a preferential parent."
+
 
 def orpha_parent(lang, orphacode):  # noqa: E501
     """Search for a clinical entity&#x27;s preferential parent by ORPHAcode
@@ -91,13 +144,13 @@ def parents_list(lang):  # noqa: E501
         {"Preferred term": "Rare skin diseases", "ORPHAcode": "89826"},
         {"Preferred term": "Rare renal diseases", "ORPHAcode": "93626"},
         {"Preferred term": "Rare ophthalmic diseases", "ORPHAcode": "97966"},
-        {"Preferred term": "Rare endocrine diseases", "ORPHAcode": "97968"},
+        {"Preferred term": "Rare endocrine diseases", "ORPHAcode": "97978"},
         {"Preferred term": "Rare hematologic diseases", "ORPHAcode": "97992"},
         {"Preferred term": "Rare immune disease", "ORPHAcode": "98004"},
         {"Preferred term": "Rare systemic or rheumatological disease", "ORPHAcode": "98023"},
         {"Preferred term": "Rare odontologic disease", "ORPHAcode": "98026"},
         {"Preferred term": "Rare circulatory system disease", "ORPHAcode": "98028"},
-        {"Preferred term": "Rare bone diseases", "ORPHAcode": "162964"},
+        {"Preferred term": "Rare bone diseases", "ORPHAcode": "93419"},
         {"Preferred term": "Rare otorhinolaryngologic diseases", "ORPHAcode": "98036"},
         {"Preferred term": "Rare infertility", "ORPHAcode": "98047"},
         {"Preferred term": "Rare neoplastic diseases", "ORPHAcode": "250908"},
