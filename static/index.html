@@ -33,7 +33,7 @@
                 <div style="width: 23%; margin-top: -1.18%; float: left;">
                     <img src="/media/orphaDesign.png" style="width: 58%;"/>
                 </div>
-                <div id="title" style="width: 40%; float: left; margin-top: 1.5%; margin-left: 8%;">
+                <div id="title" style="width: 40%; float: left; margin-top: 1.5%; margin-left: 8%; justify-items: center;">
                     <h1><strong style="font-size: xxx-large; color: white;">ORPHAcodes API</strong></h1>
                     <h2 style="justify-self: center;"><strong style="font-size: xx-large; color: white;">ORPHA Nomenclature Pack (JULY 2024)</strong></h2>
                 </div>
@@ -42,24 +42,28 @@
     
                 <div id="desc" style="width: 65%; float: left;">
                     <p>The Orphanet nomenclature is a multilingual, standardised, controlled medical terminology specific to rare diseases, 
-                        that includes all clinical entities registered in the <a href="https://www.orpha.net/">Orphanet database</a>.
+                        that includes all clinical entities registered in the <a href="https://www.orpha.net/">Orphanet knowledge base</a>.
                         <br>
                         Each clinical entity (disorder, group of disorders, or subtype of a disorder) is associated with a unique numerical identifier named ORPHAcode, 
                         as well as a preferred term, synonyms, and a definition. 
+                        <br>
+                        Clinical entities are also aligned with ICD-10, ICD-11, SNOMED-CT and OMIM when relevant, 
+                        and the mappings are qualified according to their precision and specificity. 
+                        The Orphanet Nomenclature of rare diseases is produced according to <a href="https://www.orpha.net/en/other-information/procedures">standard procedures</a>.
                         <br><br>
-                        The Orphanet nomenclature is organised in a multi-hierarchical and polyparental classification system, structured around the major medical 
-                        specialties and based on clinical criteria according to diagnostic and therapeutic relevance.
-                        <br> 
-                        The Orphanet classification is organised according to three hierarchical levels: 
-                        <br>
-                        <b>Group of disorders</b>, <b>Disorder</b>, and <b>Subtype of a disorder</b>, that determine the level of precision of each diagnosis included in the nomenclature.
-                        <br><br> 
-                        <b>This tool is dedicated to browse the Orphanet classifications and allows to search for clinical entities by ORPHAcode.</b>
-                        <br>
-                        <br> The browsing tool is updated yearly in July according to the content of the most recent Orhanet Nomenclature Pack. <br> <br>
-                        <!-- For further information please refer to the <a href="">user guide</a>. --> 
-                        <b>Due to legal restrictions please remember the SNOMED-CT codes will NOT show in your exports.<br> 
-                            They will however be displayed correctly on the present website.</b> 
+                        <b>This API</b> facilitates the informatic access to the <a href="">Orphanet nomenclature pack</a>, allowing flexible implementation
+                        into the various IT systems used in the different countries and/or settings.
+                        <br><br>
+                        This API is updated yearly in July according to the content of the most recent Orhanet Nomenclature Pack. 
+                        <br><br>
+                        For any questions regarding these tools you can read <a href="">Guidance for ORPHAcoding implementation and exploitation</a>, or post an issue
+                        on our <a href="https://github.com/OD4RD/Main-Help-Desk">Orphanet's Github Tracker</a>.
+                        <br><br>
+                        <b>You will be able to visualise SNOMED-CT codes in this application, but due to licencing restrictions they will not appear in your data export.</b>
+                        <br><br>
+                        <i style="font-size: medium;">
+                        Orphanet nomenclature API has been developed by Orphanet in the frame of the <a href="https://www.rd-code.eu/">RD-CODE project</a>, co-funded by the European Union’s Third Health Program.​
+                        </i>
                     </p>
                 </div>
                     <div id="orphaPhare" style="width: 20%; float: right;">
@@ -86,5 +90,53 @@
                     window.ui = ui
                 }   
         </script>
+        <footer id="legalDisclaimer" style="float:left; margin-top: 3%;">
+            <div style="width: 100%; display: flex; align-items: center; text-align: center; min-height: 80px;">
+                <div style="width: 20%;">
+                    <img src="/static/media/EN_Co-Funded.png" style="width: 90%;">
+                </div>
+                <div style="width: 85%;">
+                    <p>
+                        Co-Funded by the European Union. Views and opinions expressed are however those of the author(s) 
+                        only and do not necessarily reflect those of the European Union or HADEA. Neither the European Union 
+                        nor the granting authority can be held responsible for them.​
+                    </p>
+                </div>
+                <div style="width: 15%;">
+                    <img src="/static/media/Republique-francaise-logo.png" style="width: 65%;">
+                </div>
+                <div style="width: 15%;">
+                    <img src="/static/media/Inserm.png" style="width: 75%;">
+                </div>
+                <div style="width: 15%;">
+                    <img src="/static/media/ministere_sante.png">
+                </div>
+                <div style="width: 15%;">
+                    <img src="/static/media/od4rd_web.png" style="width: 77%;">
+                </div>
+            </div>
+            <div style="width: 100%; display: flex; justify-content: flex-start; min-height: 80px;">
+                <div style="width: 33%;">
+                    <p style="font-size: small;">
+                        Copyright
+                        <br>
+                        Orphanet is a registered trademark owned by INSERM and the French Ministry of Health
+                    </p>
+                </div>
+                <div style="width: 33%; align-self: center; text-align: center;">
+                    <p style="color: orangered; font-size: small;">
+                        <a href="https://www.orpha.net/en/other-information/about_orphanet?stapage=cgu">Legal Notice</a>
+                         - <a href="https://www.orpha.net/en/other-information/about_orphanet?stapage=cgu#cookies">Cookies</a>
+                         - <a href="https://www.orpha.net/en/other-information/about_orphanet?stapage=cgu#rgpd">GPDR</a>
+                    </p>
+                </div>
+                <div style="width: 33%; align-content: center; text-align: center;">
+                    <a href="https://www.linkedin.com/company/orphanet/posts/?feedView=all"><img src="/static/media/linkedin.png" style="width: 5.7%; margin-bottom: -0.2%;"></a>
+                    <a href="https://www.facebook.com/orphanet?locale=fr_FR"><img src="/static/media/facebook.png" style="width: 5%;"></a>
+                    <a href="https://www.instagram.com/orphacodes/"><img src="/static/media/instagram.png" style="width: 5%;"></a>
+                    <!-- Social medias -->
+                </div>
+            </div>
+        </footer>
     </main>
 </body>
