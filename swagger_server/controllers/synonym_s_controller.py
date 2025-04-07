@@ -97,7 +97,7 @@ def list_synonym_by_name(lang, label):  # noqa: E501
     index = "{}_{}".format(index, lang.lower())
 
     # Special EXACT MATCH query with keyword
-    query = "{\"query\": {\"term\": {\"Synonym.keyword\": " + "\"{}\"".format(label) + "}}," \
+    query = "{\"query\": {\"term\": {\"Synonym\": " + "\"{}\"".format(label) + "}}," \
             "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
 
     response = single_res(es, index, query)
