@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: ORPHA Nomenclature (JULY 2022) - RD-CODE project
+  title: ORPHA Nomenclature (JULY 2024) - RD-CODE project
   description: |-
     In the frame of the RD-CODE project, co-funded by the European Union’s Third Health Program, Orphanet developped this API. It intends to support Member States in the implementation of the ORPHA nomenclature to rare diseases-specific codification systems. Starting with countries that have no systematic implementation of the Orpha codification yet, but that are actively committed already in doing so, this project will provide a sufficient real-world implementation experience to be captured by other countries in the future.
 
