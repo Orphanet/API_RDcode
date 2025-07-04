@@ -27,7 +27,6 @@ def list_icd11(lang, orphacode):  # noqa: E501
             '\"_source\":[\"ORPHAcode\", \"Preferred term\", \"OrphanetURL\", \"Code ICD\",\"Date\"]}'
 
     response = single_res(es, index, query)
-    print(response, flush=True)
     # Test to return error
     if isinstance(response, str) or isinstance(response, tuple):
         return response
