@@ -27,7 +27,7 @@ def main():
         return send_from_directory("../media/", image)
 
     # Force the direct encoding of accents in json
-    # app.app.config['JSON_AS_ASCII'] = False
+     app.app.config['JSON_AS_ASCII'] = False
 
     # Remove A-z sorting in json
     app.app.config['JSON_SORT_KEYS'] = False
