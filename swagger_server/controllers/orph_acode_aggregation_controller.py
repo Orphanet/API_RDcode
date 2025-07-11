@@ -29,7 +29,8 @@ def list_aggregation(lang, orphacode):  # noqa: E501
             "\"_source\":[\"Date\", \"AggregationlevelSection\", \"Preferred term\", \"ORPHAcode\"]}"
 
     response = single_res(es, index, query)
-    print(response, flush=True)
+    # bug when utf8 special char. such "é" etc. commenting the print
+    # print(response, flush=True)
 
     # Check for error, an error will be returned as text or tuple
     if isinstance(response, str) or isinstance(response, tuple):
