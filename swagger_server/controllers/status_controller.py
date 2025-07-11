@@ -31,7 +31,8 @@ def list_status(lang, orphacode):  # noqa: E501
     response = single_res(es, index, query)
     if response["FlagValue"] == 513:
         response["Status"] = "Active - Historical"
-    print("response", response)
+        # pbl d'encodage dans la réponse depuis full UTF8
+    # print("response", response)
 
     # return yaml if needed
     response = if_yaml(connexion.request.accept_mimetypes.best, response)
