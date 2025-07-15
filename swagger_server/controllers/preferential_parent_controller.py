@@ -36,6 +36,7 @@ def children_list(lang, orphacode):  # noqa: E501
         "it" : "Termine madre preferenziale",
         "pt" : "Progenitor preferencial",
         "pl" : "Uprzywilejowany rodzic",
+        "cs" : "Preferenční rodič",
         "nl" : "Preferentiële ouder"
     }
 
