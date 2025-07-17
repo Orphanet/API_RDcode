@@ -33,7 +33,7 @@ def list_icd11(lang, orphacode):  # noqa: E501
     else:
         references = response.pop("Code ICD")
         references.sort(key=operator.itemgetter("Code ICD11"))
-        response["Code ICD11"] = references
+        response["References"] = references
 
         # return yaml if needed
         response = if_yaml(connexion.request.accept_mimetypes.best, response)
