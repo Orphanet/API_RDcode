@@ -2276,7 +2276,7 @@ paths:
       summary: Search for a clinical entity by preferred term
       description: The result retrieves the clinical entity's ORPHAcode and its preferred
         term.
-      operationId: list_by_name
+      operationId: search_by_name
       parameters:
       - name: lang
         in: path

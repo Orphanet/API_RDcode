@@ -41,7 +41,7 @@ def list_icd11(lang, orphacode):  # noqa: E501
 
 
 def list_orpha_by_icd11(lang, icd11):  # noqa: E501
-    """Search for a clinical entity&#x27;s ORPHAcode(s) by ICD-10 code
+    """Search for a clinical entity&#x27;s ORPHAcode(s) by ICD-11 code
 
     The result retrieves the ICD-11 code as well as annotated ORPHAcode(s) and preferred term, specifying the characterisation of the alignment between the clinical entity and ICD-11 code, and the status of the mapping (validated/not yet validated). # noqa: E501
 

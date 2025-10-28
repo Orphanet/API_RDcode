@@ -63,7 +63,7 @@ def list_by_approx_name(lang: str, label: str):  # noqa: E501
     return response
 
 
-def list_by_name(lang, label):  # noqa: E501
+def search_by_name(lang, label):  # noqa: E501
     """Search for a clinical entity by preferred term
 
     The result retrieves the clinical entity&#x27;s ORPHAcode and its preferred term. # noqa: E501
@@ -81,7 +81,7 @@ def list_by_name(lang, label):  # noqa: E501
     index = "{}_{}".format(index, lang.lower())
 
     # Special EXACT MATCH query with keyword
-    query = "{\"query\": {\"term\": {\"Preferred term\": " + "\"{}\"".format(label) + "}}," \
+    query = "{\"query\": {\"match\": {\"Preferred term.keyword\": {\"query\":" + "\"{}\"".format(label) + ",\"analyzer\":\"standard\"}}}," \
             "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
 
     response = single_res(es, index, query)
