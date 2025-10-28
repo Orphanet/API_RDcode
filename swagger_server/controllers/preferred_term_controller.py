@@ -35,7 +35,6 @@ def list_by_approx_name(lang: str, label: str):  # noqa: E501
     for term in label.strip().replace("-", " ").split(" "):
         query_term = "{{\"query_string\": {{\"default_field\": \"Preferred term\", \"query\": \"*{}*\"}}}}".format(term)
         query_term += ", {{\"fuzzy\": {{\"Preferred term\": {{\"value\" :\"{}\", \"fuzziness\": \"AUTO\"}}}}}}".format(term)
-        # print(query_term)
         query_term_list.append(query_term)
         # query_term_list.append(additional_query_term)
     query_term_list = "[" + ", ".join(query_term_list) + "]"
@@ -55,6 +54,8 @@ def list_by_approx_name(lang: str, label: str):  # noqa: E501
 
     query = "{\"query\": {\"bool\": {\"should\": " + query_term_list + "}}" + \
             ",\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
+
+    # print(query, flush=True)
 
     response = multiple_res(es, index, query, 10000)
 
@@ -81,8 +82,20 @@ def search_by_name(lang, label):  # noqa: E501
     index = "{}_{}".format(index, lang.lower())
 
     # Special EXACT MATCH query with keyword
-    query = "{\"query\": {\"match\": {\"Preferred term.keyword\": {\"query\":" + "\"{}\"".format(label) + ",\"analyzer\":\"standard\"}}}," \
-            "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
+   # query = "{\"query\": {\"fuzzy\": {\"Preferred term\": {\"value\": " + "\"*{}*\"".format(label) + ", \"fuzziness\":\"AUTO\"}}}," \
+    #        "\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
+    
+    query_term_list = []
+    for term in label.strip().replace("-", " ").split(" "):
+        query_term = "{{\"query_string\": {{\"default_field\": \"Preferred term\", \"query\": \"*{}*\"}}}}".format(term)
+        query_term += ", {{\"fuzzy\": {{\"Preferred term\": {{\"value\" :\"{}\", \"fuzziness\": \"AUTO\", \"max_expansions\" : 1}}}}}}".format(term)
+        query_term_list.append(query_term)
+        # query_term_list.append(additional_query_term)
+    query_term_list = "[" + ", ".join(query_term_list) + "]"
+    query = "{\"query\": {\"bool\": {\"should\": " + query_term_list + "}}" + \
+            ",\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
+    # print("Searching: ", label, flush=True)
+    # print("Query: ", query, flush=True)
 
     response = single_res(es, index, query)
 

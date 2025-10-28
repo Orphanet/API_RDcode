@@ -32,6 +32,7 @@ def orpha_summary(lang, orphacode):  # noqa: E501
             "\"_source\":[\"Date\", \"Definition\", \"ORPHAcode\", \"Synonym\", \"Preferred term\", \"Typology\", \"Status\", \"ClassificationLevel\"]}"
 
     response = single_res(es, index, query)
+    # print("response: ",response, flush=True)
 
     url = "http://www.orpha.net/consor/cgi-bin/OC_Exp.php?lng=fr&Expert=" + str(orphacode)
 
