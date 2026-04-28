@@ -1,0 +1,5 @@
+numpy==2.4.4
+pandas==3.0.2
+xmltodict==1.0.4
+dotenv==0.9.9
+elasticsearch==9.3.0
