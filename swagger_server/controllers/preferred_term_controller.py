@@ -94,8 +94,13 @@ def search_by_name(lang, label):  # noqa: E501
     query_term_list = "[" + ", ".join(query_term_list) + "]"
     query = "{\"query\": {\"bool\": {\"should\": " + query_term_list + "}}" + \
             ",\"_source\":[\"Date\", \"ORPHAcode\", \"Preferred term\"]}"
+<<<<<<< HEAD
     # print("Searching: ", label, flush=True)
     # print("Query: ", query, flush=True)
+=======
+    print("Searching: ", label, flush=True)
+    print("Query: ", query, flush=True)
+>>>>>>> 2ecd9ed0ddf2ad90574c15bb3816a450938d16df
 
     response = single_res(es, index, query)
 
