@@ -27,14 +27,13 @@ def list_icd11(lang, orphacode):  # noqa: E501
             '\"_source\":[\"ORPHAcode\", \"Preferred term\", \"OrphanetURL\", \"Code ICD\",\"Date\"]}'
 
     response = single_res(es, index, query)
-    print(response, flush=True)
     # Test to return error
     if isinstance(response, str) or isinstance(response, tuple):
         return response
     else:
         references = response.pop("Code ICD")
         references.sort(key=operator.itemgetter("Code ICD11"))
-        response["Code ICD11"] = references
+        response["References"] = references
 
         # return yaml if needed
         response = if_yaml(connexion.request.accept_mimetypes.best, response)
@@ -42,7 +41,7 @@ def list_icd11(lang, orphacode):  # noqa: E501
 
 
 def list_orpha_by_icd11(lang, icd11):  # noqa: E501
-    """Search for a clinical entity&#x27;s ORPHAcode(s) by ICD-10 code
+    """Search for a clinical entity&#x27;s ORPHAcode(s) by ICD-11 code
 
     The result retrieves the ICD-11 code as well as annotated ORPHAcode(s) and preferred term, specifying the characterisation of the alignment between the clinical entity and ICD-11 code, and the status of the mapping (validated/not yet validated). # noqa: E501
 

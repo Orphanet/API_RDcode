@@ -26,25 +26,27 @@ def list_aggregation(lang, orphacode):  # noqa: E501
     index = "{}_{}".format(index, lang.lower())
 
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
-            "\"_source\":[\"Date\", \"AggregationLevelSection\", \"Preferred term\", \"ORPHAcode\"]}"
+            "\"_source\":[\"Date\", \"AggregationlevelSection\", \"Preferred term\", \"ORPHAcode\"]}"
 
     response = single_res(es, index, query)
+    # bug when utf8 special char. such "é" etc. commenting the print
+    # print(response, flush=True)
 
     # Check for error, an error will be returned as text or tuple
     if isinstance(response, str) or isinstance(response, tuple):
         pass
     else:
         # If an AggregationLevel is applicable return the ORPHAcode and Preferred term from the Aggregation
-        if response["AggregationLevelSection"]["AggregationLevel"]:
+        if response["AggregationlevelSection"].get("AggregationLevel"):
             response = {"Date": response["Date"],
-                        "ORPHAcodeAggregation": response["AggregationLevelSection"]["AggregationLevel"][0]["ORPHAcode"],
-                        "Preferred term": response["AggregationLevelSection"]["AggregationLevel"][0]["Preferred term"],
+                        "ORPHAcodeAggregation": response["AggregationlevelSection"]["AggregationLevel"][0]["ORPHAcode"],
+                        "Preferred term": response["AggregationlevelSection"]["AggregationLevel"][0]["Preferred term"],
                         }
         else:
             # If an AggregationLevel is NOT applicable return the ORPHAcode and Preferred term from the query
             response = {"Date": response["Date"],
-                        "ORPHAcodeAggregation": response["AggregationLevelSection"]["AggregationLevelStatus"],
-                        "Preferred term": response["AggregationLevelSection"]["AggregationLevelStatus"],
+                        "ORPHAcodeAggregation": response["AggregationlevelSection"]["OrphaCodeAggregation"],
+                        "Preferred term": response["AggregationlevelSection"]["PreferredTerm"],
                         }
 
             # return yaml if needed

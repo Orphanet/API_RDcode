@@ -26,9 +26,13 @@ def list_status(lang, orphacode):  # noqa: E501
     index = "{}_{}".format(index, lang.lower())
 
     query = "{\"query\": {\"match\": {\"ORPHAcode\": " + str(orphacode) + "}}," \
-            "\"_source\":[\"Date\", \"ORPHAcode\", \"Status\"]}"
+            "\"_source\":[\"Date\", \"ORPHAcode\", \"Status\", \"FlagValue\"]}"
 
     response = single_res(es, index, query)
+    if response["FlagValue"] == 513:
+        response["Status"] = "Active - Historical"
+        # pbl d'encodage dans la réponse depuis full UTF8
+    # print("response", response)
 
     # return yaml if needed
     response = if_yaml(connexion.request.accept_mimetypes.best, response)

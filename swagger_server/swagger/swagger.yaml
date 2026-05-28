@@ -1,9 +1,7 @@
 openapi: 3.0.0
 info:
-  title: ORPHA Nomenclature (JULY 2024) - RD-CODE project
+  title: ORPHAcodes API - Orphanet Nomenclature Pack (JULY 2025) - RD-CODE project
   description: |-
-    The Orphanet nomenclature is a multilingual, standardised, controlled medical terminology specific to rare diseases, that includes all clinical entities registered in the Orphanet database (www.orpha.net). Each clinical entity (disorder, group of disorders, or subtype of a disorder) is associated with a unique numerical identifier named ORPHAcode, as well as a preferred term, synonyms, and a definition.
-
     In the frame of the RD-CODE project, co-funded by the European Union’s Third Health Program, Orphanet developped this API. It intends to support Member States in the implementation of the ORPHA nomenclature to rare diseases-specific codification systems. Starting with countries that have no systematic implementation of the Orpha codification yet, but that are actively committed already in doing so, this project will provide a sufficient real-world implementation experience to be captured by other countries in the future.
 
     If you have any questions about tools, you can read [Standard Procedure and guidelines for coding with ORPHAcodes](https://www.rd-code.eu/wp-content/uploads/2022/01/826607_D5-4_Standard-procedure-and-guide-for-coding-with-Orphacodes_final.pdf) or post an issue on our [Github Tracker issue](https://www.rd-code.eu/helpdesk/).
@@ -30,6 +28,7 @@ security:
 - apiKey: []
 tags:
 - name: All Orphanet clinical entities
+- name: Differential
 - name: Summary
 - name: Preferred term
 - name: Synonym(s)
@@ -991,6 +990,80 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.preferential_parent_controller
+  /{lang}/ClinicalEntity/orphacode/{orphacode}/PreferentialChildren:
+    get:
+      tags:
+      - Preferential Parent
+      summary: Search for a preferential parent children by ORPHAcode
+      description: The result retrieves all entities having corresponding preferential parent with their preferred term.
+      operationId: children_list
+      parameters:
+      - name: lang
+        in: path
+        description: Language
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          default: EN
+          enum:
+          - CS
+          - DE
+          - EN
+          - ES
+          - FR
+          - IT
+          - NL
+          - PL
+          - PT
+      - name: orphacode
+        in: path
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the Orphanet database to each clinical entity upon its creation.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 0
+          exclusiveMinimum: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChildrenList'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ChildrenList'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.preferential_parent_controller
   /{lang}/ClinicalEntity/orphacode/{orphacode}/PreferentialParent:
     get:
       tags:
@@ -1836,6 +1909,61 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
       x-openapi-router-controller: swagger_server.controllers.child_controller
+  /en/ClinicalEntity/orphacode/{orphacode}/Differential:
+    get:
+      tags:
+        - Differential
+      summary: Search for differences on a clinical entity since previous release
+      description: The result retrieves the ORPHAcode's corresponding clinical entity with their preferred term, classification level, activity status and a flag indicating if said  entity has been updated since previous Nomenclature pack release. 
+      operationId: diff
+      parameters:
+      - name: orphacode
+        in: path
+        description: A unique and time-stable numerical identifier attributed randomly
+          by the Orphanet database to each clinical entity upon its creation.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          minimum: 0
+          exclusiveMinimum: true
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Dataset
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diff'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Diff'
+        "400":
+          description: Bad request
+        "401":
+          description: Authorization information is missing or invalid
+        "403":
+          description: Bad server request
+        "404":
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+      x-openapi-router-controller: swagger_server.controllers.differential_controller
   /{lang}/ClinicalEntity/orphacode/{orphacode}/OMIM:
     get:
       tags:
@@ -2150,7 +2278,7 @@ paths:
       summary: Search for a clinical entity by preferred term
       description: The result retrieves the clinical entity's ORPHAcode and its preferred
         term.
-      operationId: list_by_name
+      operationId: search_by_name
       parameters:
       - name: lang
         in: path
@@ -2864,7 +2992,19 @@ components:
           \ and insufficient testosterone production, cognitive, affective and social\
           \ functioning impairments, global developmental delay, and an increased\
           \ risk of congenital malformations."
-
+    Diff:
+      type: object
+      properties:
+        ORPHAcode:
+          type: integer
+          format: int32
+          example: 10
+      example:
+        ORPHAcode: 1239
+        Preferred term: Behr syndrome
+        ClassificationLevel: Disorder
+        TotalStatus: Active
+        Updated: true
     Classification_Classification:
       type: object
       properties:
@@ -3033,6 +3173,11 @@ components:
         - {"Preferred term": "Rare cardiac disease", ORPHAcode: 97929}
         - {"Preferred term": "Rare developmental defect during embryogenesis", ORPHAcode: 93890}
         - ...
+    ChildrenList:
+      type: object
+      example:
+        - {ORPHAcode: 1349, Preferred term: Mitochondrial DNA-related cardiomyopathy and hearing loss, Preferential Parent: {ORPHAcode: 97929, Preferred Term: Rare cardiac diseases}}
+        - {ORPHAcode: 154, Preferred term: Familial isolated dilated cardiomyopathy, Preferential Parent: {ORPHAcode: 97929, Preferred Term: Rare cardiac diseases}}
     OrphaSummary:
       type: object
       example:

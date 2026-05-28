@@ -101,8 +101,8 @@ def list_classification(lang, orphacode):  # noqa: E501
             refined_classification = []
             # Select desired information
             for classification in response_classification:
-                classif_info = {"ID of the classification": classification["Classification"]["ID of the classification"],
-                        "Name of the classification": classification["Classification"]["Name of the classification"]}
+                classif_info = {"ID of the classification": classification["Classification"][0]["ID of the classification"],
+                    "Name of the classification": classification["Classification"][0]["Name of the classification"]}
                 refined_classification.append(classif_info)
             # Sort by classification ID
             refined_classification.sort(key=operator.itemgetter('ID of the classification'))
