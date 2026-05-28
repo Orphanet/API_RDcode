@@ -18,10 +18,22 @@ ELASTIC_URL = os.getenv("ELASTIC_URL")
 ELASTIC_USER = os.getenv("ELASTIC_USER")
 ELASTIC_PASS = os.getenv("ELASTIC_PASS")
 
+es_server_test = es.Elasticsearch("http://localhost:9200")
+
 es_server_prod = es.Elasticsearch(
     ELASTIC_URL,
     basic_auth=(ELASTIC_USER, ELASTIC_PASS)
 )
+
+es_server = 0
+
+DEV = 1
+if (DEV):
+    es_server = es_server_test
+else:
+    es_server = es_server_prod
+
+
 
 body = json.dumps({
   "mappings": {
@@ -33,7 +45,7 @@ body = json.dumps({
   }
 })
 
-pack_path = "../../NomenclaturePack25/Orphanet_Nomenclature_Pack_"
+pack_path = "../../NomenclaturePackAPI/Orphanet_Nomenclature_Pack_"
 langs = ["cs", "de", "en", "es", "fr", "it", "nl", "pl", "pt"]
 inactiv_codes = ["513", "8208", "8225", "8449"]
 
@@ -97,8 +109,8 @@ prefixes = {
 def diffLoad():
     result = { } 
 
-    names = pd.ExcelFile("../../NomenclaturePack25/Orphanet_Nomenclature_Pack_EN/ORPHAnomenclature_diff_en_2025.xlsx").sheet_names
-    df_dict = pd.read_excel("../../NomenclaturePack25/Orphanet_Nomenclature_Pack_EN/ORPHAnomenclature_diff_en_2025.xlsx", skiprows=1, sheet_name=names)
+    names = pd.ExcelFile("../../NomenclaturePackAPI/Orphanet_Nomenclature_Pack_EN/ORPHAnomenclature_diff_en_2025.xlsx").sheet_names
+    df_dict = pd.read_excel("../../NomenclaturePackAPI/Orphanet_Nomenclature_Pack_EN/ORPHAnomenclature_diff_en_2025.xlsx", skiprows=1, sheet_name=names)
 
     for sheet, tmp in df_dict.items():
         if "ORPHAcode" not in tmp.columns:
@@ -395,7 +407,7 @@ def dict_format(final_dict):
 def buildData(lang):
     encoding = "UTF-8" if lang in ["cs", "pl", "es", "fr", "nl", "pt", "de", "en"] else "ISO-8859-1" 
     typo_classif_dict = { }
-    for path_file in glob.glob(f"../../NomenclaturePack25/Orphanet_Nomenclature_Pack_{lang.upper()}/Classifications/*"):
+    for path_file in glob.glob(f"../../NomenclaturePackAPI/Orphanet_Nomenclature_Pack_{lang.upper()}/Classifications/*"):
         with open(path_file, encoding=encoding) as file:
             xml = xmltodict.parse(file.read())
             current_classif = {
@@ -550,7 +562,7 @@ for lang in langs:
     f"rdcode_orphanomenclature_{lang}"
     ])
 
-    for file in glob.glob(f"../../NomenclaturePack25/Orphanet_Nomenclature_Pack_{lang.upper()}/Classifications/*"):
+    for file in glob.glob(f"../../NomenclaturePackAPI/Orphanet_Nomenclature_Pack_{lang.upper()}/Classifications/*"):
         basename = os.path.basename(file)
         FileIndex.append("rdcode_orphaclassification_" + basename.split("_")[1].split("_")[0] + f"_{lang}")
 
